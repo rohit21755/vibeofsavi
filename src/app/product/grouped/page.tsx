@@ -20,7 +20,7 @@ const ProductGrouped = () => {
         <>
             <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" />
             <div id="header" className='relative w-full'>
-                <MenuOne props="bg-white" />
+                <MenuOne  />
                 <BreadcrumbProduct data={productData} productPage='grouped' productId={productId} />
             </div>
             <Grouped data={productData} productId={productId} />
