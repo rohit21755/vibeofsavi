@@ -1,0 +1,629 @@
+[
+  {
+    "id": "1",
+    "category": "fashion",
+    "type": "top",
+    "name": "mesh shirt",
+    "gender": "men",
+    "new": true,
+    "sale": false,
+    "rate": 4,
+    "price": 45,
+    "originPrice": 55,
+    "brand": "abc",
+    "sold": 12,
+    "quantity": 100,
+    "quantityPurchase": 1,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "variation": [
+      {
+        "color": "red",
+        "colorCode": "#DB4444",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "yellow",
+        "colorCode": "#ECB018",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      }
+    ],
+    "thumbImage": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p1/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p1/2.jpg"
+    ],
+    "images": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p1/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p1/2.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p1/3.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p1/4.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p1/5.jpg"
+    ],
+    "description": "Keep your home organized, yet elegant with storage cabinets by Onita Patio Furniture. Traditionally designed, they are perfect to be used in the any place where you need to store.",
+    "action": "quick shop",
+    "slug": "mesh-shirt"
+  },
+  {
+    "id": "2",
+    "category": "fashion",
+    "type": "t-shirt",
+    "name": "Raglan Sleeve T-shirt",
+    "gender": "men",
+    "new": true,
+    "sale": false,
+    "rate": 5,
+    "price": 28,
+    "originPrice": 36,
+    "brand": "hermes",
+    "sold": 23,
+    "quantity": 200,
+    "quantityPurchase": 1,
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ],
+    "variation": [
+      {
+        "color": "white",
+        "colorCode": "#F6EFDD",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "purple",
+        "colorCode": "#8684D4",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      }
+    ],
+    "thumbImage": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p2/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p2/2.jpg"
+    ],
+    "images": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p2/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p2/2.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p2/3.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p2/4.jpg"
+    ],
+    "description": "Keep your home organized, yet elegant with storage cabinets by Onita Patio Furniture. Traditionally designed, they are perfect to be used in the any place where you need to store.",
+    "action": "quick shop",
+    "slug": "shirt"
+  },
+  {
+    "id": "3",
+    "category": "fashion",
+    "type": "dress",
+    "name": "Off-the-Shoulder Blouse",
+    "gender": "men",
+    "new": false,
+    "sale": true,
+    "rate": 4,
+    "price": 32,
+    "originPrice": 40,
+    "brand": "zara",
+    "sold": 15,
+    "quantity": 80,
+    "quantityPurchase": 1,
+    "sizes": [
+      "freesize"
+    ],
+    "variation": [
+      {
+        "color": "pink",
+        "colorCode": "#F4407D",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "yellow",
+        "colorCode": "#ECB018",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "purple",
+        "colorCode": "#8684D4",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      }
+    ],
+    "thumbImage": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p3/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p3/2.jpg"
+    ],
+    "images": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p3/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p3/2.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p3/3.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p3/4.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p3/5.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p3/6.jpg"
+      
+    ],
+    "description": "Keep your home organized, yet elegant with storage cabinets by Onita Patio Furniture. Traditionally designed, they are perfect to be used in the any place where you need to store.",
+    "action": "add to cart",
+    "slug": "blouse"
+  },
+  {
+    "id": "4",
+    "category": "fashion",
+    "type": "t-shirt",
+    "name": "Kimono sleeve top",
+    "gender": "women",
+    "new": false,
+    "sale": true,
+    "rate": 5,
+    "price": 24,
+    "originPrice": 32,
+    "brand": "adidas",
+    "sold": 14,
+    "quantity": 100,
+    "quantityPurchase": 1,
+    "sizes": [
+      "M",
+      "L",
+      "XL"
+    ],
+    "variation": [
+      {
+        "color": "red",
+        "colorCode": "#DB4444",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "white",
+        "colorCode": "#F6EFDD",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "purple",
+        "colorCode": "#8684D4",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      }
+    ],
+    "thumbImage": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p4/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p4/2.jpg"
+    ],
+    "images": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p4/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p4/2.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p4/3.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p4/4.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p4/5.jpg"
+    ],
+    "description": "Keep your home organized, yet elegant with storage cabinets by Onita Patio Furniture. Traditionally designed, they are perfect to be used in the any place where you need to store.",
+    "action": "add to cart",
+    "slug": "kimono"
+  },
+  {
+    "id": "5",
+    "category": "fashion",
+    "type": "dress",
+    "name": "mesh shirt",
+    "gender": "women",
+    "new": true,
+    "sale": false,
+    "rate": 4,
+    "price": 35,
+    "originPrice": 45,
+    "brand": "gucci",
+    "sold": 21,
+    "quantity": 100,
+    "quantityPurchase": 1,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "variation": [
+      {
+        "color": "black",
+        "colorCode": "#1F1F1F",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "yellow",
+        "colorCode": "#ECB018",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "purple",
+        "colorCode": "#8684D4",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      }
+    ],
+    "thumbImage": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p5/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p5/2.jpg"
+    ],
+    "images": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p5/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p5/2.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p5/3.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p5/4.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p5/5.jpg"
+
+    ],
+    "description": "Keep your home organized, yet elegant with storage cabinets by Onita Patio Furniture. Traditionally designed, they are perfect to be used in the any place where you need to store.",
+    "action": "quick shop",
+    "slug": "mesh-shirt"
+  },
+  {
+    "id": "6",
+    "category": "fashion",
+    "type": "sets",
+    "name": "Raglan Sleeve T-shirt",
+    "gender": "women",
+    "new": true,
+    "sale": false,
+    "rate": 5,
+    "price": 36,
+    "originPrice": 36,
+    "brand": "hermes",
+    "sold": 19,
+    "quantity": 200,
+    "quantityPurchase": 1,
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ],
+    "variation": [
+      {
+        "color": "green",
+        "colorCode": "#D2EF9A",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "red",
+        "colorCode": "#DB4444",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "yellow",
+        "colorCode": "#ECB018",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      }
+    ],
+    "thumbImage": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p6/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p6/2.jpg"
+    ],
+    "images": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p6/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p6/2.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p6/3.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p6/4.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p6/5.jpg"
+    ],
+    "description": "Keep your home organized, yet elegant with storage cabinets by Onita Patio Furniture. Traditionally designed, they are perfect to be used in the any place where you need to store.",
+    "action": "quick shop",
+    "slug": "shirt"
+  },
+  {
+    "id": "7",
+    "category": "fashion",
+    "type": "shirt",
+    "name": "Off-the-Shoulder Blouse",
+    "gender": "women",
+    "new": false,
+    "sale": true,
+    "rate": 4,
+    "price": 32,
+    "originPrice": 40,
+    "brand": "zara",
+    "sold": 22,
+    "quantity": 80,
+    "quantityPurchase": 1,
+    "sizes": [
+      "freesize"
+    ],
+    "variation": [
+      {
+        "color": "green",
+        "colorCode": "#D2EF9A",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "red",
+        "colorCode": "#DB4444",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "white",
+        "colorCode": "#F6EFDD",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "purple",
+        "colorCode": "#8684D4",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      }
+    ],
+    "thumbImage": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p7/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p7/2.jpg"
+    ],
+    "images": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p7/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p7/2.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p7/3.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p7/4.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p7/5.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p7/6.jpg"
+    ],
+    "description": "Keep your home organized, yet elegant with storage cabinets by Onita Patio Furniture. Traditionally designed, they are perfect to be used in the any place where you need to store.",
+    "action": "add to cart",
+    "slug": "blouse"
+  },
+  {
+    "id": "8",
+    "category": "fashion",
+    "type": "sets",
+    "name": "Kimono sleeve top",
+    "gender": "women",
+    "new": false,
+    "sale": true,
+    "rate": 5,
+    "price": 24,
+    "originPrice": 32,
+    "brand": "adidas",
+    "sold": 45,
+    "quantity": 100,
+    "quantityPurchase": 1,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "variation": [
+      {
+        "color": "green",
+        "colorCode": "#D2EF9A",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "red",
+        "colorCode": "#DB4444",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "yellow",
+        "colorCode": "#ECB018",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "purple",
+        "colorCode": "#8684D4",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      }
+    ],
+    "thumbImage": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p8/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p8/2.jpg"
+    ],
+    "images": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p8/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p8/2jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p8/3.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p8/4.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p8/5.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p8/6.jpg"
+    ],
+    "description": "Keep your home organized, yet elegant with storage cabinets by Onita Patio Furniture. Traditionally designed, they are perfect to be used in the any place where you need to store.",
+    "action": "add to cart",
+    "slug": "kimono"
+  },
+  {
+    "id": "9",
+    "category": "fashion",
+    "type": "t-shirt",
+    "name": "mesh shirt",
+    "gender": "women",
+    "new": true,
+    "sale": false,
+    "rate": 4,
+    "price": 35,
+    "originPrice": 45,
+    "brand": "gucci",
+    "sold": 12,
+    "quantity": 100,
+    "quantityPurchase": 1,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "variation": [
+      {
+        "color": "green",
+        "colorCode": "#D2EF9A",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "red",
+        "colorCode": "#DB4444",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "white",
+        "colorCode": "#F6EFDD",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      }
+    ],
+    "thumbImage": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p9/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p9/2.jpg"
+    ],
+    "images": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p9/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p9/2.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p9/3.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p9/4.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p9/5.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p9/6.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p9/7.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p9/8.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p9/9.jpg"
+    ],
+    "description": "Keep your home organized, yet elegant with storage cabinets by Onita Patio Furniture. Traditionally designed, they are perfect to be used in the any place where you need to store.",
+    "action": "quick shop",
+    "slug": "mesh-shirt"
+  },
+  {
+    "id": "10",
+    "category": "fashion",
+    "type": "t-shirt",
+    "name": "Raglan Sleeve T-shirt",
+    "gender": "women",
+    "new": true,
+    "sale": false,
+    "rate": 5,
+    "price": 28,
+    "originPrice": 36,
+    "brand": "hermes",
+    "sold": 12,
+    "quantity": 200,
+    "quantityPurchase": 1,
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ],
+    "variation": [
+      {
+        "color": "green",
+        "colorCode": "#D2EF9A",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "red",
+        "colorCode": "#DB4444",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "yellow",
+        "colorCode": "#ECB018",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "purple",
+        "colorCode": "#8684D4",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      }
+    ],
+    "thumbImage": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p10/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p10/2.jpg"
+    ],
+    "images": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p10/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p10/2.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p10/3.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p10/4.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p10/5.jpg"
+    ],
+    "description": "Keep your home organized, yet elegant with storage cabinets by Onita Patio Furniture. Traditionally designed, they are perfect to be used in the any place where you need to store.",
+    "action": "quick shop",
+    "slug": "shirt"
+  },
+  {
+    "id": "11",
+    "category": "fashion",
+    "type": "t-shirt",
+    "name": "Off-the-Shoulder Blouse",
+    "gender": "women",
+    "new": false,
+    "sale": true,
+    "rate": 4,
+    "price": 32,
+    "originPrice": 40,
+    "brand": "zara",
+    "sold": 14,
+    "quantity": 80,
+    "quantityPurchase": 1,
+    "sizes": [
+      "freesize"
+    ],
+    "variation": [
+      {
+        "color": "green",
+        "colorCode": "#D2EF9A",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "white",
+        "colorCode": "#F6EFDD",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      },
+      {
+        "color": "purple",
+        "colorCode": "#8684D4",
+        "colorImage": "/images/product/color/48x48.png",
+        "image": "/images/product/1000x1000.png"
+      }
+    ],
+    "thumbImage": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p11/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p11/2.jpg"
+    ],
+    "images": [
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p11/1.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p11/2.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p11/3.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p11/4.jpg",
+      "https://vibeofsavibucket1.s3.eu-north-1.amazonaws.com/p11/5.jpg"
+    ],
+    "description": "Keep your home organized, yet elegant with storage cabinets by Onita Patio Furniture. Traditionally designed, they are perfect to be used in the any place where you need to store.",
+    "action": "add to cart",
+    "slug": "blouse"
+  }
+  
+]
