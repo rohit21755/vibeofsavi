@@ -32,7 +32,7 @@ export default function Home() {
       <Brand />
       <FAQAccordion/>
       <Footer />
-      <ModalNewsletter />
+      {/* <ModalNewsletter /> */}
     </>
   )
 }
