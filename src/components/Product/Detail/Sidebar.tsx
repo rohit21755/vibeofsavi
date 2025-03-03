@@ -187,30 +187,7 @@ const Sidebar: React.FC<Props> = ({ data, productId }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="mt-8">
-                                <div className="heading6">You{String.raw`'ll`} love this too</div>
-                                <div className="list">
-                                    {data.slice(Number(productId), Number(productId) + 3).map((item) => (
-                                        <div
-                                            key={item.id}
-                                            className='item flex items-center gap-5 mt-4 cursor-pointer'
-                                            onClick={() => handleProductClick(item.id)}
-                                        >
-                                            <Image
-                                                src={item.thumbImage[0]}
-                                                width={300}
-                                                height={500}
-                                                alt={item.thumbImage[0]}
-                                                className='w-20 aspect-[3/4] object-cover rounded-lg flex-shrink-0'
-                                            />
-                                            <div>
-                                                <div className="text-title">{item.name}</div>
-                                                <div className="text-title mt-1">${item.price}.00</div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                            
                         </div>
                         <div className="right lg:w-3/4 sm:w-[60%] sm:pl-3 w-full">
                             <div className='flex max-lg:flex-col justify-between gap-y-6'>

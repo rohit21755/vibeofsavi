@@ -423,30 +423,7 @@ const Grouped: React.FC<Props> = ({ data, productId }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="get-it mt-6 pb-6 border-b border-line">
-                                <div className="heading5">Get it today</div>
-                                <div className="item flex items-center gap-3 mt-4">
-                                    <div className="icon-delivery-truck text-4xl"></div>
-                                    <div>
-                                        <div className="text-title">Free shipping</div>
-                                        <div className="caption1 text-secondary mt-1">Free shipping on orders over $75.</div>
-                                    </div>
-                                </div>
-                                <div className="item flex items-center gap-3 mt-4">
-                                    <div className="icon-phone-call text-4xl"></div>
-                                    <div>
-                                        <div className="text-title">Support everyday</div>
-                                        <div className="caption1 text-secondary mt-1">Support from 8:30 AM to 10:00 PM everyday</div>
-                                    </div>
-                                </div>
-                                <div className="item flex items-center gap-3 mt-4">
-                                    <div className="icon-return text-4xl"></div>
-                                    <div>
-                                        <div className="text-title">100 Day Returns</div>
-                                        <div className="caption1 text-secondary mt-1">Not impressed? Get a refund. You have 100 days to break our hearts.</div>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div className="desc-tab">
                                 <div className="desc-block pb-6 border-b border-line mt-6">
                                     <div

@@ -29,8 +29,8 @@ export default function Home() {
       <Benefit props="md:py-20 py-10" />
       <Testimonial data={testimonialData} limit={6} />
       <Instagram />
-      <Brand />
-      <FAQAccordion/>
+      {/* <Brand /> */}
+
       <Footer />
       {/* <ModalNewsletter /> */}
     </>

@@ -231,32 +231,19 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                             </div>
                         </div>
                     </div>
+                    <div className="related-product md:pb-20 pb-10">
+                        <div className="container">
+                            <div className="heading3 text-center">Related Products</div>
+                            <div className="list-product hide-product-sold  grid lg:grid-cols-4 grid-cols-2 md:gap-[30px] gap-5 md:mt-10 mt-6">
+                                {data.slice(Number(productId), Number(productId) + 4).map((item, index) => (
+                                    <Product key={index} data={item} type='grid' style='style-1' />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
                     <div className="container flex justify-between gap-y-6 flex-wrap md:py-20 py-10">
                         <div className="desc-tab md:w-1/2 w-full lg:pr-[30px] md:pr-4">
-                            <div className="get-it pb-6 border-b border-line">
-                                <div className="heading5">Get it today</div>
-                                <div className="item flex items-center gap-3 mt-4">
-                                    <div className="icon-delivery-truck text-4xl"></div>
-                                    <div>
-                                        <div className="text-title">Free shipping</div>
-                                        <div className="caption1 text-secondary mt-1">Free shipping on orders over $75.</div>
-                                    </div>
-                                </div>
-                                <div className="item flex items-center gap-3 mt-4">
-                                    <div className="icon-phone-call text-4xl"></div>
-                                    <div>
-                                        <div className="text-title">Support everyday</div>
-                                        <div className="caption1 text-secondary mt-1">Support from 8:30 AM to 10:00 PM everyday</div>
-                                    </div>
-                                </div>
-                                <div className="item flex items-center gap-3 mt-4">
-                                    <div className="icon-return text-4xl"></div>
-                                    <div>
-                                        <div className="text-title">100 Day Returns</div>
-                                        <div className="caption1 text-secondary mt-1">Not impressed? Get a refund. You have 100 days to break our hearts.</div>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div className="desc-block pb-6 border-b border-line mt-6">
                                 <div
                                     className={`tab-item heading5 flex items-center justify-between cursor-pointer ${activeTab === 'description' ? 'active' : ''}`}
@@ -859,16 +846,7 @@ const FixedPrice: React.FC<Props> = ({ data, productId }) => {
                         </div>
                     </div>
 
-                    <div className="related-product md:pb-20 pb-10">
-                        <div className="container">
-                            <div className="heading3 text-center">Related Products</div>
-                            <div className="list-product hide-product-sold  grid lg:grid-cols-4 grid-cols-2 md:gap-[30px] gap-5 md:mt-10 mt-6">
-                                {data.slice(Number(productId), Number(productId) + 4).map((item, index) => (
-                                    <Product key={index} data={item} type='grid' style='style-1' />
-                                ))}
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div >
         </>

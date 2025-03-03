@@ -223,7 +223,7 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType, gend
                                 </div>
                             </div>
                             <div className="list-tab flex flex-wrap items-center justify-center gap-y-5 gap-8 lg:mt-[70px] mt-12 overflow-hidden">
-                                {['t-shirt', 'dress', 'top', 'swimwear', 'shirt'].map((item, index) => (
+                                {[ 't-shirt', 'Shirt', 'jeans', 'Pants'].map((item, index) => (
                                     <div
                                         key={index}
                                         className={`tab-item text-button-uppercase cursor-pointer has-line-before line-2px ${dataType === item ? 'active' : ''}`}
@@ -245,7 +245,7 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType, gend
                             <div className="filter-type pb-8 border-b border-line">
                                 <div className="heading6">Products Type</div>
                                 <div className="list-type mt-4">
-                                    {['t-shirt', 'dress', 'top', 'swimwear', 'shirt', 'underwear', 'sets', 'accessories'].map((item, index) => (
+                                    {[ 't-shirt', 'Shirt', 'jeans', 'Pants'].map((item, index) => (
                                         <div
                                             key={index}
                                             className={`item flex items-center justify-between cursor-pointer ${dataType === item ? 'active' : ''}`}
@@ -360,30 +360,7 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType, gend
                                     </div>
                                 </div>
                             </div>
-                            <div className="filter-brand mt-8">
-                                <div className="heading6">Brands</div>
-                                <div className="list-brand mt-4">
-                                    {['adidas', 'hermes', 'zara', 'nike', 'gucci'].map((item, index) => (
-                                        <div key={index} className="brand-item flex items-center justify-between">
-                                            <div className="left flex items-center cursor-pointer">
-                                                <div className="block-input">
-                                                    <input
-                                                        type="checkbox"
-                                                        name={item}
-                                                        id={item}
-                                                        checked={brand === item}
-                                                        onChange={() => handleBrand(item)} />
-                                                    <Icon.CheckSquare size={20} weight='fill' className='icon-checkbox' />
-                                                </div>
-                                                <label htmlFor={item} className="brand-name capitalize pl-2 cursor-pointer">{item}</label>
-                                            </div>
-                                            <div className='text-secondary2'>
-                                                ({data.filter(dataItem => dataItem.brand === item && dataItem.category === 'fashion').length})
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                            
                         </div>
                         <div className="list-product-block lg:w-3/4 md:w-2/3 w-full md:pl-3">
                             <div className="filter-heading flex items-center justify-between gap-5 flex-wrap">

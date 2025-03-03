@@ -456,62 +456,8 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="get-it mt-6 pb-8 border-b border-line">
-                                <div className="heading5">Get it today</div>
-                                <div className="item flex items-center gap-3 mt-4">
-                                    <div className="icon-delivery-truck text-4xl"></div>
-                                    <div>
-                                        <div className="text-title">Free shipping</div>
-                                        <div className="caption1 text-secondary mt-1">Free shipping on orders over $75.</div>
-                                    </div>
-                                </div>
-                                <div className="item flex items-center gap-3 mt-4">
-                                    <div className="icon-phone-call text-4xl"></div>
-                                    <div>
-                                        <div className="text-title">Support everyday</div>
-                                        <div className="caption1 text-secondary mt-1">Support from 8:30 AM to 10:00 PM everyday</div>
-                                    </div>
-                                </div>
-                                <div className="item flex items-center gap-3 mt-4">
-                                    <div className="icon-return text-4xl"></div>
-                                    <div>
-                                        <div className="text-title">100 Day Returns</div>
-                                        <div className="caption1 text-secondary mt-1">Not impressed? Get a refund. You have 100 days to break our hearts.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="list-product hide-product-sold  menu-main mt-6">
-                                <div className="heading5 pb-4">You{String.raw`'ll`} love this too</div>
-                                <Swiper
-                                    spaceBetween={12}
-                                    slidesPerView={2}
-                                    scrollbar={{
-                                        hide: false,
-                                    }}
-                                    modules={[Navigation, Scrollbar]}
-                                    breakpoints={{
-                                        576: {
-                                            slidesPerView: 2,
-                                            spaceBetween: 12,
-                                        },
-                                        768: {
-                                            slidesPerView: 2,
-                                            spaceBetween: 20,
-                                        },
-                                        1290: {
-                                            slidesPerView: 3,
-                                            spaceBetween: 20,
-                                        },
-                                    }}
-                                    className='pb-4'
-                                >
-                                    {data.filter(item => item.action !== 'quick shop').slice(0, 5).map(product => (
-                                        <SwiperSlide key={product.id}>
-                                            <Product data={product} type='grid' style='style-1' />
-                                        </SwiperSlide>
-                                    ))}
-                                </Swiper>
-                            </div>
+                            
+                            
                         </div>
                     </div>
                 </div>
@@ -659,6 +605,16 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="related-product md:py-20 py-10">
+                    <div className="container">
+                        <div className="heading3 text-center">Related Products</div>
+                        <div className="list-product hide-product-sold  grid lg:grid-cols-4 grid-cols-2 md:gap-[30px] gap-5 md:mt-10 mt-6">
+                            {data.slice(Number(productId), Number(productId) + 4).map((item, index) => (
+                                <Product key={index} data={item} type='grid' style='style-1' />
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -1013,16 +969,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                         </div>
                     </div>
                 </div>
-                <div className="related-product md:py-20 py-10">
-                    <div className="container">
-                        <div className="heading3 text-center">Related Products</div>
-                        <div className="list-product hide-product-sold  grid lg:grid-cols-4 grid-cols-2 md:gap-[30px] gap-5 md:mt-10 mt-6">
-                            {data.slice(Number(productId), Number(productId) + 4).map((item, index) => (
-                                <Product key={index} data={item} type='grid' style='style-1' />
-                            ))}
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </>
     )
