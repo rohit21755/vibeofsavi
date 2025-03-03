@@ -12,7 +12,7 @@ import { countdownTime } from '@/store/countdownTime'
 import MenuOne from '@/components/Header/Menu/MenuOne'
 const serverTimeLeft: CountdownTimeType = countdownTime();
 
-const instrument = Instrument_Sans({ subsets: ['latin'] })
+const instrument = Instrument_Sans({ subsets: ['latin'], display: "optional" })
 
 export const metadata: Metadata = {
   title: 'Vibe of Savi',
