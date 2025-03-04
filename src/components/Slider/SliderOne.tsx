@@ -7,9 +7,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css/bundle';
 import 'swiper/css/effect-fade';
-import bg1 from "../../../public/images/home/bg1-1.webp"
-import bg2 from "../../../public/images/home/bg1-2.webp"
-import bg3 from "../../../public/images/home/bg1-3.webp"
+import bg1 from "../../../public/images/home/bg1.png"
+import bg2 from "../../../public/images/home/bg2.png"
+import bg3 from "../../../public/images/home/bg3.png"
 const SliderOne = () => {
     let src= "https://anvogue.vercel.app/_next/image?url=%2Fimages%2Fslider%2Fbg1-2.png&w=750&q=75"
     return (
@@ -38,10 +38,11 @@ const SliderOne = () => {
                                     <div className="sub-img absolute sm:w-1/2 w-3/5 2xl:-right-[60px] -right-[16px] bottom-0">
                                         <Image
                                             src={bg1}
-                                            width={670}
-                                            height={936}
+                                            width={600}
+                                            height={736}
                                             alt='bg1-1'
                                             priority={true}
+                                            className='bg-transparent'
                                         />
                                     </div>
                                 </div>
@@ -58,8 +59,8 @@ const SliderOne = () => {
                                     <div className="sub-img absolute w-1/2 2xl:-right-[60px] -right-[0] sm:-bottom-[60px] bottom-0">
                                         <Image
                                             src={bg2}
-                                            width={670}
-                                            height={936}
+                                            width={600}
+                                            height={736}
                                             alt='bg1-2'
                                             priority={true}
                                         />
@@ -78,8 +79,8 @@ const SliderOne = () => {
                                     <div className="sub-img absolute sm:w-1/2 w-2/3 2xl:-right-[60px] -right-[36px] sm:bottom-0 -bottom-[30px]">
                                         <Image
                                             src={bg3}
-                                            width={670}
-                                            height={936}
+                                            width={600}
+                                            height={736}
                                             alt='bg1-3'
                                             priority={true}
                                         />
