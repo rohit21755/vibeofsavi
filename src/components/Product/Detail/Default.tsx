@@ -267,7 +267,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                         -{percentSale}%
                                     </div>
                                 )}
-                                <div className='desc text-secondary mt-3'>{productMain.description}</div>
+                                {/* <div className='desc text-secondary mt-3'>{productMain.description}</div> */}
                             </div>
                             <div className="list-action mt-6">
                                 {/* <div className="choose-color">
