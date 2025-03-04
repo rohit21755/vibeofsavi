@@ -10,9 +10,9 @@ import Footer from '@/components/Footer/Footer'
 const ContactUs = () => {
     return (
         <>
-            <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" />
+            {/* <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" /> */}
             <div id="header" className='relative w-full'>
-                <MenuOne  />
+              
                 <Breadcrumb heading='Contact us' subHeading='Contact us' />
             </div>
             <div className='contact-us md:py-20 py-10'>
@@ -41,9 +41,9 @@ const ContactUs = () => {
                         <div className="right lg:w-1/4 lg:pl-4">
                             <div className="item">
                                 <div className="heading4">Our Store</div>
-                                <p className="mt-3">2163 Phillips Gap Rd, West Jefferson, North Carolina, United States</p>
-                                <p className="mt-3">Phone: <span className='whitespace-nowrap'>+1 666 8888</span></p>
-                                <p className="mt-1">Email: <span className='whitespace-nowrap'>hi.avitex@gmail.com</span></p>
+                                <p className="mt-3">712/4A , Raj nagar part - 2, Palam Colony, new delhi 110077</p>
+                                <p className="mt-3">Phone: <span className='whitespace-nowrap'>+91-9871037406</span></p>
+                                <p className="mt-1">Email: <span className='whitespace-nowrap'>vibeofsavi1@gmail.com</span></p>
                             </div>
                             <div className="item mt-10">
                                 <div className="heading4">Open Hours</div>

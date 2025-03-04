@@ -52,7 +52,7 @@
   {
     "id": "2",
     "category": "fashion",
-    "type": "t-shirt",
+    "type": "shirt",
     "name": "Raglan Sleeve T-shirt",
     "gender": "men",
     "new": true,
@@ -103,7 +103,7 @@
   {
     "id": "3",
     "category": "fashion",
-    "type": "dress",
+    "type": "pants",
     "name": "Off-the-Shoulder Blouse",
     "gender": "men",
     "new": false,
@@ -213,7 +213,7 @@
   {
     "id": "5",
     "category": "fashion",
-    "type": "dress",
+    "type": "jeans",
     "name": "mesh shirt",
     "gender": "women",
     "new": true,
@@ -270,7 +270,7 @@
   {
     "id": "6",
     "category": "fashion",
-    "type": "sets",
+    "type": "shirt",
     "name": "Raglan Sleeve T-shirt",
     "gender": "women",
     "new": true,
@@ -328,7 +328,7 @@
   {
     "id": "7",
     "category": "fashion",
-    "type": "shirt",
+    "type": "pants",
     "name": "Off-the-Shoulder Blouse",
     "gender": "women",
     "new": false,
@@ -388,7 +388,7 @@
   {
     "id": "8",
     "category": "fashion",
-    "type": "sets",
+    "type": "Pants",
     "name": "Kimono sleeve top",
     "gender": "women",
     "new": false,
@@ -451,7 +451,7 @@
   {
     "id": "9",
     "category": "fashion",
-    "type": "t-shirt",
+    "type": "Shirt",
     "name": "mesh shirt",
     "gender": "women",
     "new": true,
@@ -511,7 +511,7 @@
   {
     "id": "10",
     "category": "fashion",
-    "type": "t-shirt",
+    "type": "Shirt",
     "name": "Raglan Sleeve T-shirt",
     "gender": "women",
     "new": true,

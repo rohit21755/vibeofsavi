@@ -474,7 +474,7 @@ const MenuOne =() => {
                                                                         Mens
                                                                     </Link>
                                                                 </li>
-                                                                <li>
+                                                                {/* <li>
                                                                     <Link
                                                                         href={'/shop/breadcrumb2'}
                                                                         className={`link text-secondary duration-300 ${pathname === '/shop/breadcrumb2' ? 'active' : ''}`}
@@ -489,7 +489,7 @@ const MenuOne =() => {
                                                                     >
                                                                         Soon
                                                                     </Link>
-                                                                </li>
+                                                                </li> */}
                                                                 
                                                             </ul>
                                                         </div>
@@ -502,7 +502,7 @@ const MenuOne =() => {
                                             </div>
                                         </div>
                                     </li>
-                                    <li className='h-full relative'>
+                                    {/* <li className='h-full relative'>
                                         <Link href="/pages/coming-soon" className={`text-button-uppercase duration-300 h-full flex items-center justify-center ${pathname.includes('/blog') ? 'active' : ''}`}>
                                             VCS Luxury
                                         </Link>
@@ -520,7 +520,7 @@ const MenuOne =() => {
                                             About Us
                                         </Link>
                                         
-                                    </li>
+                                    </li> */}
                                 </ul>
                             </div>
                         </div>

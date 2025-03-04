@@ -222,7 +222,7 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType, gend
                                     <div className='text-secondary2 capitalize'>{dataType === null ? 'Shop' : dataType}</div>
                                 </div>
                             </div>
-                            <div className="list-tab flex flex-wrap items-center justify-center gap-y-5 gap-8 lg:mt-[70px] mt-12 overflow-hidden">
+                            {/* <div className="list-tab flex flex-wrap items-center justify-center gap-y-5 gap-8 lg:mt-[70px] mt-12 overflow-hidden">
                                 {[ 't-shirt', 'Shirt', 'jeans', 'Pants'].map((item, index) => (
                                     <div
                                         key={index}
@@ -232,7 +232,7 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType, gend
                                         {item}
                                     </div>
                                 ))}
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
@@ -373,13 +373,13 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType, gend
                                                 <span className='w-[3px] h-4 bg-secondary2 rounded-sm'></span>
                                             </div>
                                         </div>
-                                        <Link href={'/shop/sidebar-list'} className="item row w-8 h-8 border border-line rounded flex items-center justify-center cursor-pointer">
+                                        {/* <Link href={'/shop/sidebar-list'} className="item row w-8 h-8 border border-line rounded flex items-center justify-center cursor-pointer">
                                             <div className='flex flex-col items-center gap-0.5'>
                                                 <span className='w-4 h-[3px] bg-secondary2 rounded-sm'></span>
                                                 <span className='w-4 h-[3px] bg-secondary2 rounded-sm'></span>
                                                 <span className='w-4 h-[3px] bg-secondary2 rounded-sm'></span>
                                             </div>
-                                        </Link>
+                                        </Link> */}
                                     </div>
                                     <div className="check-sale flex items-center gap-2">
                                         <input

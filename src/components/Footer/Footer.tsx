@@ -32,16 +32,16 @@ const Footer = () => {
                                     <div className="item flex flex-col basis-1/3 ">
                                         <div className="text-button-uppercase pb-3">Infomation</div>
                                         <Link className='caption1 has-line-before duration-300 w-fit' href={'/pages/contact'}>Contact us</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'#!'}>Career</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/my-account'}>My Account</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/order-tracking'}>Order  & Returns</Link>
+                                        {/* <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'#!'}>Career</Link> */}
+                                        {/* <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/my-account'}>My Account</Link> */}
+                                        {/* <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/order-tracking'}>Order  & Returns</Link> */}
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/faqs'}>FAQs</Link>
                                     </div>
                                     <div className="item flex flex-col basis-1/3 ">
                                         <div className="text-button-uppercase pb-3">Quick Shop</div>
-                                        <Link className='caption1 has-line-before duration-300 w-fit' href={'/shop/breadcrumb1'}>Women</Link>
+                                        {/* <Link className='caption1 has-line-before duration-300 w-fit' href={'/shop/breadcrumb1'}>Women</Link> */}
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/shop/breadcrumb1'}>Men</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/coming-soon'}>VCS luxury</Link>
+                                        {/* <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/coming-soon'}>VCS luxury</Link> */}
                                         
                                     </div>
                                     <div className="item flex flex-col basis-1/3 ">
@@ -49,7 +49,7 @@ const Footer = () => {
                                         <Link className='caption1 has-line-before duration-300 w-fit' href={'/pages/faqs'}>Orders FAQs</Link>
                                         {/* <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/faqs'}>Shipping</Link> */}
                                         <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/privacy-policy'}>Privacy Policy</Link>
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/order-tracking'}>Return & Refund</Link>
+                                        {/* <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/order-tracking'}>Return & Refund</Link> */}
                                     </div>
                                 </div>
                                 <div className="newsletter basis-1/3 pl-7 max-md:basis-full max-md:pl-0">
@@ -63,7 +63,7 @@ const Footer = () => {
                                             </button>
                                         </form>
                                     </div>
-                                    <div className="list-social flex items-center gap-6 mt-4">
+                                    {/* <div className="list-social flex items-center gap-6 mt-4">
                                         <Link href={'https://www.facebook.com/'} target='_blank'>
                                             <div className="icon-facebook text-2xl text-black"></div>
                                         </Link>
@@ -79,7 +79,7 @@ const Footer = () => {
                                         <Link href={'https://www.pinterest.com/'} target='_blank'>
                                             <div className="icon-pinterest text-2xl text-black"></div>
                                         </Link>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@ const Footer = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="right flex items-center gap-2">
+                            {/* <div className="right flex items-center gap-2">
                                 <div className="caption1 text-secondary">Payment:</div>
                                 <div className="payment-img">
                                     <Image
@@ -161,7 +161,7 @@ const Footer = () => {
                                         className='w-9'
                                     />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
