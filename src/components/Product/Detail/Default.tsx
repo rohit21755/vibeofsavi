@@ -270,7 +270,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                 <div className='desc text-secondary mt-3'>{productMain.description}</div>
                             </div>
                             <div className="list-action mt-6">
-                                <div className="choose-color">
+                                {/* <div className="choose-color">
                                     <div className="text-title">Colors: <span className='text-title color'>{activeColor}</span></div>
                                     <div className="list-color flex items-center gap-2 flex-wrap mt-3">
                                         {productMain.variation.map((item, index) => (
@@ -295,7 +295,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             </div>
                                         ))}
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="choose-size mt-5">
                                     <div className="heading flex items-center justify-between">
                                         <div className="text-title">Size: <span className='text-title size'>{activeSize}</span></div>
@@ -395,7 +395,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                     </div>
                                 </div>
                                 <div className="list-payment mt-7">
-                                    <div className="main-content lg:pt-8 pt-6 lg:pb-6 pb-4 sm:px-4 px-3 border border-line rounded-xl relative max-md:w-2/3 max-sm:w-full">
+                                    {/* <div className="main-content lg:pt-8 pt-6 lg:pb-6 pb-4 sm:px-4 px-3 border border-line rounded-xl relative max-md:w-2/3 max-sm:w-full">
                                         <div className="heading6 px-5 bg-white absolute -top-[14px] left-1/2 -translate-x-1/2 whitespace-nowrap">Guranteed safe checkout</div>
                                         <div className="list grid grid-cols-6">
                                             <div className="item flex items-center justify-center lg:px-3 px-1">
@@ -453,7 +453,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                                 />
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                             
@@ -720,7 +720,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             },
                                         }}
                                     >
-                                        <SwiperSlide>
+                                        {/* <SwiperSlide>
                                             <Image
                                                 src={'/images/product/1000x1000.png'}
                                                 width={400}
@@ -782,7 +782,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                                 alt=''
                                                 className='w-[120px] aspect-square object-cover rounded-lg'
                                             />
-                                        </SwiperSlide>
+                                        </SwiperSlide> */}
                                     </Swiper>
                                 </div>
                                 <div className="sorting flex items-center flex-wrap md:gap-5 gap-3 gap-y-3 mt-6">
@@ -800,7 +800,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                             <div className="item flex max-lg:flex-col gap-y-4 w-full py-6 border-t border-line">
                                 <div className="left lg:w-1/4 w-full lg:pr-[15px]">
                                     <div className="list-img-review flex gap-2">
-                                        <Image
+                                        {/* <Image
                                             src={'/images/product/1000x1000.png'}
                                             width={200}
                                             height={200}
@@ -820,7 +820,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             height={200}
                                             alt='img'
                                             className='w-[60px] aspect-square rounded-lg'
-                                        />
+                                        /> */}
                                     </div>
                                     <div className="user mt-3">
                                         <div className="text-title">Tony Nguyen</div>
@@ -849,7 +849,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                             <div className="item flex max-lg:flex-col gap-y-4 w-full py-6 border-t border-line">
                                 <div className="left lg:w-1/4 w-full lg:pr-[15px]">
                                     <div className="list-img-review flex gap-2">
-                                        <Image
+                                        {/* <Image
                                             src={'/images/product/1000x1000.png'}
                                             width={200}
                                             height={200}
@@ -869,7 +869,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             height={200}
                                             alt='img'
                                             className='w-[60px] aspect-square rounded-lg'
-                                        />
+                                        /> */}
                                     </div>
                                     <div className="user mt-3">
                                         <div className="text-title">Tony Nguyen</div>
@@ -898,7 +898,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                             <div className="item flex max-lg:flex-col gap-y-4 w-full py-6 border-t border-line">
                                 <div className="left lg:w-1/4 w-full lg:pr-[15px]">
                                     <div className="list-img-review flex gap-2">
-                                        <Image
+                                        {/* <Image
                                             src={'/images/product/1000x1000.png'}
                                             width={200}
                                             height={200}
@@ -918,7 +918,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             height={200}
                                             alt='img'
                                             className='w-[60px] aspect-square rounded-lg'
-                                        />
+                                        /> */}
                                     </div>
                                     <div className="user mt-3">
                                         <div className="text-title">Tony Nguyen</div>
