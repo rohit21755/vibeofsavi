@@ -67,6 +67,7 @@ const Policy = () => {
                         </div>
                     ))}
                 </div>
+                <p className='m-8 font-bold text-xl'>This webiste is own by VIBE OF SAVI.</p>
             </div>
             <Footer />
         </>
