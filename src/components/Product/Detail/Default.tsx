@@ -484,30 +484,30 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                 <div className='grid md:grid-cols-2 gap-8 gap-y-5'>
                                     <div className="left">
                                         <div className="heading6">Description</div>
-                                        <div className="text-secondary mt-2">Keep your home organized, yet elegant with storage cabinets by Onita Patio Furniture. These cabinets not only make a great storage units, but also bring a great decorative accent to your decor. Traditionally designed, they are perfect to be used in the hallway, living room, bedroom, office or any place where you need to store or display things. Made of high quality materials, they are sturdy and durable for years. Bring one-of-a-kind look to your interior with furniture from Onita Furniture!</div>
+                                        <div className="text-secondary mt-2">Upgrade your wardrobe with this stylish and versatile men's casual button-down shirt. Crafted from a premium cotton blend, it offers a soft, breathable feel that keeps you comfortable all day long. Featuring a classic collar, full sleeves, and a tailored fit, this shirt is perfect for both office wear and casual outings. The fine stitching and durable fabric ensure long-lasting wear, while the elegant design pairs effortlessly with jeans or formal trousers. Available in a range of colors and patterns to suit every occasion.</div>
                                     </div>
                                     <div className="right">
                                         <div className="heading6">About This Products</div>
                                         <div className="list-feature">
                                             <div className="item flex gap-1 text-secondary mt-1">
                                                 <Icon.Dot size={28} />
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                                <p>High-quality cotton or linen for comfort and durability.</p>
                                             </div>
                                             <div className="item flex gap-1 text-secondary mt-1">
                                                 <Icon.Dot size={28} />
-                                                <p>Nulla luctus libero quis mauris vestibulum dapibus.</p>
+                                                <p>Neat seams and reinforced buttons for long-lasting wear.</p>
                                             </div>
                                             <div className="item flex gap-1 text-secondary mt-1">
                                                 <Icon.Dot size={28} />
-                                                <p>Maecenas ullamcorper erat mi, vel consequat enim suscipit at.</p>
+                                                <p>Resistant to shrinkage and color fading.</p>
                                             </div>
                                             <div className="item flex gap-1 text-secondary mt-1">
                                                 <Icon.Dot size={28} />
-                                                <p>Quisque consectetur nibh ac urna molestie scelerisque.</p>
+                                                <p>Stretchable material for a relaxed, easy-going feel.</p>
                                             </div>
                                             <div className="item flex gap-1 text-secondary mt-1">
                                                 <Icon.Dot size={28} />
-                                                <p>Mauris in nisl scelerisque massa consectetur pretium sed et mauris.</p>
+                                                <p>Retains shape even after multiple washes.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -516,22 +516,22 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                     <div className="item">
                                         <div className="icon-delivery-truck text-4xl"></div>
                                         <div className="heading6 mt-4">Shipping Faster</div>
-                                        <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
+                                        {/* <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div> */}
                                     </div>
                                     <div className="item">
                                         <div className="icon-cotton text-4xl"></div>
                                         <div className="heading6 mt-4">Cotton Material</div>
-                                        <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
+                                        {/* <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div> */}
                                     </div>
                                     <div className="item">
                                         <div className="icon-guarantee text-4xl"></div>
                                         <div className="heading6 mt-4">High Quality</div>
-                                        <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
+                                        {/* <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div> */}
                                     </div>
                                     <div className="item">
                                         <div className="icon-leaves-compatible text-4xl"></div>
                                         <div className="heading6 mt-4">highly compatible</div>
-                                        <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div>
+                                        {/* <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div> */}
                                     </div>
                                 </div>
                             </div>
