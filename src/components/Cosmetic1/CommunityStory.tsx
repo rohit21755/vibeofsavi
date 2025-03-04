@@ -37,9 +37,9 @@ const CommunityStory = () => {
                             <div className="product-name w-full">
                                 <div className="text-white capitalize">Tinted eye Balm</div>
                                 <div className="flex items-center gap-2 mt-1">
-                                    <div className="product-price text-white">$20.00</div>
+                                    <div className="product-price text-white">₹20.00</div>
                                     <div className="product-origin-price caption1 text-white">
-                                        <del>$25.00</del>
+                                        <del>₹25.00</del>
                                     </div>
                                 </div>
                             </div>
@@ -63,9 +63,9 @@ const CommunityStory = () => {
                             <div className="product-name w-full">
                                 <div className="text-white capitalize">Tinted eye Balm</div>
                                 <div className="flex items-center gap-2 mt-1">
-                                    <div className="product-price text-white">$20.00</div>
+                                    <div className="product-price text-white">₹20.00</div>
                                     <div className="product-origin-price caption1 text-white">
-                                        <del>$25.00</del>
+                                        <del>₹25.00</del>
                                     </div>
                                 </div>
                             </div>
@@ -89,9 +89,9 @@ const CommunityStory = () => {
                             <div className="product-name w-full">
                                 <div className="text-white capitalize">Face Tan Booster</div>
                                 <div className="flex items-center gap-2 mt-1">
-                                    <div className="product-price text-white">$15.00</div>
+                                    <div className="product-price text-white">₹15.00</div>
                                     <div className="product-origin-price caption1 text-white">
-                                        <del>$20.00</del>
+                                        <del>₹20.00</del>
                                     </div>
                                 </div>
                             </div>
@@ -115,9 +115,9 @@ const CommunityStory = () => {
                             <div className="product-name w-full">
                                 <div className="text-white capitalize">Tinted eye Balm</div>
                                 <div className="flex items-center gap-2 mt-1">
-                                    <div className="product-price text-white">$20.00</div>
+                                    <div className="product-price text-white">₹20.00</div>
                                     <div className="product-origin-price caption1 text-white">
-                                        <del>$25.00</del>
+                                        <del>₹25.00</del>
                                     </div>
                                 </div>
                             </div>

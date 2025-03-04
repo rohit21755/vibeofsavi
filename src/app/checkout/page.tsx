@@ -253,7 +253,7 @@ const Checkout = () => {
                                                             <span className='quantity'>{product.quantity}</span>
                                                             <span className='px-1'>x</span>
                                                             <span>
-                                                                ${product.price}.00
+                                                            ₹{product.price}.00
                                                             </span>
                                                         </div>
                                                     </div>
@@ -264,15 +264,15 @@ const Checkout = () => {
                                 </div>
                                 <div className="discount-block py-5 flex justify-between border-b border-line">
                                     <div className="text-title">Discounts</div>
-                                    <div className="text-title">-$<span className="discount">{discount}</span><span>.00</span></div>
+                                    <div className="text-title">- ₹<span className="discount">{discount}</span><span>.00</span></div>
                                 </div>
                                 <div className="ship-block py-5 flex justify-between border-b border-line">
                                     <div className="text-title">Shipping</div>
-                                    <div className="text-title">{Number(ship) === 0 ? 'Free' : `$${ship}.00`}</div>
+                                    <div className="text-title">{Number(ship) === 0 ? 'Free' : `₹${ship}.00`}</div>
                                 </div>
                                 <div className="total-cart-block pt-5 flex justify-between">
                                     <div className="heading5">Total</div>
-                                    <div className="heading5 total-cart">${totalCart - Number(discount) + Number(ship)}.00</div>
+                                    <div className="heading5 total-cart">₹{totalCart - Number(discount) + Number(ship)}.00</div>
                                 </div>
                             </div>
                         </div>

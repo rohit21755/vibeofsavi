@@ -435,7 +435,7 @@ const MenuOne =() => {
                                                                 <div className="text-button-uppercase text-white bg-red px-2 py-0.5 inline-block rounded-sm">Save $10</div>
                                                                 <div className="heading6 mt-2">20% off <br />accessories</div>
                                                                 <div className="body1 mt-3 text-secondary">
-                                                                    Starting at <span className='text-red'>$59.99</span>
+                                                                    Starting at <span className='text-red'>59.99</span>
                                                                 </div>
                                                             </div>
                                                             <Image
@@ -454,7 +454,7 @@ const MenuOne =() => {
                                     <li className='h-full'>
                                         <Link
                                             href="/shop/breadcrumb1"
-                                            className={`text-button-uppercase duration-300 h-full flex items-center justify-center ${pathname.includes('/shop/collection') ? 'active' : ''}`}
+                                            className={`text-button-uppercase duration-300 h-full flex items-center justify-center {pathname.includes('/shop/collection') ? 'active' : ''}`}
                                         >
                                             Shop
                                         </Link>
@@ -889,10 +889,10 @@ const MenuOne =() => {
                                                 <div className="banner-ads-block grid sm:grid-cols-2 items-center gap-6 pt-6">
                                                     <div className="banner-ads-item bg-linear rounded-2xl relative overflow-hidden" onClick={() => handleTypeClick('swimwear')}>
                                                         <div className="text-content py-14 pl-8 relative z-[1]">
-                                                            <div className="text-button-uppercase text-white bg-red px-2 py-0.5 inline-block rounded-sm">Save $10</div>
+                                                            <div className="text-button-uppercase text-white bg-red px-2 py-0.5 inline-block rounded-sm">Save ₹100</div>
                                                             <div className="heading6 mt-2">Dive into Savings <br />on Swimwear</div>
                                                             <div className="body1 mt-3 text-secondary">
-                                                                Starting at <span className='text-red'>$59.99</span>
+                                                                Starting at <span className='text-red'>₹590.99</span>
                                                             </div>
                                                         </div>
                                                         <Image
@@ -905,10 +905,10 @@ const MenuOne =() => {
                                                     </div>
                                                     <div className="banner-ads-item bg-linear rounded-2xl relative overflow-hidden" onClick={() => handleTypeClick('accessories')}>
                                                         <div className="text-content py-14 pl-8 relative z-[1]">
-                                                            <div className="text-button-uppercase text-white bg-red px-2 py-0.5 inline-block rounded-sm">Save $10</div>
+                                                            <div className="text-button-uppercase text-white bg-red px-2 py-0.5 inline-block rounded-sm">Save ₹100</div>
                                                             <div className="heading6 mt-2">20% off <br />accessories</div>
                                                             <div className="body1 mt-3 text-secondary">
-                                                                Starting at <span className='text-red'>$59.99</span>
+                                                                Starting at <span className='text-red'>₹590.99</span>
                                                             </div>
                                                         </div>
                                                         <Image

@@ -237,9 +237,9 @@ const Grouped: React.FC<Props> = ({ data, productId }) => {
                                 <span className='caption1 text-secondary'>(1.234 reviews)</span>
                             </div>
                             <div className="flex items-center gap-3 flex-wrap mt-5 pb-6 border-b border-line">
-                                <div className="product-price heading5">${productMain.price}.00</div>
+                                <div className="product-price heading5">₹{productMain.price}.00</div>
                                 <div className='w-px h-4 bg-line'></div>
-                                <div className="product-origin-price font-normal text-secondary2"><del>${productMain.originPrice}.00</del></div>
+                                <div className="product-origin-price font-normal text-secondary2"><del>v{productMain.originPrice}.00</del></div>
                                 {productMain.originPrice && (
                                     <div className="product-sale caption2 font-semibold bg-green px-3 py-0.5 inline-block rounded-full">
                                         -{percentSale}%
@@ -275,7 +275,7 @@ const Grouped: React.FC<Props> = ({ data, productId }) => {
                                                     </select>
                                                     <Icon.CaretDown size={12} className='absolute top-1/2 -translate-y-1/2 md:right-4 right-2' />
                                                 </div>
-                                                <div className="text-title mt-2">${item.price},000</div>
+                                                <div className="text-title mt-2">₹{item.price},000</div>
                                             </div>
                                         </div>
                                         <div className="right">
@@ -302,9 +302,9 @@ const Grouped: React.FC<Props> = ({ data, productId }) => {
                             </div>
                             <div className="total-price flex items-center gap-3 mt-6">
                                 <div className="text-title">Total Price:</div>
-                                <div className="heading3">$68.00</div>
+                                <div className="heading3">₹68.00</div>
                                 <div className='w-px h-4 bg-line'></div>
-                                <div className="product-origin-price font-normal text-secondary2"><del>$88.00</del></div>
+                                <div className="product-origin-price font-normal text-secondary2"><del>₹88.00</del></div>
                                 <div className="product-sale caption2 font-semibold bg-green px-3 py-0.5 inline-block rounded-full">
                                     -20%
                                 </div>

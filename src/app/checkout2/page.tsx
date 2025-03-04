@@ -161,13 +161,13 @@ const Checkout = () => {
                                             <strong className="name text-title">Contrasting sheepskin sweatshirt</strong>
                                             <div className="flex items-center gap-2 mt-2">
                                                 <Icon.Tag className="text-secondary" />
-                                                <span className="code text-secondary">AN6810 <span className="discount">(-$14.20)</span></span>
+                                                <span className="code text-secondary">AN6810 <span className="discount">(-₹14.20)</span></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="flex flex-col gap-1">
-                                        <del className="caption1 text-secondary text-end org_price">$99.00</del>
-                                        <strong className="text-title price">$60.00</strong>
+                                        <del className="caption1 text-secondary text-end org_price">₹99.00</del>
+                                        <strong className="text-title price">₹60.00</strong>
                                     </div>
                                 </div>
                                 <div className="item flex items-center justify-between gap-6">
@@ -180,13 +180,13 @@ const Checkout = () => {
                                             <strong className="name text-title">Contrasting sheepskin sweatshirt</strong>
                                             <div className="flex items-center gap-2 mt-2">
                                                 <Icon.Tag className="text-secondary" />
-                                                <span className="code text-secondary">AN6810 <span className="discount">(-$14.20)</span></span>
+                                                <span className="code text-secondary">AN6810 <span className="discount">(-₹14.20)</span></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="flex flex-col gap-1">
-                                        <del className="caption1 text-secondary text-end org_price">$99.00</del>
-                                        <strong className="text-title price">$60.00</strong>
+                                        <del className="caption1 text-secondary text-end org_price">₹99.00</del>
+                                        <strong className="text-title price">₹60.00</strong>
                                     </div>
                                 </div>
                             </div>
@@ -196,7 +196,7 @@ const Checkout = () => {
                             </form>
                             <div className="subtotal flex items-center justify-between mt-8">
                                 <strong className="heading6">Subtotal</strong>
-                                <strong className="heading6">$86,99</strong>
+                                <strong className="heading6">₹86,99</strong>
                             </div>
                             <div className="ship-block flex items-center justify-between mt-4">
                                 <strong className="heading6">Shipping</strong>
@@ -206,13 +206,13 @@ const Checkout = () => {
                                 <strong className="heading4">Total</strong>
                                 <div className="flex items-end gap-2">
                                     <span className="body1 text-secondary">USD</span>
-                                    <strong className="heading4">$186,99</strong>
+                                    <strong className="heading4">₹186,99</strong>
                                 </div>
                             </div>
                             <div className="total-saving-block flex items-center gap-2 mt-4">
                                 <Icon.Tag weight='bold' className="text-xl" />
                                 <strong className="heading5">TOTAL SAVINGS</strong>
-                                <strong className="heading5">$14.85</strong>
+                                <strong className="heading5">₹14.85</strong>
                             </div>
                         </div>
                     </div>

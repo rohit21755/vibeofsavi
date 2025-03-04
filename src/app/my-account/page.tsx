@@ -123,7 +123,7 @@ const MyAccount = () => {
                                                             </div>
                                                         </Link>
                                                     </td>
-                                                    <td className="py-3 price">$45.00</td>
+                                                    <td className="py-3 price">₹45.00</td>
                                                     <td className="py-3 text-right">
                                                         <span className="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Pending</span>
                                                     </td>
@@ -141,7 +141,7 @@ const MyAccount = () => {
                                                             </div>
                                                         </Link>
                                                     </td>
-                                                    <td className="py-3 price">$45.00</td>
+                                                    <td className="py-3 price">₹45.00</td>
                                                     <td className="py-3 text-right">
                                                         <span className="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-purple text-purple caption1 font-semibold">Delivery</span>
                                                     </td>
@@ -159,7 +159,7 @@ const MyAccount = () => {
                                                             </div>
                                                         </Link>
                                                     </td>
-                                                    <td className="py-3 price">$45.00</td>
+                                                    <td className="py-3 price">₹45.00</td>
                                                     <td className="py-3 text-right">
                                                         <span className="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-success text-success caption1 font-semibold">Completed</span>
                                                     </td>
@@ -177,7 +177,7 @@ const MyAccount = () => {
                                                             </div>
                                                         </Link>
                                                     </td>
-                                                    <td className="py-3 price">$45.00</td>
+                                                    <td className="py-3 price">₹45.00</td>
                                                     <td className="py-3 text-right">
                                                         <span className="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Pending</span>
                                                     </td>
@@ -195,7 +195,7 @@ const MyAccount = () => {
                                                             </div>
                                                         </Link>
                                                     </td>
-                                                    <td className="py-3 price">$45.00</td>
+                                                    <td className="py-3 price">₹45.00</td>
                                                     <td className="py-3 text-right">
                                                         <span className="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-purple text-purple caption1 font-semibold">Delivery</span>
                                                     </td>
@@ -213,7 +213,7 @@ const MyAccount = () => {
                                                             </div>
                                                         </Link>
                                                     </td>
-                                                    <td className="py-3 price">$45.00</td>
+                                                    <td className="py-3 price">₹45.00</td>
                                                     <td className="py-3 text-right">
                                                         <span className="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-red text-red caption1 font-semibold">Canceled</span>
                                                     </td>
@@ -279,7 +279,7 @@ const MyAccount = () => {
                                                 <div className='text-title'>
                                                     <span className="prd_quantity">1</span>
                                                     <span> X </span>
-                                                    <span className="prd_price">$45.00</span>
+                                                    <span className="prd_price">₹45.00</span>
                                                 </div>
                                             </div>
                                             <div className="prd_item flex flex-wrap items-center justify-between gap-3 py-5 border-b border-line">
@@ -305,7 +305,7 @@ const MyAccount = () => {
                                                 <div className='text-title'>
                                                     <span className="prd_quantity">2</span>
                                                     <span> X </span>
-                                                    <span className="prd_price">$70.00</span>
+                                                    <span className="prd_price">₹70.00</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -349,7 +349,7 @@ const MyAccount = () => {
                                                 <div className='text-title'>
                                                     <span className="prd_quantity">1</span>
                                                     <span> X </span>
-                                                    <span className="prd_price">$69.00</span>
+                                                    <span className="prd_price">₹69.00</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -393,7 +393,7 @@ const MyAccount = () => {
                                                 <div className='text-title'>
                                                     <span className="prd_quantity">1</span>
                                                     <span> X </span>
-                                                    <span className="prd_price">$32.00</span>
+                                                    <span className="prd_price">₹32.00</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -437,7 +437,7 @@ const MyAccount = () => {
                                                 <div className='text-title'>
                                                     <span className="prd_quantity">1</span>
                                                     <span> X </span>
-                                                    <span className="prd_price">$49.00</span>
+                                                    <span className="prd_price">₹49.00</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -697,7 +697,7 @@ const MyAccount = () => {
                                 <div className='text-title'>
                                     <span className="prd_quantity">1</span>
                                     <span> X </span>
-                                    <span className="prd_price">$45.00</span>
+                                    <span className="prd_price">₹45.00</span>
                                 </div>
                             </div>
                             <div className="prd_item flex flex-wrap items-center justify-between gap-3 py-5 border-b border-line">
@@ -723,7 +723,7 @@ const MyAccount = () => {
                                 <div className='text-title'>
                                     <span className="prd_quantity">2</span>
                                     <span> X </span>
-                                    <span className="prd_price">$70.00</span>
+                                    <span className="prd_price">₹70.00</span>
                                 </div>
                             </div>
                         </div>
@@ -733,11 +733,11 @@ const MyAccount = () => {
                         </div>
                         <div className="flex items-center justify-between mt-4">
                             <strong className="text-title">Discounts</strong>
-                            <strong className="order_discounts text-title">-$80.00</strong>
+                            <strong className="order_discounts text-title">-₹80.00</strong>
                         </div>
                         <div className="flex items-center justify-between mt-5 pt-5 border-t border-line">
                             <h5 className="heading5">Subtotal</h5>
-                            <h5 className="order_total heading5">$105.00</h5>
+                            <h5 className="order_total heading5">₹105.00</h5>
                         </div>
                     </div>
                 </div>

@@ -165,7 +165,7 @@ const ModalQuickview = () => {
                                 <div className="flex items-center gap-3 flex-wrap mt-5 pb-6 border-b border-line">
                                     <div className="product-price heading5">${selectedProduct?.price}.00</div>
                                     <div className='w-px h-4 bg-line'></div>
-                                    <div className="product-origin-price font-normal text-secondary2"><del>${selectedProduct?.originPrice}.00</del></div>
+                                    <div className="product-origin-price font-normal text-secondary2"><del>₹{selectedProduct?.originPrice}.00</del></div>
                                     {selectedProduct?.originPrice && (
                                         <div className="product-sale caption2 font-semibold bg-green px-3 py-0.5 inline-block rounded-full">
                                             -{percentSale}%

@@ -70,8 +70,8 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
                                         <div className=''>
                                             <div className="name text-button">{product.name}</div>
                                             <div className="flex items-center gap-2 mt-2">
-                                                <div className="product-price text-title">${product.price}.00</div>
-                                                <div className="product-origin-price text-title text-secondary2"><del>${product.originPrice}.00</del></div>
+                                                <div className="product-price text-title">₹{product.price}.00</div>
+                                                <div className="product-origin-price text-title text-secondary2"><del>₹{product.originPrice}.00</del></div>
                                             </div>
                                         </div>
                                     </div>
@@ -107,7 +107,7 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
                             </div>
                         </div>
                         <div className="heading banner mt-3 px-6">
-                            <div className="text">Buy <span className="text-button"> $<span className="more-price">{moneyForFreeship - totalCart > 0 ? (<>{moneyForFreeship - totalCart}</>) : (0)}</span>.00 </span>
+                            <div className="text">Buy <span className="text-button"> ₹<span className="more-price">{moneyForFreeship - totalCart > 0 ? (<>{moneyForFreeship - totalCart}</>) : (0)}</span>.00 </span>
                                 <span>more to get </span>
                                 <span className="text-button">freeship</span></div>
                             <div className="tow-bar-block mt-3">
@@ -144,7 +144,7 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
                                                 <div className="flex items-center text-secondary2 capitalize">
                                                     {product.selectedSize || product.sizes[0]}/{product.selectedColor || product.variation[0].color}
                                                 </div>
-                                                <div className="product-price text-title">${product.price}.00</div>
+                                                <div className="product-price text-title">₹{product.price}.00</div>
                                             </div>
                                         </div>
                                     </div>

@@ -294,13 +294,13 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType, gend
                                 <div className="price-block flex items-center justify-between flex-wrap mt-4">
                                     <div className="min flex items-center gap-1">
                                         <div>Min price:</div>
-                                        <div className='price-min'>$
+                                        <div className='price-min'>₹
                                             <span>{priceRange.min}</span>
                                         </div>
                                     </div>
                                     <div className="min flex items-center gap-1">
                                         <div>Max price:</div>
-                                        <div className='price-max'>$
+                                        <div className='price-max'>₹
                                             <span>{priceRange.max}</span>
                                         </div>
                                     </div>

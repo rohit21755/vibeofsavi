@@ -22,7 +22,7 @@ const FlashSale = () => {
                 <div className="flash-sale-block bg-surface flex items-center max-sm:justify-center relative overflow-hidden rounded-[32px] w-full h-full">
                     <div className="text-content basis-1/2 flex flex-col items-center text-center px-8 lg:py-24 md:py-14 py-10">
                         <div className="heading2">Flash Sale!</div>
-                        <div className="body1 mt-3">Get 20% off if you spend 120$ or more!</div>
+                        <div className="body1 mt-3">Get 20% off if you spend ₹1200 or more!</div>
                         <div className="countdown-time flex items-center gap-5 max-sm:gap-[14px] lg:mt-9 md:mt-6 mt-4">
                             <div className="item flex flex-col items-center">
                                 <div className="days time heading1">{timeLeft.days < 10 ? `0${timeLeft.days}` : timeLeft.days}</div>
