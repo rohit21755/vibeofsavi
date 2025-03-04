@@ -25,7 +25,7 @@ export default function Home() {
       <WhatNewOne data={productData} start={0} limit={4} />
       {/* <Collection /> */}
       <TabFeatures data={productData} start={0} limit={6} />
-      <Banner />
+      {/* <Banner /> */}
       <Benefit props="md:py-20 py-10" />
       <Testimonial data={testimonialData} limit={6} />
       {/* <Instagram /> */}

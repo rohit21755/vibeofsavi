@@ -2,7 +2,7 @@
   {
     "id": "1",
     "category": "fashion",
-    "type": "t-shirt",
+    "type": "shirt",
     "name": "mesh shirt",
     "gender": "men",
     "new": true,
@@ -103,7 +103,7 @@
   {
     "id": "3",
     "category": "fashion",
-    "type": "pants",
+    "type": "Shirt",
     "name": "Off-the-Shoulder Blouse",
     "gender": "men",
     "new": false,
@@ -213,7 +213,7 @@
   {
     "id": "5",
     "category": "fashion",
-    "type": "jeans",
+    "type": "t-shirt",
     "name": "mesh shirt",
     "gender": "women",
     "new": true,
@@ -270,7 +270,7 @@
   {
     "id": "6",
     "category": "fashion",
-    "type": "shirt",
+    "type": "t-shirt",
     "name": "Raglan Sleeve T-shirt",
     "gender": "women",
     "new": true,
@@ -328,7 +328,7 @@
   {
     "id": "7",
     "category": "fashion",
-    "type": "pants",
+    "type": "shirt",
     "name": "Off-the-Shoulder Blouse",
     "gender": "women",
     "new": false,
@@ -388,7 +388,7 @@
   {
     "id": "8",
     "category": "fashion",
-    "type": "Pants",
+    "type": "Shirt",
     "name": "Kimono sleeve top",
     "gender": "women",
     "new": false,
@@ -451,7 +451,7 @@
   {
     "id": "9",
     "category": "fashion",
-    "type": "Shirt",
+    "type": "shirt",
     "name": "mesh shirt",
     "gender": "women",
     "new": true,
@@ -575,7 +575,7 @@
   {
     "id": "11",
     "category": "fashion",
-    "type": "t-shirt",
+    "type": "Shirt",
     "name": "Off-the-Shoulder Blouse",
     "gender": "women",
     "new": false,
