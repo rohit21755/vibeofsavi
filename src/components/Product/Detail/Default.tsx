@@ -484,7 +484,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                 <div className='grid md:grid-cols-2 gap-8 gap-y-5'>
                                     <div className="left">
                                         <div className="heading6">Description</div>
-                                        <div className="text-secondary mt-2">Upgrade your wardrobe with this stylish and versatile men's casual button-down shirt. Crafted from a premium cotton blend, it offers a soft, breathable feel that keeps you comfortable all day long. Featuring a classic collar, full sleeves, and a tailored fit, this shirt is perfect for both office wear and casual outings. The fine stitching and durable fabric ensure long-lasting wear, while the elegant design pairs effortlessly with jeans or formal trousers. Available in a range of colors and patterns to suit every occasion.</div>
+                                        <div className="text-secondary mt-2">Upgrade your wardrobe with this stylish and versatile men&apos;s casual button-down shirt. Crafted from a premium cotton blend, it offers a soft, breathable feel that keeps you comfortable all day long. Featuring a classic collar, full sleeves, and a tailored fit, this shirt is perfect for both office wear and casual outings. The fine stitching and durable fabric ensure long-lasting wear, while the elegant design pairs effortlessly with jeans or formal trousers. Available in a range of colors and patterns to suit every occasion.</div>
                                     </div>
                                     <div className="right">
                                         <div className="heading6">About This Products</div>
