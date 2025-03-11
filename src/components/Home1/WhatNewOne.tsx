@@ -19,7 +19,7 @@ const WhatNewOne: React.FC<Props> = ({ data, start, limit }) => {
     };
 
     const filteredProducts = data.filter((product) => product.type === activeTab && (product.category === 'fashion'));
-    console.log(filteredProducts)
+
 
     return (
         <>

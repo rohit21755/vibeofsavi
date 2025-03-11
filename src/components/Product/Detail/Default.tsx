@@ -27,7 +27,7 @@ interface Props {
 }
 
 const Default: React.FC<Props> = ({ data, productId }) => {
-    // console.log("data", data)
+
     const swiperRef: any = useRef();
     const [photoIndex, setPhotoIndex] = useState(0)
     const [openPopupImg, setOpenPopupImg] = useState(false)
@@ -46,10 +46,10 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     if (productMain === undefined) {
         productMain = data[0]
     }
-    console.log("productMain", productMain)
+
 
     const percentSale = Math.floor(100 - ((productMain?.price / productMain?.originPrice) * 100))
-    // console.log("percentSale", percentSale)
+
 
     const handleOpenSizeGuide = () => {
         setOpenSizeGuide(true);

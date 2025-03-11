@@ -1,5 +1,5 @@
+"use client";
 import React from 'react'
-
 import SliderOne from '@/components/Slider/SliderOne'
 import WhatNewOne from '@/components/Home1/WhatNewOne'
 import productData from '@/data/Product.json'
@@ -14,7 +14,10 @@ import Brand from '@/components/Home1/Brand'
 import Footer from '@/components/Footer/Footer'
 import ModalNewsletter from '@/components/Modal/ModalNewsletter'
 import FAQAccordion from '@/components/Home1/Faq'
+import { useSession } from 'next-auth/react'
 export default function Home() {
+  const { data: session, status } = useSession()
+  console.log(session?.user)
   return (
     <>
       

@@ -37,8 +37,7 @@ const handler = NextAuth({
                 }
                 try {
                     const response = await axios.post(APIS.login, data);
-                    console.log(response.data);
-                    if (response.data.success) {
+                    if (response.data.token) {
                         const user = {
                             id: response.data.user.id,
                             name: response.data.user.name,
@@ -46,6 +45,7 @@ const handler = NextAuth({
                             phoneNumber: response.data.user.phoneNumber,
                             accessToken: response.data.token,
                         }
+                        console.log(user);
                         return  user
                     }
                 }
@@ -81,10 +81,12 @@ const handler = NextAuth({
                 session.accessToken = token.accessToken as string;
             }
             return session;
-        }
+        },
+        
     },
     pages: {
         signIn: "/login",
+        
     }
 });
 
