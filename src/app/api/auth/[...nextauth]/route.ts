@@ -82,11 +82,15 @@ const handler = NextAuth({
             }
             return session;
         },
+        async redirect({ url, baseUrl }) {
+            return baseUrl; 
+        },
         
     },
     pages: {
         signIn: "/login",
-        
+        signOut: "/",
+        error: "/login",
     }
 });
 

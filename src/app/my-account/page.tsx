@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import TopNavOne from '@/components/Header/TopNav/TopNavOne'
@@ -8,19 +8,29 @@ import Breadcrumb from '@/components/Breadcrumb/Breadcrumb'
 import Footer from '@/components/Footer/Footer'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 import { motion } from 'framer-motion'
-
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { signOut } from 'next-auth/react'
 const MyAccount = () => {
     const [activeTab, setActiveTab] = useState<string | undefined>('dashboard')
     const [activeAddress, setActiveAddress] = useState<string | null>('billing')
     const [activeOrders, setActiveOrders] = useState<string | undefined>('all')
     const [openDetail, setOpenDetail] = useState<boolean | undefined>(false)
-
+    const { data: session, status } = useSession()
     const handleActiveAddress = (order: string) => {
         setActiveAddress(prevOrder => prevOrder === order ? null : order)
     }
-
+    const router = useRouter()
     const handleActiveOrders = (order: string) => {
         setActiveOrders(order)
+    }
+    useEffect(() => {
+        if (!session) {
+            router.push('/login')
+        }
+    }, [session])
+    function handleLogout() {
+        signOut({ callbackUrl: '/' })
     }
 
     return (
@@ -36,17 +46,10 @@ const MyAccount = () => {
                         <div className="left md:w-1/3 w-full xl:pr-[3.125rem] lg:pr-[28px] md:pr-[16px]">
                             <div className="user-infor bg-surface lg:px-7 px-4 lg:py-10 py-5 md:rounded-[20px] rounded-xl">
                                 <div className="heading flex flex-col items-center justify-center">
-                                    <div className="avatar">
-                                        <Image
-                                            src={'/images/avatar/1.png'}
-                                            width={300}
-                                            height={300}
-                                            alt='avatar'
-                                            className='md:w-[140px] w-[120px] md:h-[140px] h-[120px] rounded-full'
-                                        />
-                                    </div>
-                                    <div className="name heading6 mt-4 text-center">Tony Nguyen</div>
-                                    <div className="mail heading6 font-normal normal-case text-secondary text-center mt-1">hi.avitex@gmail.com</div>
+                                    
+                                    <div className="name heading6 mt-4 text-center">{session?.user?.name}</div>
+                                    <div className="mail heading6 font-normal normal-case text-secondary text-center mt-1">{session?.user?.email}</div>
+                                   
                                 </div>
                                 <div className="menu-tab w-full max-w-none lg:mt-10 mt-6">
                                     <Link href={'#!'} scroll={false} className={`item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-white ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => setActiveTab('dashboard')}>
@@ -65,10 +68,10 @@ const MyAccount = () => {
                                         <Icon.GearSix size={20} />
                                         <strong className="heading6">Setting</strong>
                                     </Link>
-                                    <Link href={'/login'} className="item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-white mt-1.5">
+                                    <button onClick={handleLogout}  className="item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-white mt-1.5">
                                         <Icon.SignOut size={20} />
                                         <strong className="heading6">Logout</strong>
-                                    </Link>
+                                    </button>
                                 </div>
                             </div>
                         </div>

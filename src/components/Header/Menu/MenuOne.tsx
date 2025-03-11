@@ -15,9 +15,9 @@ import { useModalSearchContext } from '@/context/ModalSearchContext';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
 import logo from "../../../../public/images/logo.png"
-
-
+import { useSession } from 'next-auth/react';
 const MenuOne =() => {
+    const { data: session } = useSession()
     const router = useRouter()
     const pathname = usePathname()
     let [selectedType, setSelectedType] = useState<string | null>()
@@ -536,13 +536,22 @@ const MenuOne =() => {
                                         className={`login-popup absolute top-[74px] w-[320px] p-7 rounded-xl bg-white box-shadow-sm 
                                             ${openLoginPopup ? 'open' : ''}`}
                                     >
-                                        <Link href={'/login'} className="button-main w-full text-center">Login</Link>
-                                        <div className="text-secondary text-center mt-3 pb-4">Don’t have an account?
-                                            <Link href={'/register'} className='text-black pl-1 hover:underline'>Register</Link>
-                                        </div>
-                                        <Link href={'/my-account'} className="button-main bg-white text-black border border-black w-full text-center">Dashboard</Link>
-                                        <div className="bottom mt-4 pt-4 border-t border-line"></div>
-                                        <Link href={'#!'} className='body1 hover:underline'>Support</Link>
+                                        {session?.accessToken ? (
+                                            <>
+                                                <Link href={'/my-account'} className="button-main bg-white text-black border border-black w-full text-center">Dashboard</Link>
+                                                <div className="bottom mt-4 pt-4 border-t border-line"></div>
+                                                <Link href={'#!'} className='body1 hover:underline'>Support</Link>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Link href={'/login'} className="button-main w-full text-center">Login</Link>
+                                                <div className="text-secondary text-center mt-3 pb-4">Don’t have an account?
+                                                    <Link href={'/register'} className='text-black pl-1 hover:underline'>Register</Link>
+                                                </div>
+                                            
+                                            </>
+                                        )}
+                              
                                     </div>
                                 </div>
                                 <div className="max-md:hidden wishlist-icon flex items-center cursor-pointer" onClick={openModalWishlist}>
