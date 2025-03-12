@@ -6,11 +6,12 @@ export default function PaymentPage() {
         const data = { 
             name: 'Vibe of Savi',
             amount: 100,
-            mobile: '1234567890',
+            mobileNumber: '1234567890',
         }
         try{
-                const response = await axios.post('http://localhost:4000/payment/create-order', data)
-                console.log(response)
+                const response = await axios.post('http://localhost:4000/api/payment/create-order', data)
+                console.log(response.data)
+                window.location.href = response.data.url
         }
         catch(err) {
             console.log(err)
