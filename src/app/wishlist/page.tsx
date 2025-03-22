@@ -35,9 +35,9 @@ const Wishlist = () => {
     // Filter product data by type
     let filteredData = wishlistState.wishlistArray.filter(product => {
         let isTypeMatched = true;
-        if (type) {
-            isTypeMatched = product.type === type;
-        }
+        // if (type) {
+        //     isTypeMatched = product.type === type;
+        // }
 
         return isTypeMatched
     })

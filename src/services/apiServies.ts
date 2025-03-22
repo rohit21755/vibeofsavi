@@ -1,7 +1,7 @@
 import axios from "axios";
 import { APIS } from "../../apiconfig";
 import { ProductData } from "../type/NewProduct";
-function formatedata(data:any){
+export function formatedata(data:any){
     return {
         "id": data.id.toString(),
         "category": data.category[0].toLowerCase(),
@@ -33,8 +33,8 @@ function formatedata(data:any){
 }
 export const fetchProducts = async () => {
     try{
+        
         const response = await axios.get(APIS.getProducts);
-        console.log(response.data.products);
         if(response.data.products.length > 0){
             const formattedData = response.data.products.map((data:any) => formatedata(data));
             return formattedData;
@@ -45,5 +45,52 @@ export const fetchProducts = async () => {
     }
     catch (error) {
         console.log(error);
+    }
+}
+
+export const fetchWishlist = async (accessToken: string) => {
+    try {
+        const response = await axios.get(APIS.fetchWishlist, {
+            headers: {
+                Authorization: `${accessToken}`
+            }
+        });
+        console.log(response.data.wishlist);
+       return response.data;
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+export const addWishlist = async (accessToken: string, productId: string) => {
+    try{
+        const response = await axios.post(APIS.addToWishlist, {
+            productId: productId
+        }, {
+            headers: {
+                Authorization: `${accessToken}`
+            }
+        });
+        return response
+    }
+    catch (error) {
+        console.log(error);
+        return null
+    }
+}
+
+export const removeWishlist = async (accessToken: string, productId: string) => {
+    try{
+        const response = await axios.delete(APIS.removeFromWishlist(productId), {
+            headers: {
+                Authorization: `${accessToken}`
+            }
+        });
+        return response
+    }
+    catch (error) {
+        console.log(error);
+        return null
     }
 }

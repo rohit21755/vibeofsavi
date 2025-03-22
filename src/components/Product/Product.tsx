@@ -55,7 +55,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
 
     const handleAddToWishlist = () => {
         // if product existed in wishlit, remove from wishlist and set state to false
-        if (wishlistState.wishlistArray.some(item => item.id === data.id)) {
+        if (wishlistState.wishlistArray.some(item => Number(item.id) === Number(data.id))) {
             removeFromWishlist(data.id);
         } else {
             // else, add to wishlist and set state to true
@@ -124,7 +124,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                         </div>
                                     )}
                                     <div
-                                        className={`add-wishlist-btn w-[32px] h-[32px] flex items-center justify-center rounded-full bg-white duration-300 relative ${wishlistState.wishlistArray.some(item => item.id === data.id) ? 'active' : ''}`}
+                                        className={`add-wishlist-btn w-[32px] h-[32px] flex items-center justify-center rounded-full bg-white duration-300 relative ${wishlistState.wishlistArray.some(item => Number(item.id) === Number(data.id)) ? 'active' : ''}`}
                                         onClick={(e) => {
                                             e.stopPropagation()
                                             handleAddToWishlist()

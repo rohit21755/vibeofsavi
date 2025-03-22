@@ -1,20 +1,37 @@
-import React, { useEffect, useState } from "react";
+"use client";
+import React, { useEffect, useState, createContext, ReactNode } from "react";
 import { ProductData } from "@/type/NewProduct";
+import { fetchProducts } from "@/services/apiServies";
+
 interface GlobalContextType {
     Products: ProductData[];
 }
-export const GlobalContextData = React.createContext<GlobalContextType>({ Products: [] });
-import { ReactNode } from "react";
-import { fetchProducts } from "@/services/apiServies";
+
+export const GlobalContextData = createContext<GlobalContextType>({ Products: [] });
+
 interface GlobalContextProviderProps {
     children: ReactNode;
 }
 
-export async function GlobalContextProvider({ children }: GlobalContextProviderProps) {
-    
+export function GlobalContextProvider({ children }: GlobalContextProviderProps) {
+    const [Products, setProducts] = useState<ProductData[]>([]);
 
-    let  Products = await fetchProducts();
-   
-    
-    return <GlobalContextData.Provider value={{ Products}}>{children}</GlobalContextData.Provider>;
+    useEffect(() => {
+        const getProducts = async () => {
+            try {
+                const data = await fetchProducts();
+                setProducts(data);
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
+        };
+
+        getProducts();
+    }, []);
+
+    return (
+        <GlobalContextData.Provider value={{ Products }}>
+            {children}
+        </GlobalContextData.Provider>
+    );
 }

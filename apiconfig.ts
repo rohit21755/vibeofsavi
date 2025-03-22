@@ -1,3 +1,5 @@
+import { add } from "next-video/dist/utils/logger.js";
+
 const url = "http://localhost:4000/api";
 
 export const APIS = {
@@ -5,4 +7,8 @@ export const APIS = {
 
     // get all products
     getProducts : url + "/product/all",
+    fetchWishlist : url + "/wishlist/",
+    addToWishlist : url + "/wishlist/",
+    removeFromWishlist : (productId: string) => url + `/wishlist/${productId}`,
+    
 }

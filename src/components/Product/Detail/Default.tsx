@@ -1,5 +1,4 @@
 'use client'
-
 import React, { useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -19,6 +18,7 @@ import { useCompare } from '@/context/CompareContext'
 import { useModalCompareContext } from '@/context/ModalCompareContext'
 import ModalSizeguide from '@/components/Modal/ModalSizeguide'
 import { ProductData } from '@/type/NewProduct'
+import { useSession } from 'next-auth/react'
 // SwiperCore.use([Navigation, Thumbs]);
 
 interface Props {
@@ -27,7 +27,8 @@ interface Props {
 }
 
 const Default: React.FC<Props> = ({ data, productId }) => {
-    console.log(data);
+
+    const session = useSession()
     const swiperRef: any = useRef();
     const [photoIndex, setPhotoIndex] = useState(0)
     const [openPopupImg, setOpenPopupImg] = useState(false)
@@ -49,7 +50,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
 
 
     const percentSale = Math.floor(100 - ((productMain?.price / productMain?.originPrice) * 100))
-
+    console.log(wishlistState)
 
     const handleOpenSizeGuide = () => {
         setOpenSizeGuide(true);
@@ -104,38 +105,30 @@ const Default: React.FC<Props> = ({ data, productId }) => {
         }
         openModalCart()
     };
-
+    console.log(wishlistState.wishlistArray);
     const handleAddToWishlist = () => {
-        // if product existed in wishlit, remove from wishlist and set state to false
-        if (wishlistState.wishlistArray.some(item => item.id === productMain.id)) {
-            removeFromWishlist(productMain.id);
-        } else {
-            // else, add to wishlist and set state to true
-            addToWishlist(productMain);
-        }
-        openModalWishlist();
-    };
 
-    const handleAddToCompare = () => {
-        // if product existed in wishlit, remove from wishlist and set state to false
-        if (compareState.compareArray.length < 3) {
-            if (compareState.compareArray.some(item => item.id === productMain.id)) {
-                removeFromCompare(productMain.id);
+        if (session.status === 'authenticated') {
+            console.log(wishlistState.wishlistArray);
+            const isWishlisted = wishlistState.wishlistArray.some(item => item.id === productMain.id);
+            
+            if (isWishlisted) {
+                removeFromWishlist(productMain.id);
             } else {
-                // else, add to wishlist and set state to true
-                addToCompare(productMain);
+                addToWishlist(productMain);
             }
         } else {
-            alert('Compare up to 3 products')
+            alert('Please login to add to wishlist');
         }
-
-        openModalCompare();
     };
+    
+
+
 
     const handleActiveTab = (tab: string) => {
         setActiveTab(tab)
     }
-    console.log(productMain);
+
 
     return (
         <>
@@ -270,32 +263,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                 {/* <div className='desc text-secondary mt-3'>{productMain.description}</div> */}
                             </div>
                             <div className="list-action mt-6">
-                                {/* <div className="choose-color">
-                                    <div className="text-title">Colors: <span className='text-title color'>{activeColor}</span></div>
-                                    <div className="list-color flex items-center gap-2 flex-wrap mt-3">
-                                        {productMain.variation.map((item, index) => (
-                                            <div
-                                                className={`color-item w-12 h-12 rounded-xl duration-300 relative ${activeColor === item.color ? 'active' : ''}`}
-                                                key={index}
-                                                datatype={item.image}
-                                                onClick={() => {
-                                                    handleActiveColor(item.color)
-                                                }}
-                                            >
-                                                <Image
-                                                    src={item.colorImage}
-                                                    width={100}
-                                                    height={100}
-                                                    alt='color'
-                                                    className='rounded-xl'
-                                                />
-                                                <div className="tag-action bg-black text-white caption2 capitalize px-1.5 py-0.5 rounded-sm">
-                                                    {item.color}
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div> */}
+                               
                                 <div className="choose-size mt-5">
                                     <div className="heading flex items-center justify-between">
                                         <div className="text-title">Size: <span className='text-title size'>{activeSize}</span></div>
@@ -344,15 +312,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                     <div className="button-main w-full text-center">Buy It Now</div>
                                 </div>
                                 <div className="flex items-center lg:gap-20 gap-8 mt-5 pb-6 border-b border-line">
-                                    <div className="compare flex items-center gap-3 cursor-pointer"
-                                     onClick={(e) => { e.stopPropagation(); handleAddToCompare() }}
-                                     >
-
-                                        <div className="compare-btn md:w-12 md:h-12 w-10 h-10 flex items-center justify-center border border-line cursor-pointer rounded-xl duration-300 hover:bg-black hover:text-white">
-                                            <Icon.ArrowsCounterClockwise className='heading6' />
-                                        </div>
-                                        <span>Compare</span>
-                                    </div>
+                                   
                                     <div className="share flex items-center gap-3 cursor-pointer">
                                         <div className="share-btn md:w-12 md:h-12 w-10 h-10 flex items-center justify-center border border-line cursor-pointer rounded-xl duration-300 hover:bg-black hover:text-white">
                                             <Icon.ShareNetwork weight='fill' className='heading6' />
@@ -361,20 +321,11 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                     </div>
                                 </div>
                                 <div className="more-infor mt-6">
-                                    <div className="flex items-center gap-4 flex-wrap">
-                                        <div className="flex items-center gap-1">
-                                            <Icon.ArrowClockwise className='body1' />
-                                            <div className="text-title">Delivery & Return</div>
-                                        </div>
-                                        <div className="flex items-center gap-1">
-                                            <Icon.Question className='body1' />
-                                            <div className="text-title">Ask A Question</div>
-                                        </div>
-                                    </div>
+                                    
                                     <div className="flex items-center gap-1 mt-3">
                                         <Icon.Timer className='body1' />
                                         <div className="text-title">Estimated Delivery:</div>
-                                        <div className="text-secondary">14 January - 18 January</div>
+                                        <div className="text-secondary">4-6 Days</div>
                                     </div>
                                     <div className="flex items-center gap-1 mt-3">
                                         <Icon.Eye className='body1' />
@@ -394,67 +345,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                         <div className="text-secondary">{productMain.type}</div>
                                     </div>
                                 </div>
-                                <div className="list-payment mt-7">
-                                    {/* <div className="main-content lg:pt-8 pt-6 lg:pb-6 pb-4 sm:px-4 px-3 border border-line rounded-xl relative max-md:w-2/3 max-sm:w-full">
-                                        <div className="heading6 px-5 bg-white absolute -top-[14px] left-1/2 -translate-x-1/2 whitespace-nowrap">Guranteed safe checkout</div>
-                                        <div className="list grid grid-cols-6">
-                                            <div className="item flex items-center justify-center lg:px-3 px-1">
-                                                <Image
-                                                    src={'/images/payment/Frame-0.png'}
-                                                    width={500}
-                                                    height={450}
-                                                    alt='payment'
-                                                    className='w-full'
-                                                />
-                                            </div>
-                                            <div className="item flex items-center justify-center lg:px-3 px-1">
-                                                <Image
-                                                    src={'/images/payment/Frame-1.png'}
-                                                    width={500}
-                                                    height={450}
-                                                    alt='payment'
-                                                    className='w-full'
-                                                />
-                                            </div>
-                                            <div className="item flex items-center justify-center lg:px-3 px-1">
-                                                <Image
-                                                    src={'/images/payment/Frame-2.png'}
-                                                    width={500}
-                                                    height={450}
-                                                    alt='payment'
-                                                    className='w-full'
-                                                />
-                                            </div>
-                                            <div className="item flex items-center justify-center lg:px-3 px-1">
-                                                <Image
-                                                    src={'/images/payment/Frame-3.png'}
-                                                    width={500}
-                                                    height={450}
-                                                    alt='payment'
-                                                    className='w-full'
-                                                />
-                                            </div>
-                                            <div className="item flex items-center justify-center lg:px-3 px-1">
-                                                <Image
-                                                    src={'/images/payment/Frame-4.png'}
-                                                    width={500}
-                                                    height={450}
-                                                    alt='payment'
-                                                    className='w-full'
-                                                />
-                                            </div>
-                                            <div className="item flex items-center justify-center lg:px-3 px-1">
-                                                <Image
-                                                    src={'/images/payment/Frame-5.png'}
-                                                    width={500}
-                                                    height={450}
-                                                    alt='payment'
-                                                    className='w-full'
-                                                />
-                                            </div>
-                                        </div>
-                                    </div> */}
-                                </div>
+                                
                             </div>
                             
                             

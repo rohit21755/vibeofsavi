@@ -44,6 +44,7 @@ const handler = NextAuth({
                             email: response.data.user.email,
                             phoneNumber: response.data.user.phoneNumber,
                             accessToken: response.data.token,
+                            address: response.data.user.address,
                         }
                         console.log(user);
                         return  user
