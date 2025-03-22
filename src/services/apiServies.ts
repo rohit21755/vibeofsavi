@@ -18,7 +18,7 @@ function formatedata(data:any){
         "quantity": data.quantity,
         "quantityPurchase": 1, // Default value
         "sizes": data.sizes,
-        "variation": data.variants.map(variant => ({
+        "variation": data.variants.map((variant:any) => ({
             "color": variant.color,
             "colorCode": "#000000", // Default black as color code not available
             "colorImage": "/images/product/color/48x48.png", // Placeholder
@@ -31,16 +31,16 @@ function formatedata(data:any){
         "slug": data.name.toLowerCase().replace(/\s+/g, "-")
     };
 }
-export const fetchProducts = async (setProducts: React.Dispatch<React.SetStateAction<ProductData[]>>) => {
+export const fetchProducts = async () => {
     try{
         const response = await axios.get(APIS.getProducts);
         console.log(response.data.products);
         if(response.data.products.length > 0){
-            const formattedData = response.data.products.map(data => formatedata(data));
-            setProducts(formattedData);
+            const formattedData = response.data.products.map((data:any) => formatedata(data));
+            return formattedData;
         }
         else {
-            setProducts([]);
+            return [];
         }
     }
     catch (error) {

@@ -18,16 +18,16 @@ import { useModalWishlistContext } from '@/context/ModalWishlistContext'
 import { useCompare } from '@/context/CompareContext'
 import { useModalCompareContext } from '@/context/ModalCompareContext'
 import ModalSizeguide from '@/components/Modal/ModalSizeguide'
-
+import { ProductData } from '@/type/NewProduct'
 // SwiperCore.use([Navigation, Thumbs]);
 
 interface Props {
-    data: Array<ProductType>
+    data: Array<ProductData>
     productId: string | number | null
 }
 
 const Default: React.FC<Props> = ({ data, productId }) => {
-
+    console.log(data);
     const swiperRef: any = useRef();
     const [photoIndex, setPhotoIndex] = useState(0)
     const [openPopupImg, setOpenPopupImg] = useState(false)
@@ -135,7 +135,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     const handleActiveTab = (tab: string) => {
         setActiveTab(tab)
     }
-
+    console.log(productMain);
 
     return (
         <>

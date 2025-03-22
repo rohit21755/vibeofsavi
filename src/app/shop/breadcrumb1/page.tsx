@@ -7,9 +7,11 @@ import MenuOne from '@/components/Header/Menu/MenuOne'
 import ShopBreadCrumb1 from '@/components/Shop/ShopBreadCrumb1'
 import productData from '@/data/Product.json'
 import Footer from '@/components/Footer/Footer'
-
+import { useContext } from 'react'
+import { GlobalContextData } from '@/context/GlobalContext'
 export default function BreadCrumb1() {
     const searchParams = useSearchParams()
+    const { Products } = useContext(GlobalContextData);
     let [type,setType] = useState<string | null | undefined>()
     let datatype = searchParams.get('type')
     let gender = searchParams.get('gender')
@@ -23,7 +25,7 @@ export default function BreadCrumb1() {
     return (
         <>
             
-            <ShopBreadCrumb1 data={productData} productPerPage={9} dataType={type} gender={gender} category={category} />
+            <ShopBreadCrumb1 data={Products} productPerPage={9} dataType={type} gender={gender} category={category} />
             <Footer />      
         </>
     )
