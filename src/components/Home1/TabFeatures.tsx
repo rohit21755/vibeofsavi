@@ -23,19 +23,14 @@ const TabFeatures: React.FC<Props> = ({ data, start, limit }) => {
 
     const getFilterData = () => {
         if (activeTab === 'on sale') {
-            return data.filter((product) => product.sale && (product.category === 'fashion'))
+            return data.filter((product) => product.sale)
         }
 
         if (activeTab === 'new arrivals') {
-            return data.filter((product) => product.new && (product.category === 'fashion'))
+            return data.filter((product) => product.new)
         }
 
-        if (activeTab === 'best sellers') {
-            return data
-                .filter((product) => product.category === 'fashion')
-                .slice()
-                .sort((a, b) => b.sold - a.sold)
-        }
+        
 
         return data
     }
@@ -48,7 +43,7 @@ const TabFeatures: React.FC<Props> = ({ data, start, limit }) => {
                 <div className="container">
                     <div className="heading flex flex-col items-center text-center">
                         <div className="menu-tab flex items-center gap-2 p-1 bg-surface rounded-2xl">
-                            {['best sellers', 'on sale', 'new arrivals'].map((item, index) => (
+                            {[ 'on sale', 'new arrivals'].map((item, index) => (
                                 <div
                                     key={index}
                                     className={`tab-item relative text-secondary heading5 py-2 px-5 cursor-pointer duration-500 hover:text-black ${activeTab === item ? 'active' : ''}`}

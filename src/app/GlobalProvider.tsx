@@ -9,10 +9,12 @@ import { ModalCompareProvider } from '@/context/ModalCompareContext'
 import { ModalSearchProvider } from '@/context/ModalSearchContext'
 import { ModalQuickviewProvider } from '@/context/ModalQuickviewContext'
 import { SessionProvider } from 'next-auth/react'
+import { GlobalContextProvider } from '@/context/GlobalContext'
 import Head from 'next/head'
 const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
         <>
+        <GlobalContextProvider>
         <SessionProvider>
         <CartProvider>
             <ModalCartProvider>
@@ -32,6 +34,7 @@ const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
             </ModalCartProvider>
         </CartProvider>
         </SessionProvider>
+        </GlobalContextProvider>
         </>
     )
 }

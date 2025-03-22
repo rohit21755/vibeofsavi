@@ -15,9 +15,13 @@ import Footer from '@/components/Footer/Footer'
 import ModalNewsletter from '@/components/Modal/ModalNewsletter'
 import FAQAccordion from '@/components/Home1/Faq'
 import { useSession } from 'next-auth/react'
+import { useContext } from 'react'
+import { GlobalContextData } from '@/context/GlobalContext'
 export default function Home() {
   const { data: session, status } = useSession()
   console.log(session?.user)
+  
+  const { Products } = useContext(GlobalContextData);
   return (
     <>
       
@@ -25,9 +29,9 @@ export default function Home() {
         
         <SliderOne />
       </div>
-      <WhatNewOne data={productData} start={0} limit={4} />
+      <WhatNewOne data={Products} start={0} limit={4} />
       {/* <Collection /> */}
-      <TabFeatures data={productData} start={0} limit={6} />
+      <TabFeatures data={Products} start={0} limit={6} />
       {/* <Banner /> */}
       <Benefit props="md:py-20 py-10" />
       <Testimonial data={testimonialData} limit={6} />
