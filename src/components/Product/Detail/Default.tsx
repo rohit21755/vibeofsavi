@@ -37,7 +37,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     const [activeColor, setActiveColor] = useState<string>('')
     const [activeSize, setActiveSize] = useState<string>('')
     const [activeTab, setActiveTab] = useState<string | undefined>('description')
-    const { addToCart, updateCart, cartState } = useCart()
+    const { addToCart, cartState } = useCart()
     const { openModalCart } = useModalCartContext()
     const { addToWishlist, removeFromWishlist, wishlistState } = useWishlist()
     const { openModalWishlist } = useModalWishlistContext()
@@ -47,7 +47,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     if (productMain === undefined) {
         productMain = data[0]
     }
-
+    console.log(cartState)
 
     const percentSale = Math.floor(100 - ((productMain?.price / productMain?.originPrice) * 100))
     console.log(wishlistState)
@@ -86,23 +86,25 @@ const Default: React.FC<Props> = ({ data, productId }) => {
 
     const handleIncreaseQuantity = () => {
         productMain.quantityPurchase += 1
-        updateCart(productMain.id, productMain.quantityPurchase + 1, activeSize, activeColor);
+   
     };
 
     const handleDecreaseQuantity = () => {
         if (productMain.quantityPurchase > 1) {
             productMain.quantityPurchase -= 1
-            updateCart(productMain.id, productMain.quantityPurchase - 1, activeSize, activeColor);
+           
         }
     };
 
     const handleAddToCart = () => {
-        if (!cartState.cartArray.find(item => item.id === productMain.id)) {
-            addToCart({ ...productMain });
-            updateCart(productMain.id, productMain.quantityPurchase, activeSize, activeColor)
-        } else {
-            updateCart(productMain.id, productMain.quantityPurchase, activeSize, activeColor)
-        }
+      
+            addToCart({
+                productId: productMain.id,
+                quantity: productMain.quantityPurchase,
+                selectedSize: activeSize,
+                selectedColor: activeColor
+            });
+        
         openModalCart()
     };
 

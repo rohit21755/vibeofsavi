@@ -1,70 +1,59 @@
-'use client'
+'use client';
 
-// CartContext.tsx
-import React, { createContext, useContext, useState, useReducer, useEffect } from 'react';
-import { ProductType } from '@/type/ProductType';
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import { fetchCart, addToCart as apiAddToCart, removeFromCart as apiRemoveFromCart } from '@/services/apiServies';
 
-interface CartItem extends ProductType {
-    quantity: number
-    selectedSize: string
-    selectedColor: string
+interface CartItem {
+    productId: number;
+    quantity: number;
+    selectedSize?: string;
+    selectedColor?: string;
 }
 
 interface CartState {
-    cartArray: CartItem[]
+    cartArray: CartItem[];
 }
 
 type CartAction =
-    | { type: 'ADD_TO_CART'; payload: ProductType }
+    | { type: 'ADD_TO_CART'; payload: CartItem }
     | { type: 'REMOVE_FROM_CART'; payload: string }
-    | {
-        type: 'UPDATE_CART'; payload: {
-            itemId: string; quantity: number, selectedSize: string, selectedColor: string
-        }
-    }
-    | { type: 'LOAD_CART'; payload: CartItem[] }
+    | { type: 'LOAD_CART'; payload: CartItem[] };
 
 interface CartContextProps {
     cartState: CartState;
-    addToCart: (item: ProductType) => void;
-    removeFromCart: (itemId: string) => void;
-    updateCart: (itemId: string, quantity: number, selectedSize: string, selectedColor: string) => void;
+    addToCart: (item: CartItem) => void;
+    removeFromCart: (productId: string) => void;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
     switch (action.type) {
-        case 'ADD_TO_CART':
-            const newItem: CartItem = { ...action.payload, quantity: 1, selectedSize: '', selectedColor: '' };
-            return {
-                ...state,
-                cartArray: [...state.cartArray, newItem],
-            };
+        case 'ADD_TO_CART': {
+            const existingItem = state.cartArray.find(item => 
+                item.productId === action.payload.productId && 
+                item.selectedSize === action.payload.selectedSize && 
+                item.selectedColor === action.payload.selectedColor);
+            
+            if (existingItem) {
+                return {
+                    ...state,
+                    cartArray: state.cartArray.map(item => 
+                        item.productId === action.payload.productId && 
+                        item.selectedSize === action.payload.selectedSize && 
+                        item.selectedColor === action.payload.selectedColor
+                            ? { ...item, quantity: item.quantity + action.payload.quantity }
+                            : item
+                    ),
+                };
+            }
+            return { ...state, cartArray: [...state.cartArray, action.payload] };
+        }
         case 'REMOVE_FROM_CART':
-            return {
-                ...state,
-                cartArray: state.cartArray.filter((item) => item.id !== action.payload),
-            };
-        case 'UPDATE_CART':
-            return {
-                ...state,
-                cartArray: state.cartArray.map((item) =>
-                    item.id === action.payload.itemId
-                        ? {
-                            ...item,
-                            quantity: action.payload.quantity,
-                            selectedSize: action.payload.selectedSize,
-                            selectedColor: action.payload.selectedColor
-                        }
-                        : item
-                ),
-            };
+            return { ...state, cartArray: state.cartArray.filter(item => item.productId !== Number(action.payload)) };
         case 'LOAD_CART':
-            return {
-                ...state,
-                cartArray: action.payload,
-            };
+            return { ...state, cartArray: action.payload };
         default:
             return state;
     }
@@ -72,21 +61,35 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [cartState, dispatch] = useReducer(cartReducer, { cartArray: [] });
+    const { data: session } = useSession();
 
-    const addToCart = (item: ProductType) => {
-        dispatch({ type: 'ADD_TO_CART', payload: item });
+    useEffect(() => {
+        if (session?.accessToken) {
+            fetchCart(session.accessToken).then((cart: CartItem[]) => {
+                console.log(cart);
+                dispatch({ type: 'LOAD_CART', payload: cart });
+            });
+        }
+    }, [session]);
+
+    const addToCart = async (item: CartItem) => {
+        if (!session?.accessToken) return;
+        const response = await apiAddToCart(session.accessToken, String(item.productId), item.quantity, item.selectedSize || '', item.selectedColor || '');
+        if (response) {
+            dispatch({ type: 'ADD_TO_CART', payload: item });
+        }
     };
 
-    const removeFromCart = (itemId: string) => {
-        dispatch({ type: 'REMOVE_FROM_CART', payload: itemId });
-    };
-
-    const updateCart = (itemId: string, quantity: number, selectedSize: string, selectedColor: string) => {
-        dispatch({ type: 'UPDATE_CART', payload: { itemId, quantity, selectedSize, selectedColor } });
+    const removeFromCart = async (productId: string) => {
+        if (!session?.accessToken) return;
+        const response = await apiRemoveFromCart(session.accessToken, productId);
+        if (response) {
+            dispatch({ type: 'REMOVE_FROM_CART', payload: productId });
+        }
     };
 
     return (
-        <CartContext.Provider value={{ cartState, addToCart, removeFromCart, updateCart }}>
+        <CartContext.Provider value={{ cartState, addToCart, removeFromCart }}>
             {children}
         </CartContext.Provider>
     );

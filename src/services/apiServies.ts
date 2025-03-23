@@ -1,6 +1,12 @@
 import axios from "axios";
 import { APIS } from "../../apiconfig";
 import { ProductData } from "../type/NewProduct";
+interface CartItem {
+    productId: number;
+    quantity: number;
+    selectedSize?: string;
+    selectedColor?: string;
+}
 export function formatedata(data:any){
     return {
         "id": data.id.toString(),
@@ -95,5 +101,59 @@ export const removeWishlist = async (accessToken: string, productId: string) => 
     catch (error) {
         console.log(error);
         return null
+    }
+}
+
+export const fetchCart = async (accessToken: string): Promise<CartItem[]> => {
+    try {
+        const response = await axios.get(APIS.getCart, {
+            headers: {
+                Authorization: `${accessToken}`
+            }
+        });
+    console.log(response.data.cart);
+    return response.data.cart;
+}
+catch (error) {
+    console.log(error);
+    return [];
+}
+}
+
+export const addToCart = async (accessToken: string, productId: string, quantity: number, selectedSize: string, selectedColor: string) => {
+    try {
+        const response = await axios.post(APIS.addToCart, {
+            productId: productId,
+            quantity: quantity,
+            size: selectedSize,
+            color: selectedColor
+        }, {
+            headers: {
+                Authorization: `${accessToken}`
+            }
+        });
+        return response;
+    }
+    catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
+export const removeFromCart = async (accessToken: string, productId: string) => {
+    try {
+        const response = await axios.delete(APIS.removeFromCart, {
+            headers: {
+                Authorization: `${accessToken}`
+            },
+            data: {
+                productId: productId
+            }
+        });
+        console.log(response);
+    }
+    catch (error) {
+        console.log(error);
+        return null;
     }
 }

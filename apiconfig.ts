@@ -10,5 +10,9 @@ export const APIS = {
     fetchWishlist : url + "/wishlist/",
     addToWishlist : url + "/wishlist/",
     removeFromWishlist : url + `/wishlist/`,
+
+    getCart: url + "/cart/",
+    addToCart: url + "/cart/",
+    removeFromCart: url + "/cart/",
     
 }
