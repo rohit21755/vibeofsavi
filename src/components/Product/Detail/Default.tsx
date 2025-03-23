@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ProductType } from '@/type/ProductType'
@@ -18,7 +18,7 @@ import { useCompare } from '@/context/CompareContext'
 import { useModalCompareContext } from '@/context/ModalCompareContext'
 import ModalSizeguide from '@/components/Modal/ModalSizeguide'
 import { ProductData } from '@/type/NewProduct'
-
+import { addReview, getReview } from '@/services/apiServies'
 // SwiperCore.use([Navigation, Thumbs]);
 import { useSession } from 'next-auth/react'
 interface Props {
@@ -29,6 +29,7 @@ interface Props {
 const Default: React.FC<Props> = ({ data, productId }) => {
 
     const session = useSession()
+    const [reviews, setReviews] = useState<any>([])
     const swiperRef: any = useRef();
     const [photoIndex, setPhotoIndex] = useState(0)
     const [openPopupImg, setOpenPopupImg] = useState(false)
@@ -39,6 +40,17 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     const [activeSize, setActiveSize] = useState<string>('')
     const [activeTab, setActiveTab] = useState<string | undefined>('description')
     const { addToCart, cartState } = useCart()
+    const [title, setTitle] = useState<string>('')
+    const [rating, setRating] = useState<number>(0)
+    const [message, setMessage] = useState<string>('')
+    const [startCount, setStartCount] = useState({
+        '1': 0,
+        '2': 0,
+        '3': 0,
+        '4': 0,
+        '5': 0,
+    })
+    const [average, setAverage] = useState(0)
     const { openModalCart } = useModalCartContext()
     const { addToWishlist, removeFromWishlist, wishlistState } = useWishlist()
     const { openModalWishlist } = useModalWishlistContext()
@@ -49,7 +61,9 @@ const Default: React.FC<Props> = ({ data, productId }) => {
         productMain = data[0]
     }
     console.log(cartState)
-
+    useEffect(()=> {
+        getReviewsProduct()
+    },[])
     const percentSale = Math.floor(100 - ((productMain?.price / productMain?.originPrice) * 100))
     console.log(wishlistState)
 
@@ -65,7 +79,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     //     // Do something with the thumbsSwiper instance
     //     setThumbsSwiper(swiper);
     // };
-
+    
 
     const handleActiveSize = (item: string) => {
         setActiveSize(item)
@@ -82,6 +96,53 @@ const Default: React.FC<Props> = ({ data, productId }) => {
            
         }
     };
+    const getReviewsProduct = async () => {
+        const ratings = {
+            '1': 0,
+            '2': 0,
+            '3': 0,
+            '4': 0,
+            '5': 0,
+        };
+       let total = 0
+        const response = await getReview(productId as string);
+        console.log(response)
+        if (response) {
+            setReviews(response.reviews);
+            response.reviews.map((item: any) => {
+                ratings[item.rating as keyof typeof ratings] += 1;
+                total += item.rating as number;
+            });
+            setStartCount(ratings);
+            setAverage(total / response.reviews.length);
+            
+        }
+    }
+
+    const handleAddReview = async(e:any) => {
+        e.preventDefault()
+        if(session.status === 'authenticated') {
+            const data = {
+                title: title,
+                rating: Number(rating) || 1,
+                message: message,
+                productId: Number(productMain.id),
+            }
+            console.log(session)
+            const response = await addReview(session?.data.accessToken as string, data);
+            if (response) {
+                alert('Review added successfully');
+            }
+            else {
+                alert('Some error occured');
+            }
+        }
+        else {
+            alert('Please login to add a review');
+        }
+    }
+
+
 
     const handleAddToCart = () => {
         if(session.status === 'authenticated') {
@@ -510,15 +571,15 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                     <div className="container">
                         <div className="heading flex items-center justify-between flex-wrap gap-4">
                             <div className="heading4">Customer Review</div>
-                            <Link href={'#form-review'} className='button-main bg-white text-black border border-black'>Write Reviews</Link>
+                            {/* <Link href={'#form-review'} className='button-main bg-white text-black border border-black'>Write Reviews</Link> */}
                         </div>
                         <div className="top-overview flex justify-between py-6 max-md:flex-col gap-y-6">
                             <div className="rating lg:w-1/4 md:w-[30%] lg:pr-[75px] md:pr-[35px]">
                                 <div className="heading flex items-center justify-center flex-wrap gap-3 gap-y-4">
-                                    <div className="text-display">4.6</div>
+                                    <div className="text-display">{average}</div>
                                     <div className='flex flex-col items-center'>
                                         <Rate currentRate={5} size={18} />
-                                        <div className='text-secondary text-center mt-1'>(1,968 Ratings)</div>
+                                        <div className='text-secondary text-center mt-1'>({reviews.length} Ratings)</div>
                                     </div>
                                 </div>
                                 <div className="list-rating mt-3">
@@ -528,9 +589,9 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             <Icon.Star size={14} weight='fill' />
                                         </div>
                                         <div className="progress bg-line relative w-3/4 h-2">
-                                            <div className="progress-percent absolute bg-yellow w-[50%] h-full left-0 top-0"></div>
+                                            <div className={`progress-percent absolute bg-yellow w-[${startCount['5'] / reviews.length * 100}%] h-full left-0 top-0`}></div>
                                         </div>
-                                        <div className="caption1">50%</div>
+                                        <div className="caption1">{startCount['5']/reviews.length * 100}%</div>
                                     </div>
                                     <div className="item flex items-center justify-between gap-1.5 mt-1">
                                         <div className="flex items-center gap-1">
@@ -538,9 +599,9 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             <Icon.Star size={14} weight='fill' />
                                         </div>
                                         <div className="progress bg-line relative w-3/4 h-2">
-                                            <div className="progress-percent absolute bg-yellow w-[20%] h-full left-0 top-0"></div>
+                                            <div className={`progress-percent absolute bg-yellow w-[${startCount['4'] / reviews.length * 100}%] h-full left-0 top-0`}></div>
                                         </div>
-                                        <div className="caption1">20%</div>
+                                        <div className="caption1">{startCount['4']/reviews.length * 100}%</div>
                                     </div>
                                     <div className="item flex items-center justify-between gap-1.5 mt-1">
                                         <div className="flex items-center gap-1">
@@ -548,9 +609,9 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             <Icon.Star size={14} weight='fill' />
                                         </div>
                                         <div className="progress bg-line relative w-3/4 h-2">
-                                            <div className="progress-percent absolute bg-yellow w-[10%] h-full left-0 top-0"></div>
+                                            <div className={`progress-percent absolute bg-yellow w-[${startCount['3'] / reviews.length * 100}%] h-full left-0 top-0`}></div>
                                         </div>
-                                        <div className="caption1">10%</div>
+                                        <div className="caption1">{startCount['3']/reviews.length * 100}%</div>
                                     </div>
                                     <div className="item flex items-center justify-between gap-1.5 mt-1">
                                         <div className="flex items-center gap-1">
@@ -558,9 +619,9 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             <Icon.Star size={14} weight='fill' />
                                         </div>
                                         <div className="progress bg-line relative w-3/4 h-2">
-                                            <div className="progress-percent absolute bg-yellow w-[10%] h-full left-0 top-0"></div>
+                                            <div className={`progress-percent absolute bg-yellow w-[${startCount['2'] / reviews.length * 100}%] h-full left-0 top-0`}></div>
                                         </div>
-                                        <div className="caption1">10%</div>
+                                        <div className="caption1">{startCount['2']/reviews.length * 100}%</div>
                                     </div>
                                     <div className="item flex items-center justify-between gap-1.5 mt-1">
                                         <div className="flex items-center gap-2">
@@ -568,111 +629,15 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             <Icon.Star size={14} weight='fill' />
                                         </div>
                                         <div className="progress bg-line relative w-3/4 h-2">
-                                            <div className="progress-percent absolute bg-yellow w-[10%] h-full left-0 top-0"></div>
+                                            <div className={`progress-percent absolute bg-yellow w-[${startCount['1'] / reviews.length * 100}%] h-full left-0 top-0`}></div>
                                         </div>
-                                        <div className="caption1">10%</div>
+                                        <div className="caption1">{startCount['1']/reviews.length * 100}%</div>
                                     </div>
                                 </div>
                             </div>
                             <div className="list-img lg:w-3/4 md:w-[70%] lg:pl-[15px] md:pl-[15px]">
-                                <div className="heading5">All Image (128)</div>
-                                <div className="list md:mt-6 mt-3">
-                                    <Swiper
-                                        spaceBetween={16}
-                                        slidesPerView={3}
-                                        modules={[Navigation]}
-                                        breakpoints={{
-                                            576: {
-                                                slidesPerView: 4,
-                                                spaceBetween: 16,
-                                            },
-                                            640: {
-                                                slidesPerView: 5,
-                                                spaceBetween: 16,
-                                            },
-                                            768: {
-                                                slidesPerView: 4,
-                                                spaceBetween: 16,
-                                            },
-                                            992: {
-                                                slidesPerView: 5,
-                                                spaceBetween: 20,
-                                            },
-                                            1100: {
-                                                slidesPerView: 5,
-                                                spaceBetween: 20,
-                                            },
-                                            1290: {
-                                                slidesPerView: 7,
-                                                spaceBetween: 20,
-                                            },
-                                        }}
-                                    >
-                                        {/* <SwiperSlide>
-                                            <Image
-                                                src={'/images/product/1000x1000.png'}
-                                                width={400}
-                                                height={400}
-                                                alt=''
-                                                className='w-[120px] aspect-square object-cover rounded-lg'
-                                            />
-                                        </SwiperSlide>
-                                        <SwiperSlide>
-                                            <Image
-                                                src={'/images/product/1000x1000.png'}
-                                                width={400}
-                                                height={400}
-                                                alt=''
-                                                className='w-[120px] aspect-square object-cover rounded-lg'
-                                            />
-                                        </SwiperSlide>
-                                        <SwiperSlide>
-                                            <Image
-                                                src={'/images/product/1000x1000.png'}
-                                                width={400}
-                                                height={400}
-                                                alt=''
-                                                className='w-[120px] aspect-square object-cover rounded-lg'
-                                            />
-                                        </SwiperSlide>
-                                        <SwiperSlide>
-                                            <Image
-                                                src={'/images/product/1000x1000.png'}
-                                                width={400}
-                                                height={400}
-                                                alt=''
-                                                className='w-[120px] aspect-square object-cover rounded-lg'
-                                            />
-                                        </SwiperSlide>
-                                        <SwiperSlide>
-                                            <Image
-                                                src={'/images/product/1000x1000.png'}
-                                                width={400}
-                                                height={400}
-                                                alt=''
-                                                className='w-[120px] aspect-square object-cover rounded-lg'
-                                            />
-                                        </SwiperSlide>
-                                        <SwiperSlide>
-                                            <Image
-                                                src={'/images/product/1000x1000.png'}
-                                                width={400}
-                                                height={400}
-                                                alt=''
-                                                className='w-[120px] aspect-square object-cover rounded-lg'
-                                            />
-                                        </SwiperSlide>
-                                        <SwiperSlide>
-                                            <Image
-                                                src={'/images/product/1000x1000.png'}
-                                                width={400}
-                                                height={400}
-                                                alt=''
-                                                className='w-[120px] aspect-square object-cover rounded-lg'
-                                            />
-                                        </SwiperSlide> */}
-                                    </Swiper>
-                                </div>
+                               
+                                 
                                 <div className="sorting flex items-center flex-wrap md:gap-5 gap-3 gap-y-3 mt-6">
                                     <div className="text-button">Sort by</div>
                                     <div className="item bg-white px-4 py-1 border border-line rounded-full">Newest</div>
@@ -685,173 +650,59 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                             </div>
                         </div>
                         <div className="list-review">
-                            <div className="item flex max-lg:flex-col gap-y-4 w-full py-6 border-t border-line">
+                         
+                            {reviews?.map((item: any) => (
+                                <div className="item flex max-lg:flex-col gap-y-4 w-full py-6 border-t border-line">
                                 <div className="left lg:w-1/4 w-full lg:pr-[15px]">
-                                    <div className="list-img-review flex gap-2">
-                                        {/* <Image
-                                            src={'/images/product/1000x1000.png'}
-                                            width={200}
-                                            height={200}
-                                            alt='img'
-                                            className='w-[60px] aspect-square rounded-lg'
-                                        />
-                                        <Image
-                                            src={'/images/product/1000x1000.png'}
-                                            width={200}
-                                            height={200}
-                                            alt='img'
-                                            className='w-[60px] aspect-square rounded-lg'
-                                        />
-                                        <Image
-                                            src={'/images/product/1000x1000.png'}
-                                            width={200}
-                                            height={200}
-                                            alt='img'
-                                            className='w-[60px] aspect-square rounded-lg'
-                                        /> */}
-                                    </div>
+                                    
                                     <div className="user mt-3">
-                                        <div className="text-title">Tony Nguyen</div>
+                                        <div className="text-title">{item.userName}</div>
                                         <div className="flex items-center gap-2">
-                                            <div className="text-secondary2">1 days ago</div>
+                                            {/* <div className="text-secondary2">1 days ago</div>
                                             <div className="text-secondary2">-</div>
-                                            <div className="text-secondary2"><span>Yellow</span> / <span>XL</span></div>
+                                            <div className="text-secondary2"><span>Yellow</span> / <span>XL</span></div> */}
                                         </div>
                                     </div>
                                 </div>
                                 <div className="right lg:w-3/4 w-full lg:pl-[15px]">
                                     <Rate currentRate={5} size={16} />
-                                    <div className="heading5 mt-3">Unbeatable Style and Quality: A Fashion Brand That Delivers</div>
-                                    <div className="body1 mt-3">I can{String.raw`'t`} get enough of the fashion pieces from this brand. They have a great selection for every occasion and the prices are reasonable. The shipping is fast and the items always arrive in perfect condition.</div>
+                                    <div className="heading5 mt-3">{item.title}</div>
+                                    <div className="body1 mt-3">{item.description}</div>
                                     <div className="action mt-3">
                                         <div className="flex items-center gap-4">
-                                            <div className="like-btn flex items-center gap-1 cursor-pointer">
-                                                <Icon.HandsClapping size={18} />
-                                                <div className="text-button">20</div>
-                                            </div>
-                                            <Link href={'#form-review'} className="reply-btn text-button text-secondary cursor-pointer hover:text-black">Reply</Link>
+                                            
+                                         
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="item flex max-lg:flex-col gap-y-4 w-full py-6 border-t border-line">
-                                <div className="left lg:w-1/4 w-full lg:pr-[15px]">
-                                    <div className="list-img-review flex gap-2">
-                                        {/* <Image
-                                            src={'/images/product/1000x1000.png'}
-                                            width={200}
-                                            height={200}
-                                            alt='img'
-                                            className='w-[60px] aspect-square rounded-lg'
-                                        />
-                                        <Image
-                                            src={'/images/product/1000x1000.png'}
-                                            width={200}
-                                            height={200}
-                                            alt='img'
-                                            className='w-[60px] aspect-square rounded-lg'
-                                        />
-                                        <Image
-                                            src={'/images/product/1000x1000.png'}
-                                            width={200}
-                                            height={200}
-                                            alt='img'
-                                            className='w-[60px] aspect-square rounded-lg'
-                                        /> */}
-                                    </div>
-                                    <div className="user mt-3">
-                                        <div className="text-title">Tony Nguyen</div>
-                                        <div className="flex items-center gap-2">
-                                            <div className="text-secondary2">1 days ago</div>
-                                            <div className="text-secondary2">-</div>
-                                            <div className="text-secondary2"><span>Yellow</span> / <span>XL</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="right lg:w-3/4 w-full lg:pl-[15px]">
-                                    <Rate currentRate={5} size={16} />
-                                    <div className="heading5 mt-3">Exceptional Fashion: The Perfect Blend of Style and Durability</div>
-                                    <div className="body1 mt-3">The fashion brand{String.raw`'s`} online shopping experience is seamless. The website is user-friendly, the product images are clear, and the checkout process is quick.</div>
-                                    <div className="action mt-3">
-                                        <div className="flex items-center gap-4">
-                                            <div className="like-btn flex items-center gap-1 cursor-pointer">
-                                                <Icon.HandsClapping size={18} />
-                                                <div className="text-button">20</div>
-                                            </div>
-                                            <Link href={'#form-review'} className="reply-btn text-button text-secondary cursor-pointer hover:text-black">Reply</Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="item flex max-lg:flex-col gap-y-4 w-full py-6 border-t border-line">
-                                <div className="left lg:w-1/4 w-full lg:pr-[15px]">
-                                    <div className="list-img-review flex gap-2">
-                                        {/* <Image
-                                            src={'/images/product/1000x1000.png'}
-                                            width={200}
-                                            height={200}
-                                            alt='img'
-                                            className='w-[60px] aspect-square rounded-lg'
-                                        />
-                                        <Image
-                                            src={'/images/product/1000x1000.png'}
-                                            width={200}
-                                            height={200}
-                                            alt='img'
-                                            className='w-[60px] aspect-square rounded-lg'
-                                        />
-                                        <Image
-                                            src={'/images/product/1000x1000.png'}
-                                            width={200}
-                                            height={200}
-                                            alt='img'
-                                            className='w-[60px] aspect-square rounded-lg'
-                                        /> */}
-                                    </div>
-                                    <div className="user mt-3">
-                                        <div className="text-title">Tony Nguyen</div>
-                                        <div className="flex items-center gap-2">
-                                            <div className="text-secondary2">1 days ago</div>
-                                            <div className="text-secondary2">-</div>
-                                            <div className="text-secondary2"><span>Yellow</span> / <span>XL</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="right lg:w-3/4 w-full lg:pl-[15px]">
-                                    <Rate currentRate={5} size={16} />
-                                    <div className="heading5 mt-3">Elevate Your Wardrobe: Stunning Dresses That Make a Statement</div>
-                                    <div className="body1 mt-3">I love how sustainable and ethically conscious this fashion brand is. They prioritize eco-friendly materials and fair trade practices, which makes me feel good about supporting them.</div>
-                                    <div className="action mt-3">
-                                        <div className="flex items-center gap-4">
-                                            <div className="like-btn flex items-center gap-1 cursor-pointer">
-                                                <Icon.HandsClapping size={18} />
-                                                <div className="text-button">20</div>
-                                            </div>
-                                            <Link href={'#form-review'} className="reply-btn text-button text-secondary cursor-pointer hover:text-black">Reply</Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="text-button more-review-btn text-center mt-2 underline">View More Comments</div>
+                            ))}
+                            
+                           
+                     
+                       
                         </div>
                         <div id="form-review" className='form-review pt-6'>
-                            <div className="heading4">Leave A comment</div>
-                            <form className="grid sm:grid-cols-2 gap-4 gap-y-5 mt-6">
-                                <div className="name ">
-                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="username" type="text" placeholder="Your Name *" required />
-                                </div>
-                                <div className="mail ">
-                                    <input className="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="email" type="email" placeholder="Your Email *" required />
+                            <div className="heading4">Submit A Review</div>
+                            <form className="grid  gap-4 gap-y-5 mt-6">
+                                <div className="start">
+                                    <select onChange={(e) => setRating(Number(e.target.value))} aria-placeholder='Select your rating' className="border border-line px-4 py-3 w-full rounded-lg" required>
+                                        <option value="option0">Select your rating</option>
+                                        <option value="option1">1</option>
+                                        <option value="option2">2</option>
+                                        <option value="option3">3</option>
+                                        <option value="option4">4</option>
+                                        <option value="option5">5</option>
+                                    </select>
                                 </div>
                                 <div className="col-span-full message">
-                                    <textarea className="border border-line px-4 py-3 w-full rounded-lg" id="message" name="message" placeholder="Your message *" required></textarea>
+                                    <input className="border border-line px-4 py-3 w-full rounded-lg"  onChange={(e) => setTitle(e.target.value)} type="text" placeholder="Title *" required></input>
                                 </div>
-                                <div className="col-span-full flex items-start -mt-2 gap-2">
-                                    <input type="checkbox" id="saveAccount" name="saveAccount" className='mt-1.5' />
-                                    <label className="" htmlFor="saveAccount">Save my name, email, and website in this browser for the next time I comment.</label>
+                                <div className="col-span-full message">
+                                    <textarea className="border border-line px-4 py-3 w-full rounded-lg" onChange={(e) => setMessage(e.target.value)} placeholder="Your message *" required></textarea>
                                 </div>
                                 <div className="col-span-full sm:pt-3">
-                                    <button className='button-main bg-white text-black border border-black'>Submit Reviews</button>
+                                    <button onClick={handleAddReview} className='button-main bg-white text-black border border-black'>Submit Reviews</button>
                                 </div>
                             </form>
                         </div>

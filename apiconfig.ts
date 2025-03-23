@@ -1,5 +1,3 @@
-import { add } from "next-video/dist/utils/logger.js";
-
 const url = "http://localhost:4000/api";
 
 export const APIS = {
@@ -14,5 +12,6 @@ export const APIS = {
     getCart: url + "/cart/",
     addToCart: url + "/cart/",
     removeFromCart: url + "/cart/",
-    
+    addreview: url + "/user/review",
+    getReview: url + "/product/reviews",
 }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { APIS } from "../../apiconfig";
 import { ProductData } from "../type/NewProduct";
+import { desc } from "next-video/dist/cli/init.js";
 interface CartItem {
     productId: number;
     quantity: number;
@@ -152,6 +153,39 @@ export const removeFromCartMain = async (accessToken: string, productId: number)
             }
         });
         return response;
+    }
+    catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
+export const addReview = async (accessToken: string, data: any) => {
+    try {
+        console.log(accessToken)
+        const response = await axios.post(APIS.addreview, {
+            title: data.title,
+            rating: data.rating,
+            description: data.message,
+            productId: Number(data.productId)
+        }, {
+            headers: {
+                Authorization: `${accessToken}`
+            }
+        });
+        return response;
+    }
+    catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
+
+export const getReview = async (productId: string) => {
+    try{ 
+        const response = await axios.post(APIS.getReview, { productId: Number(productId)});
+        return response.data;
     }
     catch (error) {
         console.log(error);

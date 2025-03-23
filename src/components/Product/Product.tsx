@@ -26,7 +26,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
     const [activeColor, setActiveColor] = useState<string>('')
     const [activeSize, setActiveSize] = useState<string>('')
     const [openQuickShop, setOpenQuickShop] = useState<boolean>(false)
-    const { addToCart, updateCart, cartState } = useCart();
+    const { addToCart,  cartState } = useCart();
     const { openModalCart } = useModalCartContext()
     const { addToWishlist, removeFromWishlist, wishlistState } = useWishlist();
     const { openModalWishlist } = useModalWishlistContext()
@@ -43,15 +43,15 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
         setActiveSize(item)
     }
 
-    const handleAddToCart = () => {
-        if (!cartState.cartArray.find(item => item.id === data.id)) {
-            addToCart({ ...data });
-            updateCart(data.id, data.quantityPurchase, activeSize, activeColor)
-        } else {
-            updateCart(data.id, data.quantityPurchase, activeSize, activeColor)
-        }
-        openModalCart()
-    };
+    // const handleAddToCart = () => {
+    //     if (!cartState.cartArray.find(item => item.id === data.id)) {
+    //         addToCart({ ...data });
+    //         updateCart(data.id, data.quantityPurchase, activeSize, activeColor)
+    //     } else {
+    //         updateCart(data.id, data.quantityPurchase, activeSize, activeColor)
+    //     }
+    //     openModalCart()
+    // };
 
     const handleAddToWishlist = () => {
         if (wishlistState.wishlistArray.includes(Number(data.id))) {
@@ -115,7 +115,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                             className={`add-cart-btn w-[32px] h-[32px] flex items-center justify-center rounded-full bg-white duration-300 relative mb-2 ${compareState.compareArray.some(item => item.id === data.id) ? 'active' : ''}`}
                                             onClick={e => {
                                                 e.stopPropagation();
-                                                handleAddToCart()
+                                                // handleAddToCart()
                                             }}
                                         >
                                             <div className="tag-action bg-black text-white caption2 px-1.5 py-0.5 rounded-sm">Add To Cart</div>
@@ -238,7 +238,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                             className="add-cart-btn w-full text-button-uppercase py-2 text-center rounded-full duration-500 bg-white hover:bg-black hover:text-white"
                                             onClick={e => {
                                                 e.stopPropagation();
-                                                handleAddToCart()
+                                                // handleAddToCart()
                                             }}
                                         >
                                             Add To Cart
@@ -274,7 +274,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                                 <div
                                                     className="button-main w-full text-center rounded-full py-3 mt-4"
                                                     onClick={() => {
-                                                        handleAddToCart()
+                                                        // handleAddToCart()
                                                         setOpenQuickShop(false)
                                                     }}
                                                 >
@@ -294,7 +294,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                                 className={`add-cart-btn w-9 h-9 flex items-center justify-center rounded-full bg-white duration-300 relative ${compareState.compareArray.some(item => item.id === data.id) ? 'active' : ''}`}
                                                 onClick={e => {
                                                     e.stopPropagation();
-                                                    handleAddToCart()
+                                                    // handleAddToCart()
                                                 }}
                                             >
                                                 <div className="tag-action bg-black text-white caption2 px-1.5 py-0.5 rounded-sm">Add To Cart</div>
@@ -361,7 +361,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                                 <div
                                                     className="button-main w-full text-center rounded-full py-3 mt-4"
                                                     onClick={() => {
-                                                        handleAddToCart()
+                                                        // handleAddToCart()
                                                         setOpenQuickShop(false)
                                                     }}
                                                 >
@@ -387,7 +387,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                     className="add-cart-btn w-9 h-9 flex items-center justify-center rounded-lg duration-300 bg-white hover:bg-black hover:text-white"
                                     onClick={e => {
                                         e.stopPropagation();
-                                        handleAddToCart()
+                                        // handleAddToCart()
                                     }}
                                 >
                                     <Icon.ShoppingBagOpen className='text-lg' />
@@ -474,7 +474,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                             className="add-cart-btn w-full text-button-uppercase py-2.5 text-center mt-2 rounded-full duration-300 bg-white border border-black hover:bg-black hover:text-white max-lg:hidden"
                                             onClick={e => {
                                                 e.stopPropagation()
-                                                handleAddToCart()
+                                                // handleAddToCart()
                                             }}
                                         >
                                             Add To Cart
@@ -546,7 +546,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                                 <div
                                                     className="button-main w-full text-center rounded-full py-3 mt-4"
                                                     onClick={() => {
-                                                        handleAddToCart()
+                                                        // handleAddToCart()
                                                         setOpenQuickShop(false)
                                                     }}
                                                 >
@@ -723,7 +723,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                 className="add-cart-btn w-8 h-8 bg-white flex items-center justify-center rounded-full box-shadow-sm duration-300"
                                 onClick={e => {
                                     e.stopPropagation();
-                                    handleAddToCart()
+                                    // handleAddToCart()
                                 }}
                             >
                                 <Icon.ShoppingBagOpen />
