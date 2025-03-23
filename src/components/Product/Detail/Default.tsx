@@ -18,9 +18,9 @@ import { useCompare } from '@/context/CompareContext'
 import { useModalCompareContext } from '@/context/ModalCompareContext'
 import ModalSizeguide from '@/components/Modal/ModalSizeguide'
 import { ProductData } from '@/type/NewProduct'
-import { useSession } from 'next-auth/react'
-// SwiperCore.use([Navigation, Thumbs]);
 
+// SwiperCore.use([Navigation, Thumbs]);
+import { useSession } from 'next-auth/react'
 interface Props {
     data: Array<ProductData>
     productId: string | number | null
@@ -35,6 +35,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     const [openSizeGuide, setOpenSizeGuide] = useState<boolean>(false)
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
     const [activeColor, setActiveColor] = useState<string>('')
+    const [quantity, setQuantity] = useState(1);
     const [activeSize, setActiveSize] = useState<string>('')
     const [activeTab, setActiveTab] = useState<string | undefined>('description')
     const { addToCart, cartState } = useCart()
@@ -65,47 +66,41 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     //     setThumbsSwiper(swiper);
     // };
 
-    const handleActiveColor = (item: string) => {
-        setActiveColor(item)
-
-        // // Find variation with selected color
-        const foundColor = productMain.variation.find((variation) => variation.color === item);
-        // If found, slide next to img
-        if (foundColor) {
-            const index = productMain.images.indexOf(foundColor.image);
-
-            if (index !== -1) {
-                swiperRef.current?.slideTo(index);
-            }
-        }
-    }
 
     const handleActiveSize = (item: string) => {
         setActiveSize(item)
     }
 
     const handleIncreaseQuantity = () => {
-        productMain.quantityPurchase += 1
+        setQuantity(quantity + 1)
    
     };
 
     const handleDecreaseQuantity = () => {
-        if (productMain.quantityPurchase > 1) {
-            productMain.quantityPurchase -= 1
+        if (quantity > 1) {
+            setQuantity(quantity - 1)
            
         }
     };
 
     const handleAddToCart = () => {
-      
+        if(session.status === 'authenticated') {
+            if(activeSize === 'freesize') {
+                alert('Please select size');
+                return;
+            }
+        console.log(productMain.id);
             addToCart({
-                productId: productMain.id,
-                quantity: productMain.quantityPurchase,
+                id: Number(productMain.id),
+                productId: Number(productMain.id),
+                quantity,
                 selectedSize: activeSize,
-                selectedColor: activeColor
             });
-        
-        openModalCart()
+        }
+        else {
+            alert('Please login to add to cart');
+        }
+       
     };
 
     const handleAddToWishlist = () => {
@@ -299,7 +294,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             onClick={handleDecreaseQuantity}
                                             className={`${productMain?.quantityPurchase === 1 ? 'disabled' : ''} cursor-pointer`}
                                         />
-                                        <div className="body1 font-semibold">{productMain?.quantityPurchase}</div>
+                                        <div className="body1 font-semibold">{quantity}</div>
                                         <Icon.Plus
                                             size={20}
                                             onClick={handleIncreaseQuantity}

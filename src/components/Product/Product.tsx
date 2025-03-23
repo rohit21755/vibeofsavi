@@ -90,7 +90,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
 
     let percentSale = Math.floor(100 - ((data.price / data.originPrice) * 100))
     let percentSold = Math.floor((data.sold / data.quantity) * 100)
-    console.log(wishlistState.wishlistArray)
+
 
     return (
         <>

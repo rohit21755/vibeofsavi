@@ -120,13 +120,13 @@ catch (error) {
 }
 }
 
-export const addToCart = async (accessToken: string, productId: string, quantity: number, selectedSize: string, selectedColor: string) => {
+export const addToCart = async (accessToken: string, productId: string, quantity: number, selectedSize: string) => {
     try {
         const response = await axios.post(APIS.addToCart, {
-            productId: productId,
+            productId: Number(productId),
             quantity: quantity,
             size: selectedSize,
-            color: selectedColor
+  
         }, {
             headers: {
                 Authorization: `${accessToken}`
@@ -140,17 +140,18 @@ export const addToCart = async (accessToken: string, productId: string, quantity
     }
 }
 
-export const removeFromCart = async (accessToken: string, productId: string) => {
+export const removeFromCartMain = async (accessToken: string, productId: number) => {
     try {
+        console.log(productId);
         const response = await axios.delete(APIS.removeFromCart, {
             headers: {
                 Authorization: `${accessToken}`
             },
             data: {
-                productId: productId
+                cartItemId: Number(productId)
             }
         });
-        console.log(response);
+        return response;
     }
     catch (error) {
         console.log(error);

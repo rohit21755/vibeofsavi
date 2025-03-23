@@ -10,22 +10,48 @@ import { useModalCartContext } from '@/context/ModalCartContext'
 import { useCart } from '@/context/CartContext'
 import { countdownTime } from '@/store/countdownTime'
 import CountdownTimeType from '@/type/CountdownType';
+import { useContext } from 'react';
+import { GlobalContextData } from '@/context/GlobalContext';
+import { ProductData } from '@/type/NewProduct';
+interface ProductMain {
+    cartId: number;
+    product: ProductData;
+    quantityMain: number;
+    userSize: string;
+    userColor: string;
 
+}
 const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) => {
     const [timeLeft, setTimeLeft] = useState(serverTimeLeft);
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setTimeLeft(countdownTime());
-        }, 1000);
-
-        return () => clearInterval(timer);
-    }, []);
-
+    const { Products } = useContext(GlobalContextData);
+    const [products, setProducts] = useState<ProductMain[]>([]);
+    console.log(Products)
+    
     const [activeTab, setActiveTab] = useState<string | undefined>('')
     const { isModalOpen, closeModalCart } = useModalCartContext();
     const { cartState, addToCart, removeFromCart } = useCart()
+    
+    useEffect(() => {
+        const newProducts: ProductMain[] = cartState.cartArray.map((item) => {
+            const product = Products.find((product) => Number(product.id) === item.productId);
+            if (product) {
+                //@ts-ignore
+                return { cartId: item.id, product, quantityMain: item.quantity, userSize: item.size || '' };
+            }
+            return undefined;
+        }).filter((item): item is ProductMain => item !== undefined);
+    
+        setProducts(newProducts);
+    
+        // Calculate subtotal
+        const subtotal = newProducts.reduce((acc, item) => acc + item.product.price * item.quantityMain, 0);
+        setTotalCart(subtotal);
+    }, [cartState.cartArray, Products]);
+   
+        console.log(products)
 
+
+    console.log(cartState.cartArray)
     // const handleAddToCart = (productItem: ProductType) => {
     //     if (!cartState.cartArray.find(item => item.id === productItem.id)) {
     //         addToCart({ ...productItem });
@@ -43,7 +69,7 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
     let [totalCart, setTotalCart] = useState<number>(0)
     let [discountCart, setDiscountCart] = useState<number>(0)
 
-    cartState.cartArray.map(item => totalCart += item.price * item.quantity)
+    // cartState.cartArray.map(item => totalCart += item.price * item.quantity)
 
     return (
         <>
@@ -66,33 +92,33 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
                         
                         
                         <div className="list-product px-6">
-                            {cartState.cartArray.map((product) => (
-                                <div key={product.id} className='item py-5 flex items-center justify-between gap-3 border-b border-line'>
+                            {products.map((product) => (
+                                <div key={product.product.id} className='item py-5 flex items-center justify-between gap-3 border-b border-line'>
                                     <div className="infor flex items-center gap-3 w-full">
                                         <div className="bg-img w-[100px] aspect-square flex-shrink-0 rounded-lg overflow-hidden">
                                             <Image
-                                                src={product.images[0]}
+                                                src={product.product.thumbImage[0]}
                                                 width={300}
                                                 height={300}
-                                                alt={product.name}
+                                                alt={product.product.name}
                                                 className='w-full h-full'
                                             />
                                         </div>
                                         <div className='w-full'>
                                             <div className="flex items-center justify-between w-full">
-                                                <div className="name text-button">{product.name}</div>
+                                                <div className="name text-button">{product.product.name}  <small>x</small>  {product.quantityMain}</div>
                                                 <div
                                                     className="remove-cart-btn caption1 font-semibold text-red underline cursor-pointer"
-                                                    onClick={() => removeFromCart(product.id)}
+                                                    onClick={() => removeFromCart(product.cartId)}
                                                 >
                                                     Remove
                                                 </div>
                                             </div>
                                             <div className="flex items-center justify-between gap-2 mt-3 w-full">
                                                 <div className="flex items-center text-secondary2 capitalize">
-                                                    {product.selectedSize || product.sizes[0]}/{product.selectedColor || product.variation[0].color}
+                                                    {product.userSize}
                                                 </div>
-                                                <div className="product-price text-title">₹{product.price}.00</div>
+                                                <div className="product-price text-title">₹{product.product.price}.00</div>
                                             </div>
                                         </div>
                                     </div>
@@ -100,42 +126,14 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
                             ))}
                         </div>
                         <div className="footer-modal bg-white absolute bottom-0 left-0 w-full">
-                            <div className="flex items-center justify-center lg:gap-14 gap-8 px-6 py-4 border-b border-line">
-                                <div
-                                    className="item flex items-center gap-3 cursor-pointer"
-                                    onClick={() => handleActiveTab('note')}
-                                >
-                                    <Icon.NotePencil className='text-xl' />
-                                    <div className="caption1">Note</div>
-                                </div>
-                                <div
-                                    className="item flex items-center gap-3 cursor-pointer"
-                                    onClick={() => handleActiveTab('shipping')}
-                                >
-                                    <Icon.Truck className='text-xl' />
-                                    <div className="caption1">Shipping</div>
-                                </div>
-                                <div
-                                    className="item flex items-center gap-3 cursor-pointer"
-                                    onClick={() => handleActiveTab('coupon')}
-                                >
-                                    <Icon.Tag className='text-xl' />
-                                    <div className="caption1">Coupon</div>
-                                </div>
-                            </div>
+                            
                             <div className="flex items-center justify-between pt-6 px-6">
                                 <div className="heading5">Subtotal</div>
                                 <div className="heading5">₹{totalCart}.00</div>
                             </div>
                             <div className="block-button text-center p-6">
-                                <div className="flex items-center gap-4">
-                                    <Link
-                                        href={'/cart'}
-                                        className='button-main basis-1/2 bg-white border border-black text-black text-center uppercase'
-                                        onClick={closeModalCart}
-                                    >
-                                        View cart
-                                    </Link>
+                                <div className="flex items-center justify-center gap-4">
+                                 
                                     <Link
                                         href={'/checkout'}
                                         className='button-main basis-1/2 text-center uppercase'
