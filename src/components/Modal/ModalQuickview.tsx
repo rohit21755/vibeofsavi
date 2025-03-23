@@ -144,10 +144,10 @@ const ModalQuickview = () => {
                                         <div className="heading4 mt-1">{selectedProduct?.name}</div>
                                     </div>
                                     <div
-                                        className={`add-wishlist-btn w-10 h-10 flex items-center justify-center border border-line cursor-pointer rounded-lg duration-300 flex-shrink-0 hover:bg-black hover:text-white ${wishlistState.wishlistArray.some(item => item.id === selectedProduct?.id) ? 'active' : ''}`}
+                                        className={`add-wishlist-btn w-10 h-10 flex items-center justify-center border border-line cursor-pointer rounded-lg duration-300 flex-shrink-0 hover:bg-black hover:text-white ${wishlistState.wishlistArray.some(item => item?.id === selectedProduct?.id) ? 'active' : ''}`}
                                         onClick={handleAddToWishlist}
                                     >
-                                        {wishlistState.wishlistArray.some(item => item.id === selectedProduct?.id) ? (
+                                        {wishlistState.wishlistArray.some(item => item?.id === selectedProduct?.id) ? (
                                             <>
                                                 <Icon.Heart size={20} weight='fill' className='text-red' />
                                             </>

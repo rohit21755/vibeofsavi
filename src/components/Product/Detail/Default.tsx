@@ -43,7 +43,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     const { openModalWishlist } = useModalWishlistContext()
     const { addToCompare, removeFromCompare, compareState } = useCompare();
     const { openModalCompare } = useModalCompareContext()
-    let productMain = data.find(product => product.id === productId) as ProductType
+    let productMain = data.find(product => product.id === productId) as ProductData
     if (productMain === undefined) {
         productMain = data[0]
     }
@@ -105,17 +105,17 @@ const Default: React.FC<Props> = ({ data, productId }) => {
         }
         openModalCart()
     };
-    console.log(wishlistState.wishlistArray);
+
     const handleAddToWishlist = () => {
 
         if (session.status === 'authenticated') {
             console.log(wishlistState.wishlistArray);
-            const isWishlisted = wishlistState.wishlistArray.some(item => item.id === productMain.id);
+            const isWishlisted =  wishlistState.wishlistArray.includes(Number(productMain?.id));
             
             if (isWishlisted) {
-                removeFromWishlist(productMain.id);
+                removeFromWishlist(Number(productMain?.id));
             } else {
-                addToWishlist(productMain);
+                addToWishlist(Number(productMain.id));
             }
         } else {
             alert('Please login to add to wishlist');
@@ -143,7 +143,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                 modules={[Thumbs]}
                                 className="mySwiper2 rounded-2xl overflow-hidden"
                             >
-                                {productMain.images.map((item, index) => (
+                                {productMain?.images.map((item, index) => (
                                     <SwiperSlide
                                         key={index}
                                         onClick={() => {
@@ -170,7 +170,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                 modules={[Navigation, Thumbs]}
                                 className="mySwiper"
                             >
-                                {productMain.images.map((item, index) => (
+                                {productMain?.images.map((item, index) => (
                                     <SwiperSlide
                                         key={index}
                                     >
@@ -204,7 +204,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                         swiperRef.current = swiper
                                     }}
                                 >
-                                    {productMain.images.map((item, index) => (
+                                    {productMain?.images.map((item, index) => (
                                         <SwiperSlide
                                             key={index}
                                             onClick={() => {
@@ -229,14 +229,14 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                         <div className="product-infor md:w-1/2 w-full lg:pl-[15px] md:pl-2">
                             <div className="flex justify-between">
                                 <div>
-                                    <div className="caption2 text-secondary font-semibold uppercase">{productMain.type}</div>
-                                    <div className="heading4 mt-1">{productMain.name}</div>
+                                    <div className="caption2 text-secondary font-semibold uppercase">{productMain?.type}</div>
+                                    <div className="heading4 mt-1">{productMain?.name}</div>
                                 </div>
                                 <div
-                                    className={`add-wishlist-btn w-12 h-12 flex items-center justify-center border border-line cursor-pointer rounded-xl duration-300 hover:bg-black hover:text-white ${wishlistState.wishlistArray.some(item => item.id === productMain.id) ? 'active' : ''}`}
+                                    className={`add-wishlist-btn w-12 h-12 flex items-center justify-center border border-line cursor-pointer rounded-xl duration-300 hover:bg-black hover:text-white ${wishlistState.wishlistArray.includes(Number(productMain?.id)) ? 'active' : ''}`}
                                     onClick={handleAddToWishlist}
                                 >
-                                    {wishlistState.wishlistArray.some(item => item.id === productMain.id) ? (
+                                    {wishlistState.wishlistArray.includes(Number(productMain?.id)) ? (
                                         <>
                                             <Icon.Heart size={24} weight='fill' className='text-white' />
                                         </>
@@ -248,14 +248,14 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                 </div>
                             </div>
                             <div className="flex items-center mt-3">
-                                <Rate currentRate={productMain.rate} size={14} />
+                                <Rate currentRate={productMain?.rate} size={14} />
                                 <span className='caption1 text-secondary'>(1.234 reviews)</span>
                             </div>
                             <div className="flex items-center gap-3 flex-wrap mt-5 pb-6 border-b border-line">
-                                <div className="product-price heading5">₹{productMain.price}.00</div>
+                                <div className="product-price heading5">₹{productMain?.price}.00</div>
                                 <div className='w-px h-4 bg-line'></div>
-                                <div className="product-origin-price font-normal text-secondary2"><del>₹{productMain.originPrice}.00</del></div>
-                                {productMain.originPrice && (
+                                <div className="product-origin-price font-normal text-secondary2"><del>₹{productMain?.originPrice}.00</del></div>
+                                {productMain?.originPrice && (
                                     <div className="product-sale caption2 font-semibold bg-green px-3 py-0.5 inline-block rounded-full">
                                         -{percentSale}%
                                     </div>
@@ -278,7 +278,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                          />
                                     </div>
                                     <div className="list-size flex items-center gap-2 flex-wrap mt-3">
-                                        {productMain.sizes.map((item, index) => (
+                                        {productMain?.sizes.map((item, index) => (
                                             <div
                                                 className={`size-item ${item === 'freesize' ? 'px-3 py-2' : 'w-12 h-12'} flex items-center justify-center text-button rounded-full bg-white border border-line ${activeSize === item ? 'active' : ''}`}
                                                 key={index}
@@ -295,9 +295,9 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                         <Icon.Minus
                                             size={20}
                                             onClick={handleDecreaseQuantity}
-                                            className={`${productMain.quantityPurchase === 1 ? 'disabled' : ''} cursor-pointer`}
+                                            className={`${productMain?.quantityPurchase === 1 ? 'disabled' : ''} cursor-pointer`}
                                         />
-                                        <div className="body1 font-semibold">{productMain.quantityPurchase}</div>
+                                        <div className="body1 font-semibold">{productMain?.quantityPurchase}</div>
                                         <Icon.Plus
                                             size={20}
                                             onClick={handleIncreaseQuantity}
@@ -338,11 +338,11 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                     </div>
                                     <div className="flex items-center gap-1 mt-3">
                                         <div className="text-title">Categories:</div>
-                                        <div className="text-secondary">{productMain.category}, {productMain.gender}</div>
+                                        <div className="text-secondary">{productMain?.category}, {productMain?.gender}</div>
                                     </div>
                                     <div className="flex items-center gap-1 mt-3">
                                         <div className="text-title">Tag:</div>
-                                        <div className="text-secondary">{productMain.type}</div>
+                                        <div className="text-secondary">{productMain?.type}</div>
                                     </div>
                                 </div>
                                 

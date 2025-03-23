@@ -2,25 +2,22 @@
 
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { ProductData } from '@/type/NewProduct';
+import { fetchWishlist, addWishlist, removeWishlist } from '@/services/apiServies';
 import { GlobalContextData } from './GlobalContext';
-import { fetchWishlist, addWishlist, removeWishlist, formatedata } from '@/services/apiServies';
-
-interface WishlistItem extends ProductData {}
 
 interface WishlistState {
-    wishlistArray: WishlistItem[];
+    wishlistArray: number[]; // Store only product IDs
 }
 
 type WishlistAction =
-    | { type: 'ADD_TO_WISHLIST'; payload: WishlistItem }
-    | { type: 'REMOVE_FROM_WISHLIST'; payload: string }
-    | { type: 'LOAD_WISHLIST'; payload: WishlistItem[] };
+    | { type: 'ADD_TO_WISHLIST'; payload: number }
+    | { type: 'REMOVE_FROM_WISHLIST'; payload: number }
+    | { type: 'LOAD_WISHLIST'; payload: number[] };
 
 interface WishlistContextProps {
     wishlistState: WishlistState;
-    addToWishlist: (item: ProductData) => void;
-    removeFromWishlist: (itemId: string) => void;
+    addToWishlist: (itemId: number) => void;
+    removeFromWishlist: (itemId: number) => void;
 }
 
 const WishlistContext = createContext<WishlistContextProps | undefined>(undefined);
@@ -35,7 +32,7 @@ const WishlistReducer = (state: WishlistState, action: WishlistAction): Wishlist
         case 'REMOVE_FROM_WISHLIST':
             return {
                 ...state,
-                wishlistArray: state.wishlistArray.filter((item) => item.id !== action.payload),
+                wishlistArray: state.wishlistArray.filter((id) => id !== action.payload),
             };
         case 'LOAD_WISHLIST':
             return {
@@ -58,14 +55,11 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
                 try {
                     const wishlistData = await fetchWishlist(session.accessToken);
                     console.log(wishlistData);
-                    console.log(Products);
-                    const data  = wishlistData.wishlist.map( item => {
-                        console.log(item)
-                        let product = Products.Products.find(product => Number(product.id) === Number(item.productId));
-                        return product;
-                    })
-                    console.log(data);
-                    dispatch({ type: 'LOAD_WISHLIST', payload: data });
+
+                    // Extract only product IDs
+                    const productIds = wishlistData.wishlist.map((item: any) => Number(item.productId));
+
+                    dispatch({ type: 'LOAD_WISHLIST', payload: productIds });
                 } catch (error) {
                     console.error('Failed to load wishlist:', error);
                 }
@@ -73,13 +67,12 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         };
         loadWishlist();
     }, [session]);
-    
 
-    const addToWishlist = async (item: ProductData) => {
+    const addToWishlist = async (itemId: number) => {
         try {
-            const response = await addWishlist(session?.accessToken as string, item.id);
+            const response = await addWishlist(session?.accessToken as string, String(itemId));
             if (response?.status === 200) {
-                dispatch({ type: 'ADD_TO_WISHLIST', payload: item });
+                dispatch({ type: 'ADD_TO_WISHLIST', payload: itemId });
             } else {
                 alert("Failed to add to wishlist");
             }
@@ -87,22 +80,19 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             console.error("Error adding to wishlist:", error);
         }
     };
-    
 
-    const removeFromWishlist = async (itemId: string) => {
+    const removeFromWishlist = async (itemId: number) => {
         try {
-            console.log(itemId);
-            // const response = await removeWishlist(session?.accessToken as string, itemId);
-            // if (response?.status === 200) {
-            //     dispatch({ type: 'REMOVE_FROM_WISHLIST', payload: itemId });
-            // } else {
-            //     alert("Failed to remove from wishlist");
-            // }
+            const response = await removeWishlist(session?.accessToken as string, String(itemId));
+            if (response?.status === 200) {
+                dispatch({ type: 'REMOVE_FROM_WISHLIST', payload: itemId });
+            } else {
+                alert("Failed to remove from wishlist");
+            }
         } catch (error) {
             console.error("Error removing from wishlist:", error);
         }
     };
-    
 
     return (
         <WishlistContext.Provider value={{ wishlistState, addToWishlist, removeFromWishlist }}>

@@ -9,6 +9,6 @@ export const APIS = {
     getProducts : url + "/product/all",
     fetchWishlist : url + "/wishlist/",
     addToWishlist : url + "/wishlist/",
-    removeFromWishlist : (productId: string) => url + `/wishlist/${productId}`,
+    removeFromWishlist : url + `/wishlist/`,
     
 }

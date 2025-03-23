@@ -82,9 +82,12 @@ export const addWishlist = async (accessToken: string, productId: string) => {
 
 export const removeWishlist = async (accessToken: string, productId: string) => {
     try{
-        const response = await axios.delete(APIS.removeFromWishlist(productId), {
+        const response = await axios.delete(APIS.removeFromWishlist, {
             headers: {
                 Authorization: `${accessToken}`
+            },
+            data: {
+                productId: productId
             }
         });
         return response
