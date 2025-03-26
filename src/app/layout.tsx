@@ -10,6 +10,8 @@ import ModalCompare from '@/components/Modal/ModalCompare'
 import CountdownTimeType from '@/type/CountdownType'
 import { countdownTime } from '@/store/countdownTime'
 import MenuOne from '@/components/Header/Menu/MenuOne'
+import Head from 'next/head'
+import Script from 'next/script'
 const serverTimeLeft: CountdownTimeType = countdownTime();
 
 const instrument = Instrument_Sans({ subsets: ['latin'], display: "optional" })
@@ -27,6 +29,7 @@ export default function RootLayout({
   return (
     <GlobalProvider>
       <html lang="en">
+        
         <body className={instrument.className}>
           <MenuOne  />
           {children}
@@ -35,6 +38,7 @@ export default function RootLayout({
           <ModalSearch />
           <ModalQuickview />
           <ModalCompare />
+          <Script src="https://cdn.phonepe.com/checkout/v2/checkout.js" strategy="afterInteractive" />
         </body>
       </html>
     </GlobalProvider>

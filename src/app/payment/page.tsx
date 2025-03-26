@@ -11,7 +11,7 @@ export default function PaymentPage() {
         try{
                 const response = await axios.post('http://localhost:4000/api/payment/create-order', data)
                 console.log(response.data)
-                window.location.href = response.data.url
+                window.location.href = response.data.redirectUrl
         }
         catch(err) {
             console.log(err)
