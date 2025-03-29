@@ -1,7 +1,7 @@
 import NextAuth, {DefaultSession, DefaultUser} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
-import { APIS } from "../../../../../apiconfig";
+import { APIS } from "../../../../apiconfig";
 declare module "next-auth" {
     interface Session {
         user: {

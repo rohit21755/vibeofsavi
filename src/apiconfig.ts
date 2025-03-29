@@ -1,5 +1,6 @@
-const url = "http://localhost:4000/api";
 
+const url = process.env.NEXT_PUBLIC_API_URL;
+console.log("hello api",url)
 export const APIS = {
     login : url + "/user/login",
 

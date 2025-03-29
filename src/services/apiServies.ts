@@ -1,5 +1,5 @@
 import axios from "axios";
-import { APIS } from "../../apiconfig";
+import { APIS } from "../apiconfig";
 import { ProductData } from "../type/NewProduct";
 import { desc } from "next-video/dist/cli/init.js";
 interface CartItem {
