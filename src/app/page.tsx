@@ -2,7 +2,7 @@
 import React from 'react'
 import SliderOne from '@/components/Slider/SliderOne'
 import WhatNewOne from '@/components/Home1/WhatNewOne'
-import productData from '@/data/Product.json'
+
 import Collection from '@/components/Home1/Collection'
 import TabFeatures from '@/components/Home1/TabFeatures'
 import Banner from '@/components/Home1/Banner'

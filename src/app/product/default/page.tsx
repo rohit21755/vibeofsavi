@@ -8,7 +8,7 @@ import BreadcrumbProduct from '@/components/Breadcrumb/BreadcrumbProduct'
 import Default from '@/components/Product/Detail/Default';
 import Footer from '@/components/Footer/Footer'
 import { ProductType } from '@/type/ProductType'
-import productData from '@/data/Product.json'
+
 import { useContext } from 'react'
 import { GlobalContextData } from '@/context/GlobalContext'
 const ProductDefault = () => {
@@ -19,7 +19,7 @@ const ProductDefault = () => {
         productId = '1'
     }
     console.log(Products)
-    console.log(productData)
+
 
     return (
         <>
