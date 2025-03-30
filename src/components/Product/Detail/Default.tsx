@@ -651,8 +651,8 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                         </div>
                         <div className="list-review">
                          
-                            {reviews?.map((item: any) => (
-                                <div className="item flex max-lg:flex-col gap-y-4 w-full py-6 border-t border-line">
+                            {reviews?.map((item: any, index: number) => (
+                                <div key={index} className="item flex max-lg:flex-col gap-y-4 w-full py-6 border-t border-line">
                                 <div className="left lg:w-1/4 w-full lg:pr-[15px]">
                                     
                                     <div className="user mt-3">

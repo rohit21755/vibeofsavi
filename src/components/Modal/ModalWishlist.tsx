@@ -85,14 +85,7 @@ const ModalWishlist = () => {
                     <div className="text-gray-500 text-center text-sm">Please login to view wishlist</div>
                 )}
 
-                <div className="footer-modal p-6 border-t bg-white border-line absolute bottom-0 left-0 w-full text-center">
-                    <Link href={'/wishlist'} onClick={closeModalWishlist} className='button-main w-full text-center uppercase'>
-                        View All Wish List
-                    </Link>
-                    <div onClick={closeModalWishlist} className="text-button-uppercase mt-4 text-center has-line-before cursor-pointer inline-block">
-                        Or continue shopping
-                    </div>
-                </div>
+              
             </div>
         </div>
     );

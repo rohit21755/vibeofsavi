@@ -5,7 +5,7 @@ import GlobalProvider from './GlobalProvider'
 import ModalCart from '@/components/Modal/ModalCart'
 import ModalWishlist from '@/components/Modal/ModalWishlist'
 import ModalSearch from '@/components/Modal/ModalSearch'
-import ModalQuickview from '@/components/Modal/ModalQuickview'
+
 import ModalCompare from '@/components/Modal/ModalCompare'
 import CountdownTimeType from '@/type/CountdownType'
 import { countdownTime } from '@/store/countdownTime'
@@ -36,7 +36,7 @@ export default function RootLayout({
           <ModalCart serverTimeLeft={serverTimeLeft} />
           <ModalWishlist />
           <ModalSearch />
-          <ModalQuickview />
+
           <ModalCompare />
           <Script src="https://cdn.phonepe.com/checkout/v2/checkout.js" strategy="afterInteractive" />
         </body>

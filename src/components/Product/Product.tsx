@@ -10,8 +10,7 @@ import { useModalCartContext } from '@/context/ModalCartContext'
 import { useWishlist } from '@/context/WishlistContext'
 import { useModalWishlistContext } from '@/context/ModalWishlistContext'
 import { useCompare } from '@/context/CompareContext'
-import { useModalCompareContext } from '@/context/ModalCompareContext'
-import { useModalQuickviewContext } from '@/context/ModalQuickviewContext'
+
 import { useRouter } from 'next/navigation'
 import Marquee from 'react-fast-marquee'
 import Rate from '../Other/Rate'
@@ -31,8 +30,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
     const { addToWishlist, removeFromWishlist, wishlistState } = useWishlist();
     const { openModalWishlist } = useModalWishlistContext()
     const { addToCompare, removeFromCompare, compareState } = useCompare();
-    const { openModalCompare } = useModalCompareContext()
-    const { openQuickview } = useModalQuickviewContext()
+
     const router = useRouter()
 
     const handleActiveColor = (item: string) => {
@@ -63,24 +61,24 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
         openModalWishlist();
     };
 
-    const handleAddToCompare = () => {
-        // if product existed in wishlit, remove from wishlist and set state to false
-        if (compareState.compareArray.length < 3) {
-            if (compareState.compareArray.some(item => item.id === data.id)) {
-                removeFromCompare(data.id);
-            } else {
-                // else, add to wishlist and set state to true
-                addToCompare(data);
-            }
-        } else {
-            alert('Compare up to 3 products')
-        }
+    // const handleAddToCompare = () => {
+    //     // if product existed in wishlit, remove from wishlist and set state to false
+    //     if (compareState.compareArray.length < 3) {
+    //         if (compareState.compareArray.some(item => item.id === data.id)) {
+    //             removeFromCompare(data.id);
+    //         } else {
+    //             // else, add to wishlist and set state to true
+    //             addToCompare(data);
+    //         }
+    //     } else {
+    //         alert('Compare up to 3 products')
+    //     }
 
-        openModalCompare();
-    };
+    
+    // };
 
     const handleQuickviewOpen = () => {
-        openQuickview(data)
+   
     }
 
     const handleDetailProduct = (productId: string) => {
@@ -140,7 +138,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                             </>
                                         )}
                                     </div>
-                                    <div
+                                    {/* <div
                                         className={`compare-btn w-[32px] h-[32px] flex items-center justify-center rounded-full bg-white duration-300 relative mt-2 ${compareState.compareArray.some(item => item.id === data.id) ? 'active' : ''}`}
                                         onClick={(e) => {
                                             e.stopPropagation()
@@ -150,7 +148,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                         <div className="tag-action bg-black text-white caption2 px-1.5 py-0.5 rounded-sm">Compare Product</div>
                                         <Icon.Repeat size={18} className='compare-icon' />
                                         <Icon.CheckCircle size={20} className='checked-icon' />
-                                    </div>
+                                    </div> */}
                                     {style === 'style-3' || style === 'style-4' ? (
                                         <div
                                             className={`quick-view-btn w-[32px] h-[32px] flex items-center justify-center rounded-full bg-white duration-300 relative mt-2 ${compareState.compareArray.some(item => item.id === data.id) ? 'active' : ''}`}
@@ -319,7 +317,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                                 </>
                                             )}
                                         </div>
-                                        <div
+                                        {/* <div
                                             className={`compare-btn w-9 h-9 flex items-center justify-center rounded-full bg-white duration-300 relative ${compareState.compareArray.some(item => item.id === data.id) ? 'active' : ''}`}
                                             onClick={(e) => {
                                                 e.stopPropagation()
@@ -329,7 +327,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                             <div className="tag-action bg-black text-white caption2 px-1.5 py-0.5 rounded-sm">Compare Product</div>
                                             <Icon.Repeat size={18} className='compare-icon' />
                                             <Icon.CheckCircle size={20} className='checked-icon' />
-                                        </div>
+                                        </div> */}
                                         <div
                                             className={`quick-view-btn w-9 h-9 flex items-center justify-center rounded-full bg-white duration-300 relative ${compareState.compareArray.some(item => item.id === data.id) ? 'active' : ''}`}
                                             onClick={(e) => {
@@ -644,7 +642,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                                         </>
                                                     )}
                                                 </div>
-                                                <div
+                                                {/* <div
                                                     className={`compare-btn w-[32px] h-[32px] flex items-center justify-center rounded-full bg-white duration-300 relative ${compareState.compareArray.some(item => item.id === data.id) ? 'active' : ''}`}
                                                     onClick={(e) => {
                                                         e.stopPropagation()
@@ -654,7 +652,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                                     <div className="tag-action bg-black text-white caption2 px-1.5 py-0.5 rounded-sm">Compare Product</div>
                                                     <Icon.ArrowsCounterClockwise size={18} className='compare-icon' />
                                                     <Icon.CheckCircle size={20} className='checked-icon' />
-                                                </div>
+                                                </div> */}
                                                 <div
                                                     className="quick-view-btn-list w-[32px] h-[32px] flex items-center justify-center rounded-full bg-white duration-300 relative"
                                                     onClick={(e) => {
@@ -700,7 +698,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                                     </>
                                 )}
                             </span>
-                            <span
+                            {/* <span
                                 className={`compare-btn w-8 h-8 bg-white flex items-center justify-center rounded-full box-shadow-sm duration-300 ${compareState.compareArray.some(item => item.id === data.id) ? 'active' : ''}`}
                                 onClick={(e) => {
                                     e.stopPropagation()
@@ -709,7 +707,7 @@ const Product: React.FC<ProductProps> = ({ data, type, style }) => {
                             >
                                 <Icon.Repeat size={18} className='compare-icon' />
                                 <Icon.CheckCircle size={20} className='checked-icon' />
-                            </span>
+                            </span> */}
                             <span
                                 className="quick-view-btn w-8 h-8 bg-white flex items-center justify-center rounded-full box-shadow-sm duration-300"
                                 onClick={(e) => {
