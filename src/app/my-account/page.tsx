@@ -30,7 +30,7 @@ const MyAccount = () => {
         }
     }, [session])
     function handleLogout() {
-        signOut({ callbackUrl: '/' })
+        signOut()
     }
 
     return (

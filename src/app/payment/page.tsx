@@ -9,9 +9,9 @@ export default function PaymentPage() {
             mobileNumber: '1234567890',
         }
         try{
-                const response = await axios.post('http://localhost:4000/api/payment/create-order', data)
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/payment/create-order`, data)
                 console.log(response.data)
-                window.location.href = response.data.redirectUrl
+                window.location.href = response.data.checkoutPageUrl
         }
         catch(err) {
             console.log(err)
