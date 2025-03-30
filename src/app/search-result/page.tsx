@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import TopNavOne from '@/components/Header/TopNav/TopNavOne'
@@ -7,17 +7,18 @@ import MenuOne from '@/components/Header/Menu/MenuOne'
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb'
 import Footer from '@/components/Footer/Footer'
 import { ProductType } from '@/type/ProductType'
-import productData from '@/data/Product.json'
 import Product from '@/components/Product/Product'
 import HandlePagination from '@/components/Other/HandlePagination'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
+import { GlobalContextData } from '@/context/GlobalContext'
 
 const SearchResult = () => {
     const [searchKeyword, setSearchKeyword] = useState<string>('');
     const [currentPage, setCurrentPage] = useState(0);
     const productsPerPage = 8;
+    const { Products } = useContext(GlobalContextData);
     const offset = currentPage * productsPerPage;
-    let filteredData = productData
+    let filteredData = Products
 
     const router = useRouter()
 
@@ -32,7 +33,7 @@ const SearchResult = () => {
     if (query === null) {
         query = 'dress'
     } else {
-        filteredData = productData.filter((product) =>
+        filteredData = Products.filter((product) =>
             product.name.toLowerCase().includes(query.toLowerCase()) ||
             product.type.toLowerCase().includes(query.toLowerCase())
         );
@@ -89,7 +90,6 @@ const SearchResult = () => {
 
     return (
         <>
-            <TopNavOne props="style-one bg-black" slogan="New customers save 10% with the code GET10" />
             <div id="header" className='relative w-full'>
                 <MenuOne  />
                 <Breadcrumb heading='Search Result' subHeading='Search Result' />
