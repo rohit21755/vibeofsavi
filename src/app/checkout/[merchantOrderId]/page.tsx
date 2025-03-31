@@ -1,13 +1,13 @@
-"use client"
+
 import axios from "axios"
-import { useRouter } from "next/navigation"
+
 import Link from "next/link"
 export default async function CheckoutPage({params}: {
     params: {
         merchantOrderId: string
     }
 }) {
-    const router = useRouter()
+
     const id = (await params).merchantOrderId
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/payment/get-payment-status?orderId=${id}`) 
    

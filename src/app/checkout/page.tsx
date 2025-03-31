@@ -39,14 +39,29 @@ const Checkout = () => {
     
     const router = useRouter()
     async function handlePayment() {
-     
-        const data = { 
-            name: 'Vibe of Savi',
-            amount: 100,
-            mobileNumber: '1234567890',
+        
+        let total = 0
+        const productsOrder = products.map((item) => {
+            total += item.product.price * item.quantityMain
+            return {
+                productId: Number(item.product.id),
+                quantity: Number(item.quantityMain),
+                size: String(item.userSize) || "S",
+                price: Number(item.product.price),
+            }
+        })
+        const data = {
+            address: `${session?.user?.address?.address}, ${session?.user?.address?.city}, ${session?.user?.address?.state}, ${session?.user?.address?.zip}`,
+            totalAmount: Number(total),
+            orderItems: productsOrder,
         }
+        console.log(data)
         try{
-                const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/payment/create-order`, data)
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/payment/create-order`, data, {
+                    headers: {
+                        Authorization: `${session?.accessToken}`
+                    }
+                })
             
                 window.location.href = response.data.checkoutPageUrl
         }
@@ -96,7 +111,7 @@ const Checkout = () => {
                                      
                                        
                                         <div className="block-button md:mt-10 mt-6">
-                                            <button className="button-main w-full">Payment</button>
+                                            <button onClick={handlePayment} className="button-main w-full">Payment</button>
                                         </div>
                                         
                                         
