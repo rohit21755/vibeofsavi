@@ -4,7 +4,7 @@ import Link from "next/link";
 async function getPaymentStatus(orderId: string) {
     try {
         const response = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/payment/get-payment-status?orderId=${orderId}`
+            `${process.env.NEXT_PUBLIC_API_URL}/payment/get-payment-status?merchantOrderId=${orderId}`
         );
         return response.status === 200;
     } catch (error) {
