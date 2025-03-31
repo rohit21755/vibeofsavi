@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, createContext, ReactNode } from "react";
+import React, { useEffect, useState, createContext, ReactNode, useRef } from "react";
 import { ProductData } from "@/type/NewProduct";
 import { fetchProducts } from "@/services/apiServies";
 
@@ -15,18 +15,15 @@ interface GlobalContextProviderProps {
 
 export function GlobalContextProvider({ children }: GlobalContextProviderProps) {
     const [Products, setProducts] = useState<ProductData[]>([]);
+    const hasFetched = useRef(false); // Track if API call has been made
 
     useEffect(() => {
-        const getProducts = async () => {
-            try {
-                const data = await fetchProducts();
-                setProducts(data);
-            } catch (error) {
-                console.error("Error fetching products:", error);
-            }
-        };
-
-        getProducts();
+        if (!hasFetched.current) {
+            hasFetched.current = true; // Mark as fetched
+            fetchProducts()
+                .then((data) => setProducts(data))
+                .catch((error) => console.error("Error fetching products:", error));
+        }
     }, []);
 
     return (

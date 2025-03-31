@@ -46,6 +46,12 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
         const subtotal = newProducts.reduce((acc, item) => acc + item.product.price * item.quantityMain, 0);
         setTotalCart(subtotal);
     }, [cartState.cartArray, Products]);
+    function handleRemove(s) {
+        if(cartState.cartArray.length === 1) {
+            closeModalCart
+        }
+        removeFromCart(s)
+    }
    
 
 
@@ -108,7 +114,9 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
                                                 <div className="name text-button">{product.product.name}  <small>x</small>  {product.quantityMain}</div>
                                                 <div
                                                     className="remove-cart-btn caption1 font-semibold text-red underline cursor-pointer"
-                                                    onClick={() => removeFromCart(product.cartId)}
+                                                    onClick={() => {
+                                                        
+                                                        handleRemove(product.cartId)}}
                                                 >
                                                     Remove
                                                 </div>

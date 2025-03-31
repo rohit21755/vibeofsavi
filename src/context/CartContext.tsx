@@ -79,11 +79,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
             dispatch({ type: 'ADD_TO_CART', payload: item });
             alert('Product added to cart');
         }
+        
     };
 
     const removeFromCart = async (productId: number) => {
        
-        // console.log(productId);
+
         if(session?.user) {
         console.log(productId);
         const response = await removeFromCartMain(session?.accessToken, productId);
@@ -91,6 +92,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
             dispatch({ type: 'REMOVE_FROM_CART', payload: String(productId) });
             alert('Product removed from cart');
         }
+        
     }
     else {
         alert('Some error occured');

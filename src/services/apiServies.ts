@@ -142,7 +142,7 @@ export const addToCart = async (accessToken: string, productId: string, quantity
 
 export const removeFromCartMain = async (accessToken: string, productId: number) => {
     try {
-
+        console.log(accessToken)
         const response = await axios.delete(APIS.removeFromCart, {
             headers: {
                 Authorization: `${accessToken}`

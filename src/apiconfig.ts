@@ -1,9 +1,11 @@
 import { create } from "domain";
+import { register } from "module";
 
 const url = process.env.NEXT_PUBLIC_API_URL;
 
 export const APIS = {
     login : url + "/user/login",
+    register : url + "/user/signup",
 
     // get all products
     getProducts : url + "/product/all",
