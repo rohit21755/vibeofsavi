@@ -1,6 +1,7 @@
+import { create } from "domain";
 
 const url = process.env.NEXT_PUBLIC_API_URL;
-console.log("hello api",url)
+
 export const APIS = {
     login : url + "/user/login",
 
@@ -15,4 +16,8 @@ export const APIS = {
     removeFromCart: url + "/cart/",
     addreview: url + "/user/review",
     getReview: url + "/product/reviews",
+
+    // address
+    createAddress: url + "/address/create",
+    updateAddress: url + "/address/update",
 }

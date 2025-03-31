@@ -62,7 +62,6 @@ export const fetchWishlist = async (accessToken: string) => {
                 Authorization: `${accessToken}`
             }
         });
-        console.log(response.data.wishlist);
        return response.data;
     }
     catch (error) {
@@ -112,7 +111,7 @@ export const fetchCart = async (accessToken: string): Promise<CartItem[]> => {
                 Authorization: `${accessToken}`
             }
         });
-    console.log(response.data.cart);
+  
     return response.data.cart;
 }
 catch (error) {
@@ -143,7 +142,7 @@ export const addToCart = async (accessToken: string, productId: string, quantity
 
 export const removeFromCartMain = async (accessToken: string, productId: number) => {
     try {
-        console.log(productId);
+
         const response = await axios.delete(APIS.removeFromCart, {
             headers: {
                 Authorization: `${accessToken}`
@@ -162,7 +161,7 @@ export const removeFromCartMain = async (accessToken: string, productId: number)
 
 export const addReview = async (accessToken: string, data: any) => {
     try {
-        console.log(accessToken)
+
         const response = await axios.post(APIS.addreview, {
             title: data.title,
             rating: data.rating,
@@ -192,3 +191,48 @@ export const getReview = async (productId: string) => {
         return null;
     }
 }
+export const createAddress = async (addressData: {
+    address: string;
+    city: string;
+    state: string;
+    zip: number;
+    token: string;
+}) => {
+    try {
+
+        const response = await axios.post(APIS.createAddress, addressData, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${addressData.token}`,
+            },
+            withCredentials: true,
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error creating address:", error);
+
+    }
+};
+export const updateAddress = async (addressData: {
+    id: number;
+    address: string;
+    city: string;
+    state: string;
+    zip: number;
+    token: string;
+}) => {
+    try {
+
+        const response = await axios.put(APIS.updateAddress, addressData, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${addressData.token}`,
+            },
+            withCredentials: true,
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error updating address:", error);
+
+    }
+};

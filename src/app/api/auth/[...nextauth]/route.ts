@@ -1,7 +1,8 @@
-import NextAuth, {DefaultSession, DefaultUser} from "next-auth";
+import NextAuth, { DefaultSession, DefaultUser } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
 import { APIS } from "../../../../apiconfig";
+
 declare module "next-auth" {
     interface Session {
         user: {
@@ -9,6 +10,14 @@ declare module "next-auth" {
             name: string;
             email: string;
             phoneNumber: string;
+            address: {
+                id: number;
+                address: string;
+                city: string;
+                state: string;
+                zip: number;
+                userId: number;
+            };
         } & DefaultSession["user"];
         accessToken: string;
     }
@@ -17,8 +26,17 @@ declare module "next-auth" {
         id: number;
         phoneNumber: string;
         accessToken: string;
+        address: {
+            id: number;
+            address: string;
+            city: string;
+            state: string;
+            zip: number;
+            userId: number;
+        };
     }
 }
+
 const handler = NextAuth({
     providers: [
         CredentialsProvider({
@@ -34,9 +52,10 @@ const handler = NextAuth({
                 const data = {
                     email: credentials.email,
                     password: credentials.password,
-                }
+                };
                 try {
                     const response = await axios.post(APIS.login, data);
+                    
                     if (response.data.token) {
                         const user = {
                             id: response.data.user.id,
@@ -45,54 +64,60 @@ const handler = NextAuth({
                             phoneNumber: response.data.user.phoneNumber,
                             accessToken: response.data.token,
                             address: response.data.user.address,
-                        }
-                        console.log(user);
-                        return  user
+                        };
+                     
+                        return user;
                     }
-                }
-                catch (error) {
+                } catch (error) {
                     console.log(error);
-                    return null
+                    return null;
                 }
-
             },
         }),
     ],
     session: {
         strategy: "jwt",
         maxAge: 30 * 24 * 60 * 60,
-    } ,
+    },
     callbacks: {
-        async jwt({token, user}) {
+        async jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
                 token.name = user.name;
                 token.email = user.email;
                 token.phoneNumber = user.phoneNumber;
                 token.accessToken = user.accessToken;
+                token.address = user.address;
             }
-            return token
+            return token;
         },
-        async session({session, token}) {
+        async session({ session, token }) {
             if (token) {
                 session.user.id = token.id as number;
                 session.user.name = token.name as string;
                 session.user.email = token.email as string;
                 session.user.phoneNumber = token.phoneNumber as string;
+                session.user.address = token.address as {
+                    id: number;
+                    address: string;
+                    city: string;
+                    state: string;
+                    zip: number;
+                    userId: number;
+                };
                 session.accessToken = token.accessToken as string;
             }
             return session;
         },
         async redirect({ url, baseUrl }) {
-            return baseUrl; 
+            return baseUrl;
         },
-        
     },
     pages: {
         signIn: "/login",
         signOut: "/",
         error: "/login",
-    }
+    },
 });
 
 export const GET = handler;

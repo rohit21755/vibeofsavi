@@ -5,7 +5,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 
-import { ProductType } from '@/type/ProductType';
 import { useModalCartContext } from '@/context/ModalCartContext'
 import { useCart } from '@/context/CartContext'
 import { countdownTime } from '@/store/countdownTime'
@@ -25,7 +24,7 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
     const [timeLeft, setTimeLeft] = useState(serverTimeLeft);
     const { Products } = useContext(GlobalContextData);
     const [products, setProducts] = useState<ProductMain[]>([]);
-    console.log(Products)
+
     
     const [activeTab, setActiveTab] = useState<string | undefined>('')
     const { isModalOpen, closeModalCart } = useModalCartContext();
@@ -48,10 +47,10 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
         setTotalCart(subtotal);
     }, [cartState.cartArray, Products]);
    
-        console.log(products)
 
 
-    console.log(cartState.cartArray)
+
+
     // const handleAddToCart = (productItem: ProductType) => {
     //     if (!cartState.cartArray.find(item => item.id === productItem.id)) {
     //         addToCart({ ...productItem });

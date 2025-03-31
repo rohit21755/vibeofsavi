@@ -18,7 +18,7 @@ import { useContext } from 'react'
 import { GlobalContextData } from '@/context/GlobalContext'
 export default function Home() {
   const { data: session, status } = useSession()
-  console.log(session?.user)
+
   
   const { Products } = useContext(GlobalContextData);
   return (
