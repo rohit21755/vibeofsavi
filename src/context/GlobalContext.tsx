@@ -18,6 +18,7 @@ interface GlobalContextProviderProps {
 export function GlobalContextProvider({ children }: GlobalContextProviderProps) {
     const [Products, setProducts] = useState<ProductData[]>([]);
     const [loading, setLoading] = useState(true);
+    const [luxuryProducts, setLuxuryProducts] = useState<ProductData[]>([]);
     const hasFetched = useRef(false); // Track if API call has been made
 
     useEffect(() => {
@@ -26,6 +27,7 @@ export function GlobalContextProvider({ children }: GlobalContextProviderProps) 
             setLoading(true);
             fetchProducts()
                 .then((data) => {
+                    console.log(data);
                     setProducts(data);
                     setLoading(false);
                 })

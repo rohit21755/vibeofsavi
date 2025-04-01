@@ -16,9 +16,10 @@ const Register = () => {
     const passwordRef = useRef<HTMLInputElement>(null);
     const confirmPasswordRef = useRef<HTMLInputElement>(null);
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
     const handleSubmit = async(e: { preventDefault: () => void }) => {
         e.preventDefault();
-        const router = useRouter();
+        
         const name = nameRef.current?.value;
         const email = emailRef.current?.value;
         const phone = phoneRef.current?.value;

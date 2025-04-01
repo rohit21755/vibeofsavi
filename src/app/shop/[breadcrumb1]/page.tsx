@@ -31,7 +31,7 @@ export default function BreadCrumb1({ params }: { params: { breadcrumb1: string 
     return (
         <>
             <ShopBreadCrumb1 
-                data={filteredProducts} 
+                data={filteredProducts.filter(product => product.luxury === false)}
                 productPerPage={30} 
                 dataType={type} 
                 

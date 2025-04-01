@@ -140,7 +140,7 @@ const MenuOne =() => {
                                     </li>
                                     <li className='h-full relative'>
                                         <Link
-                                            href="/"
+                                            href="/luxury"
                                             className={`text-button-uppercase duration-300 h-full flex items-center justify-center gap-1 ${pathname === '/luxury' ? 'active' : ''}`}
                                         >
                                             Luxury
@@ -167,8 +167,8 @@ const MenuOne =() => {
                                         {session?.accessToken ? (
                                             <>
                                                 <Link href={'/my-account'} className="button-main bg-white text-black border border-black w-full text-center">Dashboard</Link>
-                                                <div className="bottom mt-4 pt-4 border-t border-line"></div>
-                                                <Link href={'#!'} className='body1 hover:underline'>Support</Link>
+                                               
+                                               
                                             </>
                                         ) : (
                                             <>
@@ -253,7 +253,7 @@ const MenuOne =() => {
                                         className={`${openSubNavMobile === 5 ? 'open' : ''}`}
                                         onClick={() => handleOpenSubNavMobile(5)}
                                     >
-                                        <Link href={'#!'} className='text-xl font-semibold flex items-center justify-between mt-5'>Luxury
+                                        <Link href={'/luxury'} className='text-xl font-semibold flex items-center justify-between mt-5'>Luxury
                                             
                                         </Link>
                                         

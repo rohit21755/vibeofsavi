@@ -25,6 +25,7 @@ export function formatedata(data:any){
         "quantity": data.quantity,
         "quantityPurchase": 1, // Default value
         "sizes": data.sizes,
+        "luxury": data.luxury,
         "variation": data.variants.map((variant:any) => ({
             "color": variant.color,
             "colorCode": "#000000", // Default black as color code not available

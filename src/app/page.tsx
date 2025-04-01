@@ -19,6 +19,8 @@ export default function Home() {
 
   
   const { Products } = useContext(GlobalContextData);
+  console.log(Products)
+  const filteredProducts = Products.filter(product => product.luxury === false);
   return (
     <>
       
@@ -26,9 +28,9 @@ export default function Home() {
         
         <SliderOne />
       </div>
-      <WhatNewOne data={Products} start={0} limit={4} />
+      <WhatNewOne data={filteredProducts} start={0} limit={4} />
       {/* <Collection /> */}
-      <TabFeatures data={Products} start={0} limit={6} />
+      <TabFeatures data={filteredProducts} start={0} limit={6} />
       {/* <Banner /> */}
       <Benefit props="md:py-20 py-10" />
       <Testimonial data={testimonialData} limit={6} />

@@ -20,7 +20,7 @@ export default function FilterDropdown() {
                 <MenuOne  />
             </div>
             <div className="shop-square">
-                <ShopFilterDropdown data={Products} productPerPage={12} dataType={type} />
+                <ShopFilterDropdown data={Products.filter(product => product.luxury === true)} productPerPage={12} dataType={type} />
             </div>
             <Footer />
         </>
