@@ -196,18 +196,19 @@ export const createAddress = async (addressData: {
     city: string;
     state: string;
     zip: number;
-    token: string;
-}) => {
+    
+}, accessToken: string) => {
     try {
 
-        const response = await axios.post(APIS.createAddress, addressData, {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${addressData.token}`,
-            },
-            withCredentials: true,
-        });
-        return response.data;
+        const response = await axios.post(APIS.createAddress, addressData,
+            {
+                headers: {
+                    Authorization: `${accessToken}`,
+                },
+            }
+        );
+        return response;
+
     } catch (error) {
         console.error("Error creating address:", error);
 
@@ -219,20 +220,42 @@ export const updateAddress = async (addressData: {
     city: string;
     state: string;
     zip: number;
-    token: string;
-}) => {
+    
+}, accessToken: string) => {
     try {
-
         const response = await axios.put(APIS.updateAddress, addressData, {
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `${addressData.token}`,
+                Authorization: `${accessToken}`
             },
-            withCredentials: true,
         });
-        return response.data;
+        return response;
+        
     } catch (error) {
         console.error("Error updating address:", error);
 
     }
 };
+
+export const  registerUser = async (data: {
+    name: string;
+    email: string;
+    phoneNumber: string;
+    password: string;
+}, setLoading: (loading: boolean) => void) => {
+    try{
+        const response = await axios.post(APIS.register, data);
+        if(response.status === 200){
+            setLoading(false);
+            return true
+        }
+    }
+    catch (error) {
+        console.log(error);
+        setLoading(false);
+        alert('Some error occured');
+        return false
+    }
+    finally {
+        setLoading(false);
+    }
+} 

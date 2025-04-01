@@ -25,6 +25,7 @@ import { useSession } from 'next-auth/react'
 interface Props {
     data: Array<ProductData>
     productId: string | number | null
+   
 }
 
 const Default: React.FC<Props> = ({ data, productId }) => {
@@ -38,7 +39,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
     const [activeColor, setActiveColor] = useState<string>('')
     const [quantity, setQuantity] = useState(1);
-    const [activeSize, setActiveSize] = useState<string>('')
+    const [activeSize, setActiveSize] = useState<string>('S')
     const [activeTab, setActiveTab] = useState<string | undefined>('description')
     const { addToCart, cartState } = useCart()
     const [title, setTitle] = useState<string>('')
@@ -152,6 +153,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                 alert('Please select size');
                 return;
             }
+            console.log(activeSize)
             addToCart({
                 id: Number(productMain.id),
                 productId: Number(productMain.id),

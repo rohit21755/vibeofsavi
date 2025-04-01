@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image';
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 import { ProductType } from '@/type/ProductType'
 import Product from '../Product/Product';
@@ -212,24 +213,14 @@ const ShopFilterDropdown: React.FC<Props> = ({ data, productPerPage, dataType })
                     <div className="container lg:pt-[134px] pt-24 pb-10 relative">
                         <div className="main-content w-full h-full flex flex-col items-center justify-center relative z-[1]">
                             <div className="text-content">
-                                <div className="heading2 text-center">{dataType === null ? 'Shop' : dataType}</div>
+                                <div className="heading2 text-center">{dataType === null ? 'Savi Luxury' : dataType}</div>
                                 <div className="link flex items-center justify-center gap-1 caption1 mt-3">
                                     <Link href={'/'}>Homepage</Link>
                                     <Icon.CaretRight size={14} className='text-secondary2' />
-                                    <div className='text-secondary2 capitalize'>{dataType === null ? 'Shop' : dataType}</div>
+                                    <div className='text-secondary2 capitalize'>{dataType === null ? 'Luxury' : dataType}</div>
                                 </div>
                             </div>
-                            <div className="list-tab flex flex-wrap items-center justify-center gap-y-5 gap-8 lg:mt-[70px] mt-12 overflow-hidden">
-                                {['t-shirt', 'dress', 'top', 'swimwear', 'shirt'].map((item, index) => (
-                                    <div
-                                        key={index}
-                                        className={`tab-item text-button-uppercase cursor-pointer has-line-before line-2px ${dataType === item ? 'active' : ''}`}
-                                        onClick={() => handleType(item)}
-                                    >
-                                        {item}
-                                    </div>
-                                ))}
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -237,26 +228,26 @@ const ShopFilterDropdown: React.FC<Props> = ({ data, productPerPage, dataType })
 
             <div className="shop-product breadcrumb1 lg:py-20 md:py-14 py-10">
                 <div className="container">
+                     <div className="banner-heading rounded-2xl overflow-hidden relative max-lg:h-[300px] max-md:h-[260px] mb-6">
+                                            <div className="bg-img h-full">
+                                                <Image
+                                                    src={'/images/luxury.webp'}
+                                                    width={3000}
+                                                    height={3000}
+                                                    alt='bg'
+                                                    className='w-full h-full object-cover'
+                                                />
+                                            </div>
+                                            <div className="text-content absolute top-1/2 -translate-y-1/2 right-10">
+                                                <div className="body1 font-semibold uppercase">New Trend 2022</div>
+                                                <div className="heading1 font-semibold mt-2">Sale Off <br />Up To 30%</div>
+                                                {/* <Link  className='button-main lg:mt-10 mt-6'>Explore More</Link> */}
+                                            </div>
+                                        </div>
                     <div className="list-product-block relative">
                         <div className="filter-heading flex items-center justify-between gap-5 flex-wrap">
                             <div className="left flex has-line items-center flex-wrap gap-5">
-                                <div
-                                    className="filter-sidebar-btn flex items-center gap-2 cursor-pointer"
-                                    onClick={handleOpenSidebar}
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M4 21V14" stroke="#1F1F1F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M4 10V3" stroke="#1F1F1F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M12 21V12" stroke="#1F1F1F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M12 8V3" stroke="#1F1F1F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M20 21V16" stroke="#1F1F1F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M20 12V3" stroke="#1F1F1F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M1 14H7" stroke="#1F1F1F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M9 8H15" stroke="#1F1F1F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M17 16H23" stroke="#1F1F1F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                    </svg>
-                                    <span>Filters</span>
-                                </div>
+                              
                                 <div className="choose-layout flex items-center gap-2">
                                     <div
                                         className={`item three-col p-2 border border-line rounded flex items-center justify-center cursor-pointer ${layoutCol === 3 ? 'active' : ''}`}
@@ -380,13 +371,13 @@ const ShopFilterDropdown: React.FC<Props> = ({ data, productPerPage, dataType })
                                     <div className="price-block flex items-center justify-between flex-wrap mt-4">
                                         <div className="min flex items-center gap-1">
                                             <div>Min price:</div>
-                                            <div className='price-min'>₹
+                                            <div className='price-min'>$
                                                 <span>{priceRange.min}</span>
                                             </div>
                                         </div>
                                         <div className="min flex items-center gap-1">
                                             <div>Max price:</div>
-                                            <div className='price-max'>₹
+                                            <div className='price-max'>$
                                                 <span>{priceRange.max}</span>
                                             </div>
                                         </div>
@@ -525,7 +516,7 @@ const ShopFilterDropdown: React.FC<Props> = ({ data, productPerPage, dataType })
                                 item.id === 'no-data' ? (
                                     <div key={item.id} className="no-data-product">No products match the selected criteria.</div>
                                 ) : (
-                                    <Product key={item.id} data={item} type='grid' style={''} />
+                                    <Product key={item.id} data={item} type='grid' />
                                 )
                             ))}
                         </div>

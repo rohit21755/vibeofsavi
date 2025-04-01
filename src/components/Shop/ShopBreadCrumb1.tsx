@@ -13,21 +13,23 @@ interface Props {
     data: Array<ProductType>
     productPerPage: number
     dataType: string | null | undefined
-    gender: string | null
+ 
     category: string | null
+
 }
 
-const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType, gender, category }) => {
+const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType,  category }) => {
     const [showOnlySale, setShowOnlySale] = useState(false)
     const [sortOption, setSortOption] = useState('');
     const [type, setType] = useState<string | null | undefined>(dataType)
     const [size, setSize] = useState<string | null>()
     const [color, setColor] = useState<string | null>()
     const [brand, setBrand] = useState<string | null>()
-    const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({ min: 0, max: 100 });
+    const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({ min: 0, max: 3000 });
     const [currentPage, setCurrentPage] = useState(0);
     const productsPerPage = productPerPage;
     const offset = currentPage * productsPerPage;
+    console.log(data)
 
     const handleShowOnlySale = () => {
         setShowOnlySale(toggleSelect => !toggleSelect)
@@ -68,54 +70,37 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType, gend
 
     // Filter product
     let filteredData = data.filter(product => {
-        let isShowOnlySaleMatched = true;
-        if (showOnlySale) {
-            isShowOnlySaleMatched = product.sale
-        }
-
-        let isDatagenderMatched = true;
-        if (gender) {
-            isDatagenderMatched = product.gender === gender
-        }
-
-        let isDataCategoryMatched = true;
-        if (category) {
-            isDataCategoryMatched = product.category === category
-        }
-
-        let isDataTypeMatched = true;
-        if (dataType) {
-            isDataTypeMatched = product.type === dataType
-        }
-
-        let isTypeMatched = true;
-        if (type) {
-            dataType = type
-            isTypeMatched = product.type === type;
-        }
-
-        let isSizeMatched = true;
-        if (size) {
-            isSizeMatched = product.sizes.includes(size)
-        }
-
-        let isPriceRangeMatched = true;
+        // Apply the sale filter only if "showOnlySale" is true
+        if (showOnlySale && !product.sale) return false;
+    
+        // Apply category filter only if category exists
+        if (category && product.category !== category) return false;
+    
+        // Apply type filter only if dataType exists
+        if (dataType && product.type !== dataType) return false;
+    
+        // Apply selected type filter only if type is selected
+        if (type && product.type !== type) return false;
+    
+        // Apply size filter only if size is selected
+        if (size && !product.sizes.includes(size)) return false;
+    
+        // Apply price range filter only if price range is different from the default
         if (priceRange.min !== 0 || priceRange.max !== 100) {
-            isPriceRangeMatched = product.price >= priceRange.min && product.price <= priceRange.max;
+            if (product.price < priceRange.min || product.price > priceRange.max) return false;
         }
-
-        let isColorMatched = true;
-        if (color) {
-            isColorMatched = product.variation.some(item => item.color === color)
-        }
-
-        let isBrandMatched = true;
-        if (brand) {
-            isBrandMatched = product.brand === brand;
-        }
-
-        return isShowOnlySaleMatched && isDatagenderMatched && isDataCategoryMatched && isDataTypeMatched && isTypeMatched && isSizeMatched && isColorMatched && isBrandMatched && isPriceRangeMatched
-    })
+    
+        // Apply color filter only if a color is selected
+        if (color && !product.variation.some(item => item.color.toLowerCase() === color.toLowerCase())) return false;
+    
+        // Apply brand filter only if a brand is selected
+        console.log(color)
+        if (brand && product.brand !== brand) return false;
+    
+        return true;
+    });
+    
+    console.log(filteredData)
 
 
     // Create a copy array filtered to sort
@@ -186,7 +171,9 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType, gend
     let currentProducts: ProductType[];
 
     if (filteredData.length > 0) {
+        console.log(filteredData)
         currentProducts = filteredData.slice(offset, offset + productsPerPage);
+        console.log(currentProducts)
     } else {
         currentProducts = []
     }
@@ -203,7 +190,7 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType, gend
         setSize(null);
         setColor(null);
         setBrand(null);
-        setPriceRange({ min: 0, max: 100 });
+        setPriceRange({ min: 1000, max: 3000 });
         setCurrentPage(0);
         handleType(null)
     };
@@ -280,9 +267,9 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType, gend
                                 <div className="heading6">Price Range</div>
                                 <Slider
                                     range
-                                    defaultValue={[0, 100]}
-                                    min={0}
-                                    max={100}
+                                    defaultValue={[1000, 3000]}
+                                    min={1000}
+                                    max={3000}
                                     onChange={handlePriceChange}
                                     className='mt-5'
                                 />
@@ -368,13 +355,7 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType, gend
                                                 <span className='w-[3px] h-4 bg-secondary2 rounded-sm'></span>
                                             </div>
                                         </div>
-                                        {/* <Link href={'/shop/sidebar-list'} className="item row w-8 h-8 border border-line rounded flex items-center justify-center cursor-pointer">
-                                            <div className='flex flex-col items-center gap-0.5'>
-                                                <span className='w-4 h-[3px] bg-secondary2 rounded-sm'></span>
-                                                <span className='w-4 h-[3px] bg-secondary2 rounded-sm'></span>
-                                                <span className='w-4 h-[3px] bg-secondary2 rounded-sm'></span>
-                                            </div>
-                                        </Link> */}
+                                       
                                     </div>
                                     <div className="check-sale flex items-center gap-2">
                                         <input
@@ -406,8 +387,9 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType, gend
                                     </div>
                                 </div>
                             </div>
-
+                            
                             <div className="list-filtered flex items-center gap-3 mt-4">
+
                                 <div className="total-product">
                                     {totalProducts}
                                     <span className='text-secondary pl-1'>Products Found</span>

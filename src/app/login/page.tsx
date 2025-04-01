@@ -7,9 +7,21 @@ import Breadcrumb from '@/components/Breadcrumb/Breadcrumb'
 import Footer from '@/components/Footer/Footer'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
 import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react'
 const Login = () => {
+    const router = useRouter()
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
+    const { data: session } = useSession()
+    const [loading , setLoading] = React.useState(false)
+    React.useEffect(() => {
+        if (session) {
+            setLoading(true)
+            router.push('/')
+           
+        }
+    }, [session])
     function handleSubmit(e:any) {
         e.preventDefault()
     

@@ -13,11 +13,9 @@ import Instagram from '@/components/Home1/Instagram'
 import Brand from '@/components/Home1/Brand'
 import Footer from '@/components/Footer/Footer'
 import FAQAccordion from '@/components/Home1/Faq'
-import { useSession } from 'next-auth/react'
 import { useContext } from 'react'
 import { GlobalContextData } from '@/context/GlobalContext'
 export default function Home() {
-  const { data: session, status } = useSession()
 
   
   const { Products } = useContext(GlobalContextData);

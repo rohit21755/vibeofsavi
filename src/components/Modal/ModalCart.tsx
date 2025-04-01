@@ -7,7 +7,6 @@ import * as Icon from "@phosphor-icons/react/dist/ssr";
 import { LoaderCircle } from 'lucide-react';
 import { useModalCartContext } from '@/context/ModalCartContext'
 import { useCart } from '@/context/CartContext'
-import { countdownTime } from '@/store/countdownTime'
 import CountdownTimeType from '@/type/CountdownType';
 import { useContext } from 'react';
 import { GlobalContextData } from '@/context/GlobalContext';
@@ -52,14 +51,7 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
 
 
 
-    // const handleAddToCart = (productItem: ProductType) => {
-    //     if (!cartState.cartArray.find(item => item.id === productItem.id)) {
-    //         addToCart({ ...productItem });
-    //         updateCart(productItem.id, productItem.quantityPurchase, '', '')
-    //     } else {
-    //         updateCart(productItem.id, productItem.quantityPurchase, '', '')
-    //     }
-    // };
+
 
    
 

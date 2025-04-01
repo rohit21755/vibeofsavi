@@ -14,6 +14,7 @@ export interface ProductData {
     quantity: number;
     quantityPurchase: number;
     sizes: string[];
+    luxury: boolean;
     variation: {
         color: string;
         colorCode: string;

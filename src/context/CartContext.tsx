@@ -8,7 +8,7 @@ interface CartItem {
     id: number;
     productId: number;
     quantity: number;
-    selectedSize?: string;
+    selectedSize: string;
 }
 
 interface CartState {
@@ -64,22 +64,26 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
    
     useEffect(() => {
         if (session?.accessToken) {
-            //@ts-ignore
-            fetchCart(session.accessToken).then((cart: CartItem[]) => {
-                console.log(cart);
-                dispatch({ type: 'LOAD_CART', payload: cart });
-            });
+           fetchUserCart()
         }
     }, [session]);
+    const fetchUserCart = async () => {
+ //@ts-ignore
+ fetchCart(session.accessToken).then((cart: CartItem[]) => {
+    console.log(cart);
+    dispatch({ type: 'LOAD_CART', payload: cart });
+});
+    }
 
     const addToCart = async (item: CartItem, setLoading: (loading: boolean) => void) => {
         if (!session?.accessToken) return;
         setLoading(true)
-        const response = await apiAddToCart(session.accessToken, String(item.productId), item.quantity, item.selectedSize || '');
+        const response = await apiAddToCart(session.accessToken, String(item.productId), item.quantity, item.selectedSize);
         if (response) {
             dispatch({ type: 'ADD_TO_CART', payload: item });
             alert('Product added to cart');
         }
+        fetchUserCart()
         setLoading(false)
         
     };
@@ -88,12 +92,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setLoading(true);
         if (session?.user) {
             console.log(productId);
-            dispatch({ type: 'REMOVE_FROM_CART', payload: String(productId) }); // Update UI instantly
+            dispatch({ type: 'REMOVE_FROM_CART', payload: String(productId) });
     
             const response = await removeFromCartMain(session?.accessToken, productId);
             if (!response) {
                 alert('Failed to remove product from cart');
             }
+            fetchUserCart()
             setLoading(false);
         } else {
             alert('Some error occurred');

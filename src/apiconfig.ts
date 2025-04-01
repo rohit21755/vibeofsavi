@@ -14,12 +14,14 @@ export const APIS = {
     removeFromWishlist : url + `/wishlist/`,
 
     getCart: url + "/cart/",
-    addToCart: url + "/cart/",
-    removeFromCart: url + "/cart/",
+    addToCart: url + "/cart/add",
+    removeFromCart: url + "/cart/delete",
     addreview: url + "/user/review",
     getReview: url + "/product/reviews",
 
     // address
     createAddress: url + "/address/create",
     updateAddress: url + "/address/update",
+    // 
+    getOrders: url + "/user/orders",
 }

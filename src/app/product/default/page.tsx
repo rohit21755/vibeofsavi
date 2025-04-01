@@ -19,7 +19,7 @@ const ProductDefault = () => {
         productId = '1'
     }
     console.log(Products)
-
+    
 
     return (
         <>
@@ -28,7 +28,7 @@ const ProductDefault = () => {
                 
                 <BreadcrumbProduct data={Products} productPage='default' productId={productId} />
             </div>
-            <Default data={Products} productId={productId} />
+            <Default data={Products} productId={productId}  />
             <Footer />
         </>
     )

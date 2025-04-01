@@ -12,10 +12,12 @@ import { SessionProvider } from 'next-auth/react'
 import { GlobalContextProvider } from '@/context/GlobalContext'
 import Head from 'next/head'
 const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    
     return (
         <>
-        <GlobalContextProvider>
         <SessionProvider>
+        <GlobalContextProvider>
+        
         <CartProvider>
             <ModalCartProvider>
                 <WishlistProvider>
@@ -33,8 +35,9 @@ const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
                 </WishlistProvider>
             </ModalCartProvider>
         </CartProvider>
-        </SessionProvider>
+        
         </GlobalContextProvider>
+        </SessionProvider>
         </>
     )
 }
