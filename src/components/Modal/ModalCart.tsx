@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
-
+import { LoaderCircle } from 'lucide-react';
 import { useModalCartContext } from '@/context/ModalCartContext'
 import { useCart } from '@/context/CartContext'
 import { countdownTime } from '@/store/countdownTime'
@@ -24,7 +24,7 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
     const [timeLeft, setTimeLeft] = useState(serverTimeLeft);
     const { Products } = useContext(GlobalContextData);
     const [products, setProducts] = useState<ProductMain[]>([]);
-
+    const [loading, setLoading] = useState(false)
     
     const [activeTab, setActiveTab] = useState<string | undefined>('')
     const { isModalOpen, closeModalCart } = useModalCartContext();
@@ -46,12 +46,7 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
         const subtotal = newProducts.reduce((acc, item) => acc + item.product.price * item.quantityMain, 0);
         setTotalCart(subtotal);
     }, [cartState.cartArray, Products]);
-    function handleRemove(s) {
-        if(cartState.cartArray.length === 1) {
-            closeModalCart
-        }
-        removeFromCart(s)
-    }
+    
    
 
 
@@ -66,9 +61,7 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
     //     }
     // };
 
-    const handleActiveTab = (tab: string) => {
-        setActiveTab(tab)
-    }
+   
 
     let moneyForFreeship = 150;
     let [totalCart, setTotalCart] = useState<number>(0)
@@ -116,9 +109,9 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
                                                     className="remove-cart-btn caption1 font-semibold text-red underline cursor-pointer"
                                                     onClick={() => {
                                                         
-                                                        handleRemove(product.cartId)}}
+                                                        removeFromCart(product.cartId, setLoading)}}
                                                 >
-                                                    Remove
+                                                    {loading? <LoaderCircle/> : "Remove"}
                                                 </div>
                                             </div>
                                             <div className="flex items-center justify-between gap-2 mt-3 w-full">

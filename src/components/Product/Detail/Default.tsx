@@ -2,6 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { LoaderCircle } from 'lucide-react';
 import { ProductType } from '@/type/ProductType'
 import Product from '../Product'
 import Rate from '@/components/Other/Rate'
@@ -56,6 +57,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     const { openModalWishlist } = useModalWishlistContext()
     const { addToCompare, removeFromCompare, compareState } = useCompare();
     const { openModalCompare } = useModalCompareContext()
+    const [loading, setLoading] = useState(false)
     let productMain = data.find(product => product.id === productId) as ProductData
     if (productMain === undefined) {
         productMain = data[0]
@@ -150,13 +152,12 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                 alert('Please select size');
                 return;
             }
-        console.log(productMain.id);
             addToCart({
                 id: Number(productMain.id),
                 productId: Number(productMain.id),
                 quantity,
                 selectedSize: activeSize,
-            });
+            }, setLoading);
         }
         else {
             alert('Please login to add to cart');
@@ -364,7 +365,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                     </div>
                                     <div
                                      onClick={handleAddToCart}
-                                     className="button-main w-full text-center bg-white text-black border border-black">Add To Cart</div>
+                                     className="button-main w-full text-center bg-white text-black border border-black">{loading? <LoaderCircle/> : "Add To Cart" }</div>
                                 </div>
                                 
                                 <div className="flex items-center lg:gap-20 gap-8 mt-5 pb-6 border-b border-line">

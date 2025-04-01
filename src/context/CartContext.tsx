@@ -22,8 +22,8 @@ type CartAction =
 
 interface CartContextProps {
     cartState: CartState;
-    addToCart: (item: CartItem) => void;
-    removeFromCart: (productId: number) => void;
+    addToCart: (item: CartItem, setLoading: (loading: boolean)=>void) => void;
+    removeFromCart: (productId: number, setLoading: (loading: boolean)=>void) => void;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -72,33 +72,34 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     }, [session]);
 
-    const addToCart = async (item: CartItem) => {
+    const addToCart = async (item: CartItem, setLoading: (loading: boolean) => void) => {
         if (!session?.accessToken) return;
+        setLoading(true)
         const response = await apiAddToCart(session.accessToken, String(item.productId), item.quantity, item.selectedSize || '');
         if (response) {
             dispatch({ type: 'ADD_TO_CART', payload: item });
             alert('Product added to cart');
         }
+        setLoading(false)
         
     };
 
-    const removeFromCart = async (productId: number) => {
-       
-
-        if(session?.user) {
-        console.log(productId);
-        const response = await removeFromCartMain(session?.accessToken, productId);
-        if (response) {
-            dispatch({ type: 'REMOVE_FROM_CART', payload: String(productId) });
-            alert('Product removed from cart');
+    const removeFromCart = async (productId: number, setLoading: (loading: boolean) => void) => {
+        setLoading(true);
+        if (session?.user) {
+            console.log(productId);
+            dispatch({ type: 'REMOVE_FROM_CART', payload: String(productId) }); // Update UI instantly
+    
+            const response = await removeFromCartMain(session?.accessToken, productId);
+            if (!response) {
+                alert('Failed to remove product from cart');
+            }
+            setLoading(false);
+        } else {
+            alert('Some error occurred');
         }
-        
-    }
-    else {
-        alert('Some error occured');
-    }
-        
     };
+    
 
     return (
         <CartContext.Provider value={{ cartState, addToCart, removeFromCart }}>

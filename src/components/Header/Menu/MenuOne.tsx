@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, use } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import * as Icon from "@phosphor-icons/react/dist/ssr";
@@ -29,7 +29,11 @@ const MenuOne =() => {
     const { cartState } = useCart()
     const { openModalWishlist } = useModalWishlistContext()
     const { openModalSearch } = useModalSearchContext()
+    const [cartCount, setCartCount] = useState<number>(cartState.cartArray.length)
 
+    useEffect(() => {
+        setCartCount(cartState.cartArray.length)
+    }, [cartState.cartArray])
     const handleOpenSubNavMobile = (index: number) => {
         setOpenSubNavMobile(openSubNavMobile === index ? null : index)
     }
@@ -560,7 +564,7 @@ const MenuOne =() => {
                                 </div>
                                 <div className="cart-icon flex items-center relative cursor-pointer" onClick={openModalCart}>
                                     <Icon.Handbag size={24} color='black' />
-                                    <span className="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-black w-4 h-4 flex items-center justify-center rounded-full">{cartState.cartArray.length}</span>
+                                    <span className="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-black w-4 h-4 flex items-center justify-center rounded-full">{cartCount}</span>
                                 </div>
                             </div>
                         </div>
