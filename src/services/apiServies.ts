@@ -260,3 +260,57 @@ export const  registerUser = async (data: {
         setLoading(false);
     }
 } 
+
+export const cancelOrder = async (accessToken: string, orderId: string, merchantOrderId: string) => {
+    try{
+        const response = await axios.post(APIS.cancelOrder, {
+            orderId: orderId,
+            merchantOrderId: merchantOrderId
+        }, {
+            headers: {
+                Authorization: `${accessToken}`
+            }
+        });
+        return response;
+    }
+    catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
+export const returnOrder = async (accessToken: string, orderId: string, merchantOrderId: string) => {
+    try{
+        const response = await axios.post(APIS.returnOrder, {
+            orderId: orderId,
+            merchantOrderId: merchantOrderId
+        }, {
+            headers: {
+                Authorization: `${accessToken}`
+            }
+        });
+        return response;
+    }
+    catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
+export const getReturnStatus = async (accessToken: string, orderId: string, merchantOrderId: string) => {
+    try{
+        const response = await axios.post(APIS.getReturnStatus, {
+            orderId: orderId,
+            merchantOrderId: merchantOrderId
+        }, {
+            headers: {
+                Authorization: `${accessToken}`
+            }
+        });
+        return response;
+    }
+    catch (error) {
+        console.log(error);
+        return null;
+    }
+}

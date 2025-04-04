@@ -59,6 +59,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     const { addToCompare, removeFromCompare, compareState } = useCompare();
     const { openModalCompare } = useModalCompareContext()
     const [loading, setLoading] = useState(false)
+    const [reviewLoading, setReviewLoading] = useState(false)
     let productMain = data.find(product => product.id === productId) as ProductData
     if (productMain === undefined) {
         productMain = data[0]
@@ -117,7 +118,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                 total += item.rating as number;
             });
             setStartCount(ratings);
-            setAverage(total / response.reviews.length);
+            setAverage(response.reviews.length > 0 ? total / response.reviews.length : 0);
             
         }
     }
@@ -125,6 +126,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     const handleAddReview = async(e:any) => {
         e.preventDefault()
         if(session.status === 'authenticated') {
+            setReviewLoading(true)
             const data = {
                 title: title,
                 rating: Number(rating) || 1,
@@ -139,6 +141,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
             else {
                 alert('Some error occured');
             }
+            setReviewLoading(false)
         }
         else {
             alert('Please login to add a review');
@@ -367,7 +370,16 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                     </div>
                                     <div
                                      onClick={handleAddToCart}
-                                     className="button-main w-full text-center bg-white text-black border border-black">{loading? <LoaderCircle/> : "Add To Cart" }</div>
+                                     className="button-main w-full text-center bg-white text-black border border-black flex items-center justify-center">
+                                        {loading ? (
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                                                <span>Adding...</span>
+                                            </div>
+                                        ) : (
+                                            "Add To Cart"
+                                        )}
+                                    </div>
                                 </div>
                                 
                                 <div className="flex items-center lg:gap-20 gap-8 mt-5 pb-6 border-b border-line">
@@ -590,9 +602,9 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             <Icon.Star size={14} weight='fill' />
                                         </div>
                                         <div className="progress bg-line relative w-3/4 h-2">
-                                            <div className={`progress-percent absolute bg-yellow w-[${startCount['5'] / reviews.length * 100}%] h-full left-0 top-0`}></div>
+                                            <div className={`progress-percent absolute bg-yellow h-full left-0 top-0`} style={{ width: `${reviews.length > 0 ? (startCount['5'] / reviews.length * 100) : 0}%` }}></div>
                                         </div>
-                                        <div className="caption1">{startCount['5']/reviews.length * 100}%</div>
+                                        <div className="caption1">{reviews.length > 0 ? Math.round(startCount['5'] / reviews.length * 100) : 0}%</div>
                                     </div>
                                     <div className="item flex items-center justify-between gap-1.5 mt-1">
                                         <div className="flex items-center gap-1">
@@ -600,9 +612,9 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             <Icon.Star size={14} weight='fill' />
                                         </div>
                                         <div className="progress bg-line relative w-3/4 h-2">
-                                            <div className={`progress-percent absolute bg-yellow w-[${startCount['4'] / reviews.length * 100}%] h-full left-0 top-0`}></div>
+                                            <div className={`progress-percent absolute bg-yellow h-full left-0 top-0`} style={{ width: `${reviews.length > 0 ? (startCount['4'] / reviews.length * 100) : 0}%` }}></div>
                                         </div>
-                                        <div className="caption1">{startCount['4']/reviews.length * 100}%</div>
+                                        <div className="caption1">{reviews.length > 0 ? Math.round(startCount['4'] / reviews.length * 100) : 0}%</div>
                                     </div>
                                     <div className="item flex items-center justify-between gap-1.5 mt-1">
                                         <div className="flex items-center gap-1">
@@ -610,9 +622,9 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             <Icon.Star size={14} weight='fill' />
                                         </div>
                                         <div className="progress bg-line relative w-3/4 h-2">
-                                            <div className={`progress-percent absolute bg-yellow w-[${startCount['3'] / reviews.length * 100}%] h-full left-0 top-0`}></div>
+                                            <div className={`progress-percent absolute bg-yellow h-full left-0 top-0`} style={{ width: `${reviews.length > 0 ? (startCount['3'] / reviews.length * 100) : 0}%` }}></div>
                                         </div>
-                                        <div className="caption1">{startCount['3']/reviews.length * 100}%</div>
+                                        <div className="caption1">{reviews.length > 0 ? Math.round(startCount['3'] / reviews.length * 100) : 0}%</div>
                                     </div>
                                     <div className="item flex items-center justify-between gap-1.5 mt-1">
                                         <div className="flex items-center gap-1">
@@ -620,9 +632,9 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             <Icon.Star size={14} weight='fill' />
                                         </div>
                                         <div className="progress bg-line relative w-3/4 h-2">
-                                            <div className={`progress-percent absolute bg-yellow w-[${startCount['2'] / reviews.length * 100}%] h-full left-0 top-0`}></div>
+                                            <div className={`progress-percent absolute bg-yellow h-full left-0 top-0`} style={{ width: `${reviews.length > 0 ? (startCount['2'] / reviews.length * 100) : 0}%` }}></div>
                                         </div>
-                                        <div className="caption1">{startCount['2']/reviews.length * 100}%</div>
+                                        <div className="caption1">{reviews.length > 0 ? Math.round(startCount['2'] / reviews.length * 100) : 0}%</div>
                                     </div>
                                     <div className="item flex items-center justify-between gap-1.5 mt-1">
                                         <div className="flex items-center gap-2">
@@ -630,9 +642,9 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                             <Icon.Star size={14} weight='fill' />
                                         </div>
                                         <div className="progress bg-line relative w-3/4 h-2">
-                                            <div className={`progress-percent absolute bg-yellow w-[${startCount['1'] / reviews.length * 100}%] h-full left-0 top-0`}></div>
+                                            <div className={`progress-percent absolute bg-yellow h-full left-0 top-0`} style={{ width: `${reviews.length > 0 ? (startCount['1'] / reviews.length * 100) : 0}%` }}></div>
                                         </div>
-                                        <div className="caption1">{startCount['1']/reviews.length * 100}%</div>
+                                        <div className="caption1">{reviews.length > 0 ? Math.round(startCount['1'] / reviews.length * 100) : 0}%</div>
                                     </div>
                                 </div>
                             </div>
@@ -703,7 +715,20 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                     <textarea className="border border-line px-4 py-3 w-full rounded-lg" onChange={(e) => setMessage(e.target.value)} placeholder="Your message *" required></textarea>
                                 </div>
                                 <div className="col-span-full sm:pt-3">
-                                    <button onClick={handleAddReview} className='button-main bg-white text-black border border-black'>Submit Reviews</button>
+                                    <button 
+                                        onClick={handleAddReview} 
+                                        className='button-main bg-white text-black border border-black flex items-center justify-center w-full'
+                                        disabled={reviewLoading}
+                                    >
+                                        {reviewLoading ? (
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                                                <span>Submitting...</span>
+                                            </div>
+                                        ) : (
+                                            "Submit Reviews"
+                                        )}
+                                    </button>
                                 </div>
                             </form>
                         </div>

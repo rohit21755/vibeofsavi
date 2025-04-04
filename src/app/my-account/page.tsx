@@ -11,7 +11,7 @@ import { motion } from 'framer-motion'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { signOut } from 'next-auth/react'
-import { createAddress, updateAddress } from '@/services/apiServies'
+import { createAddress, updateAddress, cancelOrder, returnOrder } from '@/services/apiServies'
 import axios from 'axios'
 import { APIS } from '@/apiconfig'
 import { it } from 'node:test'
@@ -37,12 +37,22 @@ interface Order {
     createdAt: string;
     merchantOrderId: string;
     orderItems: OrderItem[];
+    delverdAt: string | null;
+    delivered: boolean;
+    cancelled: boolean;
+    cancelledAt: string | null;
+    refunded: boolean;
+    refundedAt: string | null;
+    returnRequest: boolean;
+    returnRequestAt: string | null;
 }
 const MyAccount = () => {
     const [activeTab, setActiveTab] = useState<string | undefined>('orders')
     const [activeAddress, setActiveAddress] = useState<string | null>('billing')
     const [openDetail, setOpenDetail] = useState<boolean | undefined>(false)
     const [activeOrders, setActiveOrders] = useState<'all' | 'pending' | 'delivery' | 'completed' | 'canceled'>('all');
+    const [loadingOrders, setLoadingOrders] = useState<{[key: number]: boolean}>({});
+    const [isUpdatingAddress, setIsUpdatingAddress] = useState<boolean>(false);
 
     const { data: session, status, update } = useSession()
     const addressRef = useRef<HTMLInputElement>(null)
@@ -67,7 +77,7 @@ const MyAccount = () => {
         fetchOrders()
     }, [session])
     useEffect(() => {
-        
+        console.log(orders)
     }, [orders])
     const handleActiveOrders = (orderState: 'all' | 'pending' | 'delivery' | 'completed' | 'canceled') => {
         setActiveOrders(orderState);
@@ -110,35 +120,92 @@ const MyAccount = () => {
         e.preventDefault()
         
         if(session?.user.address.id){
-            let addressData = {
-                id: session.user.address.id,
-                address: String(addressRef.current?.value),
-                city: String(cityRef.current?.value),
-                state: String(stateRef.current?.value),
-                zip: Number(zipRef.current?.value)
+            try {
+                setIsUpdatingAddress(true);
+                let addressData = {
+                    id: session.user.address.id,
+                    address: String(addressRef.current?.value),
+                    city: String(cityRef.current?.value),
+                    state: String(stateRef.current?.value),
+                    zip: Number(zipRef.current?.value)
+                }
+                let accessToken = session?.accessToken
+                const response = await updateAddress(
+                    addressData, accessToken
+                )
+                
+                if (response && response.data && response.data.address) {
+                    // Update the session with the new address
+                    
+                    
+                    // Update the session
+                    await update({address: {
+                        address: response.data.address.address,
+                        city: response.data.address.city,
+                        state: response.data.address.state,
+                        zip: response.data.address.zip
+                    }});
+                    
+                    // Update form values with the new address
+                    if (addressRef.current) addressRef.current.value = response.data.address.address;
+                    if (cityRef.current) cityRef.current.value = response.data.address.city;
+                    if (stateRef.current) stateRef.current.value = response.data.address.state;
+                    if (zipRef.current) zipRef.current.value = String(response.data.address.zip);
+                    
+                    alert("Address updated successfully");
+                } else {
+                    alert("Failed to update address: Invalid response");
+                }
+            } catch (error) {
+                console.error("Error updating address:", error);
+                alert("Failed to update address");
+            } finally {
+                setIsUpdatingAddress(false);
             }
-            let accessToken = session?.accessToken
-            const response = await updateAddress(
-                addressData, accessToken
-            )
-            update({user: {...session.user, address: response?.data.address}})
-            
-           
-           
         }  
         else if(session?.accessToken) {
-            let addressData = {
-                address: String(addressRef.current?.value),
-                city: String(cityRef.current?.value),
-                state: String(stateRef.current?.value),
-                zip: Number(zipRef.current?.value)
+            try {
+                setIsUpdatingAddress(true);
+                let addressData = {
+                    address: String(addressRef.current?.value),
+                    city: String(cityRef.current?.value),
+                    state: String(stateRef.current?.value),
+                    zip: Number(zipRef.current?.value)
+                }
+                let accessToken = session?.accessToken
+                const response = await createAddress(
+                    addressData, accessToken
+                )
+                
+                if (response && response.data && response.data.address) {
+                    // Update the session with the new address
+                    const updatedSession = {
+                        ...session,
+                        user: {
+                            ...session.user,
+                            address: response.data.address
+                        }
+                    };
+                    
+                    // Update the session
+                    await update(updatedSession);
+                    
+                    // Update form values with the new address
+                    if (addressRef.current) addressRef.current.value = response.data.address.address;
+                    if (cityRef.current) cityRef.current.value = response.data.address.city;
+                    if (stateRef.current) stateRef.current.value = response.data.address.state;
+                    if (zipRef.current) zipRef.current.value = String(response.data.address.zip);
+                    
+                    alert("Address saved successfully");
+                } else {
+                    alert("Failed to save address: Invalid response");
+                }
+            } catch (error) {
+                console.error("Error saving address:", error);
+                alert("Failed to save address");
+            } finally {
+                setIsUpdatingAddress(false);
             }
-            let accessToken = session?.accessToken
-            const response = await createAddress(
-                addressData, accessToken
-            )
-            update({user: {...session.user, address: response?.data.address}})
-            
         }
         else {
             console.log("error")
@@ -146,6 +213,75 @@ const MyAccount = () => {
             router.push("/login")
         }
     }
+
+    const handleCancelOrder = async (orderId: number, merchantOrderId: string) => {
+        if (!session?.accessToken) {
+            alert("Please login to cancel order");
+            return;
+        }
+        
+        try {
+            setLoadingOrders(prev => ({...prev, [orderId]: true}));
+            const response = await cancelOrder(session.accessToken, String(orderId), merchantOrderId);
+            if (response) {
+                // Refresh orders after cancellation
+                const updatedOrders = await axios.get(APIS.getOrders, {
+                    headers: {
+                        Authorization: `${session.accessToken}`
+                    }
+                });
+                setOrders(updatedOrders.data.orders);
+                alert("Order cancelled successfully");
+            } else {
+                alert("Failed to cancel order");
+            }
+        } catch (error) {
+            console.error("Error cancelling order:", error);
+            alert("An error occurred while cancelling the order");
+        } finally {
+            setLoadingOrders(prev => ({...prev, [orderId]: false}));
+        }
+    };
+    
+    const handleReturnOrder = async (orderId: number, merchantOrderId: string) => {
+        if (!session?.accessToken) {
+            alert("Please login to return order");
+            return;
+        }
+        
+        try {
+            setLoadingOrders(prev => ({...prev, [orderId]: true}));
+            const response = await returnOrder(session.accessToken, String(orderId), merchantOrderId);
+            if (response) {
+                // Refresh orders after return request
+                const updatedOrders = await axios.get(APIS.getOrders, {
+                    headers: {
+                        Authorization: `${session.accessToken}`
+                    }
+                });
+                setOrders(updatedOrders.data.orders);
+                alert("Return request submitted successfully");
+            } else {
+                alert("Failed to submit return request");
+            }
+        } catch (error) {
+            console.error("Error returning order:", error);
+            alert("An error occurred while submitting the return request");
+        } finally {
+            setLoadingOrders(prev => ({...prev, [orderId]: false}));
+        }
+    };
+    
+    const canReturnOrder = (order: Order): boolean => {
+        if (!order.delivered || !order.delverdAt) return false;
+        
+        const deliveryDate = new Date(order.delverdAt);
+        const currentDate = new Date();
+        const diffTime = Math.abs(currentDate.getTime() - deliveryDate.getTime());
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        return diffDays <= 7;
+    };
 
     return (
         <>
@@ -217,11 +353,40 @@ const MyAccount = () => {
                     </div>
                     <div className="flex items-center gap-2">
                         <strong className="text-title">Order status:</strong>
-                        <span className="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-purple text-purple caption1 font-semibold">
-                            {order.state.toUpperCase()}
+                        <span className={`tag px-4 py-1.5 rounded-full caption1 font-semibold ${
+                            order.cancelled 
+                                ? 'bg-opacity-10 bg-red-500 text-red-500' 
+                                : order.refunded 
+                                    ? 'bg-opacity-10 bg-green-500 text-green-500'
+                                    : 'bg-opacity-10 bg-purple text-purple'
+                        }`}>
+                            {order.cancelled 
+                                ? 'CANCELLED' 
+                                : order.refunded 
+                                    ? 'RETURNED'
+                                    : order.state.toUpperCase()}
                         </span>
                     </div>
                 </div>
+                {order.delverdAt && (
+                    <div className="px-5 py-2 border-b border-line">
+                        <div className="flex items-center gap-2">
+                            <strong className="text-title">Delivered on:</strong>
+                            <span className="text-secondary">
+                                {new Date(order.delverdAt).toLocaleDateString()}
+                            </span>
+                        </div>
+                        {order.delivered && !order.refunded && (
+                            <div className="mt-1 text-sm">
+                                {canReturnOrder(order) ? (
+                                    <span className="text-green-600">Eligible for return (within 7 days of delivery)</span>
+                                ) : (
+                                    <span className="text-red-600">Return window expired (7 days from delivery)</span>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                )}
                 <div className="list_prd px-5">
                     {order.orderItems.map(item => (
                         <div key={item.id} className="prd_item flex flex-wrap items-center justify-between gap-3 py-5 border-b border-line">
@@ -251,7 +416,65 @@ const MyAccount = () => {
                     ))}
                 </div>
                 <div className="flex flex-wrap gap-4 p-5">
-                    <button className="button-main bg-surface border border-line hover:bg-black text-black hover:text-white">Cancel Order</button>
+                    {!order.delivered && !order.cancelled && (
+                        <button 
+                            className="button-main bg-surface border border-line hover:bg-black text-black hover:text-white flex items-center justify-center" 
+                            onClick={() => handleCancelOrder(order.id, order.merchantOrderId)}
+                            disabled={loadingOrders[order.id]}
+                        >
+                            {loadingOrders[order.id] ? (
+                                <>
+                                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Cancelling...
+                                </>
+                            ) : (
+                                "Cancel Order"
+                            )}
+                        </button>
+                    )}
+                    {order.delivered && !order.refunded && canReturnOrder(order) && !order.returnRequest && order.state.toLowerCase() !== 'returned' && (
+                        <button 
+                            className="button-main bg-surface border border-line hover:bg-black text-black hover:text-white flex items-center justify-center" 
+                            onClick={() => handleReturnOrder(order.id, order.merchantOrderId)}
+                            disabled={loadingOrders[order.id]}
+                        >
+                            {loadingOrders[order.id] ? (
+                                <>
+                                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Processing...
+                                </>
+                            ) : (
+                                "Return Order"
+                            )}
+                        </button>
+                    )}
+                    {order.cancelled && (
+                        <div className="flex flex-col">
+                            <span className="text-red-500 font-medium">Order Cancelled</span>
+                            <span className="text-secondary text-sm mt-1">Refund is in process</span>
+                        </div>
+                    )}
+                    {order.refunded && (
+                        <span className="text-green-500 font-medium">Refunded</span>
+                    )}
+                    {order.returnRequest && (
+                        <div className="flex flex-col">
+                            <span className="text-blue-500 font-medium">Return Request</span>
+                            <span className="text-secondary text-sm mt-1">Refund will be processed in 7 days</span>
+                        </div>
+                    )}
+                    {order.state.toLowerCase() === 'returned' && !order.refunded && (
+                        <div className="flex flex-col">
+                            <span className="text-blue-500 font-medium">Return Initiated</span>
+                            <span className="text-secondary text-sm mt-1">Refund will be initiated after pickup</span>
+                        </div>
+                    )}
                 </div>
             </div>
         ))
@@ -298,7 +521,23 @@ const MyAccount = () => {
                                     
                                     
                                     <div className="block-button lg:mt-10 mt-6">
-                                        <button onClick={(e)=>handleSaveAddress(e)} className="button-main">Update Address</button>
+                                        <button 
+                                            onClick={(e)=>handleSaveAddress(e)} 
+                                            className="button-main flex items-center justify-center"
+                                            disabled={isUpdatingAddress}
+                                        >
+                                            {isUpdatingAddress ? (
+                                                <>
+                                                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                    </svg>
+                                                    Updating...
+                                                </>
+                                            ) : (
+                                                "Update Address"
+                                            )}
+                                        </button>
                                     </div>
                                 </form>
                             </div>

@@ -15,8 +15,9 @@ const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
     
     return (
         <>
-        <SessionProvider>
         <GlobalContextProvider>
+        <SessionProvider>
+        
         
         <CartProvider>
             <ModalCartProvider>
@@ -36,8 +37,9 @@ const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =
             </ModalCartProvider>
         </CartProvider>
         
-        </GlobalContextProvider>
+        
         </SessionProvider>
+        </GlobalContextProvider>
         </>
     )
 }

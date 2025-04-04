@@ -10,8 +10,8 @@ export const APIS = {
     // get all products
     getProducts : url + "/product/all",
     fetchWishlist : url + "/wishlist/",
-    addToWishlist : url + "/wishlist/",
-    removeFromWishlist : url + `/wishlist/`,
+    addToWishlist : url + "/wishlist/add",
+    removeFromWishlist : url + `/wishlist/remove`,
 
     getCart: url + "/cart/",
     addToCart: url + "/cart/add",
@@ -24,4 +24,9 @@ export const APIS = {
     updateAddress: url + "/address/update",
     // 
     getOrders: url + "/user/orders",
+
+    // user
+    cancelOrder: url + "/user/cancel-order",
+    returnOrder: url + "/user/return-order",
+    getReturnStatus: url + "/user/return-status"
 }
