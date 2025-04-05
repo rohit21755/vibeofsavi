@@ -17,6 +17,7 @@ import { useContext } from 'react';
 import { GlobalContextData } from '@/context/GlobalContext';
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { updateAddress, createAddress } from '@/services/apiServies'
 
 interface ProductMain {
     cartId: number;
@@ -35,19 +36,31 @@ const Checkout = () => {
     let [totalCart, setTotalCart] = useState<number>(0)
     const [activePayment, setActivePayment] = useState<string>('credit-card')
     const [products, setProducts] = useState<ProductMain[]>([]);
-    const { data: session, status } = useSession()
+    const { data: session, status, update } = useSession()
+    const [isUpdatingAddress, setIsUpdatingAddress] = useState<boolean>(false);
+    const [showAddressForm, setShowAddressForm] = useState<boolean>(false);
+    const [addressForm, setAddressForm] = useState({
+        address: session?.user?.address?.address || '',
+        city: session?.user?.address?.city || '',
+        state: session?.user?.address?.state || '',
+        zip: session?.user?.address?.zip || ''
+    });
     
     const router = useRouter()
     async function handlePayment() {
-        
+        if(!session?.user?.address) {
+            alert("Please add address first")
+            return
+        }
         let total = 0
         const productsOrder = products.map((item) => {
-            total += item.product.price * item.quantityMain
+            const price = item.product.sale ? item.product.price : item.product.originPrice;
+            total += price * item.quantityMain
             return {
                 productId: Number(item.product.id),
                 quantity: Number(item.quantityMain),
                 size: String(item.userSize) || "S",
-                price: Number(item.product.price),
+                price: Number(price),
             }
         })
         const data = {
@@ -74,21 +87,107 @@ const Checkout = () => {
         if (!session){
             router.push('/login')
         }
-            const newProducts: ProductMain[] = cartState.cartArray.map((item) => {
-                const product = Products.find((product) => Number(product.id) === item.productId);
-                if (product) {
-                    //@ts-ignore
-                    return { cartId: item.id, product, quantityMain: item.quantity, userSize: item.size || '' };
+        if (session?.user?.address) {
+            setAddressForm({
+                address: session.user.address.address,
+                city: session.user.address.city,
+                state: session.user.address.state,
+                zip: session.user.address.zip
+            });
+        }
+        const newProducts: ProductMain[] = cartState.cartArray.map((item) => {
+            const product = Products.find((product) => Number(product.id) === item.productId);
+            if (product) {
+                //@ts-ignore
+                return { cartId: item.id, product, quantityMain: item.quantity, userSize: item.size || '' };
+            }
+            return undefined;
+        }).filter((item): item is ProductMain => item !== undefined);
+        
+        setProducts(newProducts);
+        
+        // Calculate subtotal
+        const subtotal = newProducts.reduce((acc, item) => {
+            const price = item.product.sale ? item.product.price : item.product.originPrice;
+            return acc + price * item.quantityMain;
+        }, 0);
+        setTotalCart(subtotal);
+    }, [cartState.cartArray, Products]);
+
+    const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setAddressForm(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleUpdateAddress = async (e: React.FormEvent) => {
+        e.preventDefault();
+        
+        if (!session?.user || !session?.accessToken) {
+            alert("Please login to update address");
+            return;
+        }
+        
+        try {
+            setIsUpdatingAddress(true);
+            const addressData = {
+                id: session.user.address.id,
+                address: addressForm.address,
+                city: addressForm.city,
+                state: addressForm.state,
+                zip: Number(addressForm.zip)
+            };
+            if(session.user.address.id) {
+                const response = await updateAddress(addressData, session.accessToken);
+            
+            if (response && response.data && response.data.address) {
+                // Update the session with the new address
+                await update({
+                    address: {
+                        address: response.data.address.address,
+                        city: response.data.address.city,
+                        state: response.data.address.state,
+                        zip: response.data.address.zip
+                    }
+                });
+                
+                setShowAddressForm(false);
+                alert("Address updated successfully");
+            } else {
+                alert("Failed to update address: Invalid response");
+            }
+            }
+            else {
+                const response = await createAddress(addressData, session.accessToken);
+                if (response && response.data && response.data.address) {
+                    
+                    await update({
+                        address: {
+                            id: response.data.address.id,
+                            address: response.data.address.address,
+                            city: response.data.address.city,
+                            state: response.data.address.state,
+                            zip: response.data.address.zip
+                        }
+                    });
+                    
+                    setShowAddressForm(false);
+                    alert("Address Saved successfully");
+                } else {
+                    alert("Failed to update address: Invalid response");
                 }
-                return undefined;
-            }).filter((item): item is ProductMain => item !== undefined);
-        
-            setProducts(newProducts);
-        
-            // Calculate subtotal
-            const subtotal = newProducts.reduce((acc, item) => acc + item.product.price * item.quantityMain, 0);
-            setTotalCart(subtotal);
-        }, [cartState.cartArray, Products]);
+            }
+            
+            
+        } catch (error) {
+            console.error("Error updating address:", error);
+            alert("Failed to update address");
+        } finally {
+            setIsUpdatingAddress(false);
+        }
+    };
 
     return (
         <>
@@ -104,21 +203,103 @@ const Checkout = () => {
                             
                             <div className="information mt-5">
                                 <div className="heading5">Address</div>
-                                <div className=' mt-3'>{session?.user?.address?.address}, {session?.user?.address?.city}, {session?.user?.address?.state}, {session?.user?.address?.zip}</div>
-                                <div className="form-checkout mt-5">
-                                   
-                                <Link href="/my-account" className="button mt-6 w-full">Change Address ?</Link>
-                                     
-                                       
-                                        <div className="block-button md:mt-10 mt-6">
-                                            <button onClick={handlePayment} className="button-main w-full">Payment</button>
+                                {!showAddressForm ? (
+                                    <>
+                                        <div className='mt-3'>{session?.user?.address?.address}, {session?.user?.address?.city}, {session?.user?.address?.state}, {session?.user?.address?.zip}</div>
+                                        <div className="form-checkout mt-5">
+                                            <button 
+                                                onClick={() => setShowAddressForm(true)} 
+                                                className="button mt-6 w-full"
+                                            >
+                                                Update Address
+                                            </button>
                                         </div>
-                                        
-                                        
-                                          
-                                        
-                                  
+                                    </>
+                                ) : (
+                                    <form onSubmit={handleUpdateAddress} className="mt-5">
+                                        <div className="grid grid-cols-1 gap-4">
+                                            <div>
+                                                <label htmlFor="address" className="caption1 capitalize">Street Address <span className="text-red">*</span></label>
+                                                <input 
+                                                    id="address"
+                                                    name="address"
+                                                    value={addressForm.address}
+                                                    onChange={handleAddressChange}
+                                                    className="border-line mt-2 px-4 py-3 w-full rounded-lg" 
+                                                    type="text" 
+                                                    required 
+                                                />
+                                            </div>
+                                            <div>
+                                                <label htmlFor="city" className="caption1 capitalize">City <span className="text-red">*</span></label>
+                                                <input 
+                                                    id="city"
+                                                    name="city"
+                                                    value={addressForm.city}
+                                                    onChange={handleAddressChange}
+                                                    className="border-line mt-2 px-4 py-3 w-full rounded-lg" 
+                                                    type="text" 
+                                                    required 
+                                                />
+                                            </div>
+                                            <div>
+                                                <label htmlFor="state" className="caption1 capitalize">State <span className="text-red">*</span></label>
+                                                <input 
+                                                    id="state"
+                                                    name="state"
+                                                    value={addressForm.state}
+                                                    onChange={handleAddressChange}
+                                                    className="border-line mt-2 px-4 py-3 w-full rounded-lg" 
+                                                    type="text" 
+                                                    required 
+                                                />
+                                            </div>
+                                            <div>
+                                                <label htmlFor="zip" className="caption1 capitalize">ZIP <span className="text-red">*</span></label>
+                                                <input 
+                                                    id="zip"
+                                                    name="zip"
+                                                    value={addressForm.zip}
+                                                    onChange={handleAddressChange}
+                                                    className="border-line mt-2 px-4 py-3 w-full rounded-lg" 
+                                                    type="number" 
+                                                    required 
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-3 mt-5">
+                                            <button 
+                                                type="button" 
+                                                onClick={() => setShowAddressForm(false)}
+                                                className="button-secondary flex-1"
+                                            >
+                                                Cancel
+                                            </button>
+                                            <button 
+                                                type="submit" 
+                                                className="button-main flex-1"
+                                                disabled={isUpdatingAddress}
+                                            >
+                                                {isUpdatingAddress ? 'Updating...' : 'Update Address'}
+                                            </button>
+                                        </div>
+                                    </form>
+                                )}
+                                
+                                <div className="block-button md:mt-10 mt-6">
+                                    <button 
+                                        onClick={handlePayment} 
+                                        className={`button-main w-full ${!session?.user?.address ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                        disabled={!session?.user?.address}
+                                    >
+                                        {!session?.user?.address ? 'Please Add Address First' : 'Payment'}
+                                    </button>
                                 </div>
+                                
+                                
+                                  
+                                
+                          
                             </div>
 
                         </div>
@@ -154,7 +335,7 @@ const Checkout = () => {
                                                             <span className='quantity'>{product.quantityMain}</span>
                                                             <span className='px-1'>x</span>
                                                             <span>
-                                                            ₹{product.product.price}.00
+                                                            ₹{product.product.sale ? product.product.price : product.product.originPrice}.00
                                                             </span>
                                                         </div>
                                                     </div>

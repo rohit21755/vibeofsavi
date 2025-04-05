@@ -118,8 +118,9 @@ const MyAccount = () => {
 
     async function handleSaveAddress(e:any) {
         e.preventDefault()
-        
+        console.log(session?.user.address)
         if(session?.user.address.id){
+            console.log("address id found")
             try {
                 setIsUpdatingAddress(true);
                 let addressData = {
@@ -140,6 +141,7 @@ const MyAccount = () => {
                     
                     // Update the session
                     await update({address: {
+                        id: session.user.address.id,
                         address: response.data.address.address,
                         city: response.data.address.city,
                         state: response.data.address.state,
@@ -164,6 +166,7 @@ const MyAccount = () => {
             }
         }  
         else if(session?.accessToken) {
+            console.log("address id not found")
             try {
                 setIsUpdatingAddress(true);
                 let addressData = {

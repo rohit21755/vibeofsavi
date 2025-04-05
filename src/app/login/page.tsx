@@ -14,7 +14,7 @@ const Login = () => {
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
     const { data: session } = useSession()
-    const [loading , setLoading] = React.useState(false)
+    const [loading, setLoading] = React.useState(false)
     React.useEffect(() => {
         if (session) {
             setLoading(true)
@@ -22,13 +22,19 @@ const Login = () => {
            
         }
     }, [session])
-    function handleSubmit(e:any) {
+    async function handleSubmit(e:any) {
         e.preventDefault()
-    
-        signIn('credentials', {
-            email: emailRef.current?.value,
-            password: passwordRef.current?.value,
-        })
+        setLoading(true)
+        try {
+            await signIn('credentials', {
+                email: emailRef.current?.value,
+                password: passwordRef.current?.value,
+            })
+        } catch (error) {
+            console.error('Login error:', error)
+        } finally {
+            setLoading(false)
+        }
     }
     return (
         <>
@@ -54,7 +60,16 @@ const Login = () => {
                                     <Link href={'/forgot-password'} className='font-semibold hover:underline'>Forgot Your Password?</Link>
                                 </div>
                                 <div className="block-button md:mt-7 mt-4">
-                                    <button className="button-main" type='submit'>Login</button>
+                                    <button className="button-main" type='submit' disabled={loading}>
+                                        {loading ? (
+                                            <div className="flex items-center justify-center">
+                                                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                                                Logging in...
+                                            </div>
+                                        ) : (
+                                            'Login'
+                                        )}
+                                    </button>
                                 </div>
                             </form>
                         </div>

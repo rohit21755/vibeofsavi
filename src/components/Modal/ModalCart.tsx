@@ -42,7 +42,10 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
         setProducts(newProducts);
     
         // Calculate subtotal
-        const subtotal = newProducts.reduce((acc, item) => acc + item.product.price * item.quantityMain, 0);
+        const subtotal = newProducts.reduce((acc, item) => {
+            const price = item.product.sale ? item.product.price : item.product.originPrice;
+            return acc + price * item.quantityMain;
+        }, 0);
         setTotalCart(subtotal);
     }, [cartState.cartArray, Products]);
     
@@ -110,7 +113,7 @@ const ModalCart = ({ serverTimeLeft }: { serverTimeLeft: CountdownTimeType }) =>
                                                 <div className="flex items-center text-secondary2 capitalize">
                                                     {product.userSize}
                                                 </div>
-                                                <div className="product-price text-title">₹{product.product.price}.00</div>
+                                                <div className="product-price text-title">₹{product.product.sale ? product.product.price : product.product.originPrice}.00</div>
                                             </div>
                                         </div>
                                     </div>

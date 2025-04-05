@@ -26,15 +26,18 @@ const Register = () => {
         const password = passwordRef.current?.value;
         const confirmPassword = confirmPasswordRef.current?.value;
         
+        if (!name || !email || !phone || !password) {
+            alert('Please fill all the fields');
+            return;
+        }
 
+        if (password.length < 8) {
+            alert('Password must be at least 8 characters long');
+            return;
+        }
 
         if (password !== confirmPassword) {
             alert('Passwords do not match');
-            return;
-        }
-        console.log(password)
-        if (!name || !email || !phone || !password) {
-            alert('Please fill all the fields');
             return;
         }
 
@@ -49,7 +52,6 @@ const Register = () => {
             alert('Registration successful!');
             router.push('/login');
         }
-       
     };
 
     return (
@@ -81,10 +83,16 @@ const Register = () => {
                                 </div>
                                
                                 <div className="block-button md:mt-7 mt-4">
-                                    <button className="button-main" type="submit">{loading? <LoaderCircle style={{
-                                        marginInline: 'auto',
-                                        animation: 'spin 1s linear infinite'
-                                    }}/> : "Register"}</button>
+                                    <button className="button-main" type="submit" disabled={loading}>
+                                        {loading ? (
+                                            <div className="flex items-center justify-center">
+                                                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                                                Registering...
+                                            </div>
+                                        ) : (
+                                            'Register'
+                                        )}
+                                    </button>
                                 </div>
                             </form>
                         </div>
