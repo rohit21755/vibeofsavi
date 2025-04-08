@@ -401,8 +401,8 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                     </div>
                                     <div className="flex items-center gap-1 mt-3">
                                         <Icon.Eye className='body1' />
-                                        <div className="text-title">38</div>
-                                        <div className="text-secondary">people viewing this product right now!</div>
+                                        <div className="text-title">{productMain?.sold}</div>
+                                        <div className="text-secondary">Pieces Sold!</div>
                                     </div>
                                     <div className="flex items-center gap-1 mt-3">
                                         <div className="text-title">SKU:</div>
