@@ -20,7 +20,7 @@ export default function BreadCrumb1({ params }: { params: { breadcrumb1: string 
     useEffect(() => {
         setType(datatype);
     }, [datatype]);
-
+    console.log(Products)
     // Ensure Products exist and filter correctly
     const filteredProducts = Products?.filter(product => 
        

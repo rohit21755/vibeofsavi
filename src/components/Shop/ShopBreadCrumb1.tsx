@@ -210,7 +210,7 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType,  cat
                                 </div>
                             </div>
                             <div className="list-tab flex flex-wrap items-center justify-center gap-y-5 gap-8 lg:mt-[70px] mt-12 overflow-hidden">
-                                {[ 't-shirt', 'shirt', 'jeans', 'Pants'].map((item, index) => (
+                                {[ 't-shirt', 'shirt', 'kurta', 'pants', 'set'].map((item, index) => (
                                     <div
                                         key={index}
                                         className={`tab-item text-button-uppercase cursor-pointer has-line-before line-2px ${dataType === item ? 'active' : ''}`}
@@ -232,7 +232,7 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType,  cat
                             <div className="filter-type pb-8 border-b border-line">
                                 <div className="heading6">Products Type</div>
                                 <div className="list-type mt-4">
-                                    {[ 't-shirt', 'shirt', 'kurta'].map((item, index) => (
+                                    {[ 't-shirt', 'shirt', 'kurta', 'pants', 'set'].map((item, index) => (
                                         <div
                                             key={index}
                                             className={`item flex items-center justify-between cursor-pointer ${dataType === item ? 'active' : ''}`}
