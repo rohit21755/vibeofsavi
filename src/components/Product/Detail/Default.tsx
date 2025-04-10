@@ -447,7 +447,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                 <div className='grid md:grid-cols-2 gap-8 gap-y-5'>
                                     <div className="left">
                                         <div className="heading6">Description</div>
-                                        <div className="text-secondary mt-2">Upgrade your wardrobe with this stylish and versatile men&apos;s casual button-down shirt. Crafted from a premium cotton blend, it offers a soft, breathable feel that keeps you comfortable all day long. Featuring a classic collar, full sleeves, and a tailored fit, this shirt is perfect for both office wear and casual outings. The fine stitching and durable fabric ensure long-lasting wear, while the elegant design pairs effortlessly with jeans or formal trousers. Available in a range of colors and patterns to suit every occasion.</div>
+                                        <div className="text-secondary mt-2">{productMain?.description}</div>
                                     </div>
                                     <div className="right">
                                         <div className="heading6">About This Products</div>
@@ -503,26 +503,20 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                     <div className="item bg-surface flex items-center gap-8 py-3 px-10">
                                         <div className="text-title sm:w-1/4 w-1/3">Rating</div>
                                         <div className="flex items-center gap-1">
-                                            <Rate currentRate={4} size={12} />
-                                            <p>(1.234)</p>
+                                            <Rate currentRate={average} size={12} />
+                                            <p>({average})</p>
                                         </div>
                                     </div>
                                     <div className="item flex items-center gap-8 py-3 px-10">
-                                        <div className="text-title sm:w-1/4 w-1/3">Outer Shell</div>
-                                        <p>100% polyester</p>
+                                        <div className="text-title sm:w-1/4 w-1/3">Material</div>
+                                        <p>{productMain?.variation[0].material}</p>
                                     </div>
-                                    <div className="item bg-surface flex items-center gap-8 py-3 px-10">
-                                        <div className="text-title sm:w-1/4 w-1/3">Lining</div>
-                                        <p>100% polyurethane</p>
-                                    </div>
+                                    
                                     <div className="item flex items-center gap-8 py-3 px-10">
                                         <div className="text-title sm:w-1/4 w-1/3">Size</div>
                                         <p>S, M, L, XL</p>
                                     </div>
-                                    <div className="item bg-surface flex items-center gap-8 py-3 px-10">
-                                        <div className="text-title sm:w-1/4 w-1/3">Colors</div>
-                                        <p>Grey, Red, Blue, Black</p>
-                                    </div>
+                                    
                                     <div className="item flex items-center gap-8 py-3 px-10">
                                         <div className="text-title sm:w-1/4 w-1/3">Care</div>
                                         <div className="flex items-center gap-5">
@@ -592,7 +586,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                 <div className="heading flex items-center justify-center flex-wrap gap-3 gap-y-4">
                                     <div className="text-display">{average}</div>
                                     <div className='flex flex-col items-center'>
-                                        <Rate currentRate={5} size={18} />
+                                        <Rate currentRate={average} size={18} />
                                         <div className='text-secondary text-center mt-1'>({reviews.length} Ratings)</div>
                                     </div>
                                 </div>

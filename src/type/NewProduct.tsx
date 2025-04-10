@@ -20,6 +20,7 @@ export interface ProductData {
         colorCode: string;
         colorImage: string;
         image: string;
+        material: string;
     }[];
     thumbImage: string[];
     images: string[];
