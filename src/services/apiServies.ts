@@ -30,7 +30,8 @@ export function formatedata(data:any){
             "color": variant.color,
             "colorCode": "#000000", // Default black as color code not available
             "colorImage": "/images/product/color/48x48.png", // Placeholder
-            "image": variant.images[0] // First image as main image
+            "image": variant.images[0], // First image as main image
+            "material": variant.material,
         })),
         "thumbImage": data.variants[0].images.slice(0, 2), // First two images as thumbnails
         "images": data.variants[0].images, // All images
