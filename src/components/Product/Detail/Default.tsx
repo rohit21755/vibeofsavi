@@ -312,7 +312,8 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                 </div>
                             </div>
                             <div className="flex items-center mt-3">
-                                <Rate currentRate={average} size={14} />
+                                {average > 0 && <Rate currentRate={average} size={14} />}
+
                                 <span className='caption1 text-secondary'>{average}</span>
                             </div>
                             <div className="flex items-center gap-3 flex-wrap mt-5 pb-6 border-b border-line">
