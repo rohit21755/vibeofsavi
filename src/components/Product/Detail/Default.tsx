@@ -444,48 +444,20 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                         </div>
                         <div className="desc-block mt-8">
                             <div className={`desc-item description ${activeTab === 'description' ? 'open' : ''}`}>
-                                <div className='grid md:grid-cols-2 gap-8 gap-y-5'>
+                                <div className='grid md:grid-cols-1 gap-8 gap-y-5'>
                                     <div className="left">
-                                        <div className="heading6">Description</div>
+                                        
                                         <div className="text-secondary mt-2">{productMain?.description}</div>
                                     </div>
-                                    <div className="right">
-                                        <div className="heading6">About This Products</div>
-                                        <div className="list-feature">
-                                            <div className="item flex gap-1 text-secondary mt-1">
-                                                <Icon.Dot size={28} />
-                                                <p>High-quality cotton or linen for comfort and durability.</p>
-                                            </div>
-                                            <div className="item flex gap-1 text-secondary mt-1">
-                                                <Icon.Dot size={28} />
-                                                <p>Neat seams and reinforced buttons for long-lasting wear.</p>
-                                            </div>
-                                            <div className="item flex gap-1 text-secondary mt-1">
-                                                <Icon.Dot size={28} />
-                                                <p>Resistant to shrinkage and color fading.</p>
-                                            </div>
-                                            <div className="item flex gap-1 text-secondary mt-1">
-                                                <Icon.Dot size={28} />
-                                                <p>Stretchable material for a relaxed, easy-going feel.</p>
-                                            </div>
-                                            <div className="item flex gap-1 text-secondary mt-1">
-                                                <Icon.Dot size={28} />
-                                                <p>Retains shape even after multiple washes.</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
-                                <div className="grid lg:grid-cols-4 grid-cols-2 gap-[30px] md:mt-10 mt-6">
+                                <div className="grid lg:grid-cols-3 grid-cols-2 gap-[30px] md:mt-10 mt-6">
                                     <div className="item">
                                         <div className="icon-delivery-truck text-4xl"></div>
                                         <div className="heading6 mt-4">Shipping Faster</div>
                                         {/* <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div> */}
                                     </div>
-                                    <div className="item">
-                                        <div className="icon-cotton text-4xl"></div>
-                                        <div className="heading6 mt-4">Cotton Material</div>
-                                        {/* <div className="text-secondary mt-2">Use on walls, furniture, doors and many more surfaces. The possibilities are endless.</div> */}
-                                    </div>
+                                    
                                     <div className="item">
                                         <div className="icon-guarantee text-4xl"></div>
                                         <div className="heading6 mt-4">High Quality</div>
@@ -509,7 +481,10 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                     </div>
                                     <div className="item flex items-center gap-8 py-3 px-10">
                                         <div className="text-title sm:w-1/4 w-1/3">Material</div>
-                                        <p>{productMain?.variation[0].material}</p>
+                                        <div className="flex items-center gap-2">
+                                            <Icon.TShirt size={20} />
+                                            <p>{productMain?.variation[0].material}</p>
+                                        </div>
                                     </div>
                                     
                                     <div className="item flex items-center gap-8 py-3 px-10">
