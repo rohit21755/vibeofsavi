@@ -292,8 +292,9 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType,  cat
                             <div className="filter-color pb-8 border-b border-line mt-8">
                                 <div className="heading6">colors</div>
                                 <div className="list-color flex items-center flex-wrap gap-3 gap-y-4 mt-4">
-                                    {colors.map(c => 
+                                    {colors.map((c, index) => 
                                     (<div
+                                        key={index}
                                         className={`color-item px-3 py-[5px] flex items-center justify-center gap-2 rounded-full border border-line ${color === 'pink' ? 'active' : ''}`}
                                         onClick={() => handleColor(c.toLocaleLowerCase())}
                                     >
