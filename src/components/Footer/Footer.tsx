@@ -39,8 +39,8 @@ const Footer = () => {
                                     </div>
                                     <div className="item flex flex-col basis-1/3 ">
                                         <div className="text-button-uppercase pb-3">Quick Shop</div>
-                                        {/* <Link className='caption1 has-line-before duration-300 w-fit' href={'/shop/breadcrumb1'}>Women</Link> */}
-                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/shop/breadcrumb1'}>Men</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit' href={'/shop/women'}>Women</Link>
+                                        <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/shop/men'}>Men</Link>
                                         {/* <Link className='caption1 has-line-before duration-300 w-fit pt-2' href={'/pages/coming-soon'}>VCS luxury</Link> */}
                                         
                                     </div>
@@ -87,22 +87,8 @@ const Footer = () => {
                             <div className="left flex items-center gap-8">
                                 <div className="copyright caption1 text-secondary">©2025 Vibe of Savi. All Rights Reserved.</div>
                                 <div className="select-block flex items-center gap-5 max-md:hidden">
-                                    <div className="choose-language flex items-center gap-1.5">
-                                        <select name="language" id="chooseLanguageFooter" className='caption2 bg-transparent'>
-                                            <option value="English">English</option>
-                                            <option value="Espana">Espana</option>
-                                            <option value="France">France</option>
-                                        </select>
-                                        <Icon.CaretDown size={12} color='#1F1F1F' />
-                                    </div>
-                                    <div className="choose-currency flex items-center gap-1.5">
-                                        <select name="currency" id="chooseCurrencyFooter" className='caption2 bg-transparent'>
-                                            <option value="USD">USD</option>
-                                            <option value="EUR">EUR</option>
-                                            <option value="GBP">GBP</option>
-                                        </select>
-                                        <Icon.CaretDown size={12} color='#1F1F1F' />
-                                    </div>
+                                    
+                                   
                                 </div>
                             </div>
                             {/* <div className="right flex items-center gap-2">

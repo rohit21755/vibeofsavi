@@ -8,7 +8,7 @@ import { GlobalContextData } from '@/context/GlobalContext';
 
 export default function BreadCrumb1({ params }: { params: { breadcrumb1: string } }) {
     const searchParams = useSearchParams();
-    const { Products } = useContext(GlobalContextData);
+    const { Products, colors } = useContext(GlobalContextData);
 
     const [type, setType] = useState<string | null | undefined>();
     const datatype = searchParams.get('type');
@@ -34,7 +34,7 @@ export default function BreadCrumb1({ params }: { params: { breadcrumb1: string 
                 data={filteredProducts.filter(product => product.luxury === false)}
                 productPerPage={30} 
                 dataType={type} 
-                
+                colors = {colors}
                 category={category} 
             />
             <Footer />

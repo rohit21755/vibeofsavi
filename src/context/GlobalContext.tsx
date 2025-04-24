@@ -7,9 +7,10 @@ import Loader from "@/components/Loader";
 interface GlobalContextType {
     Products: ProductData[];
     loading: boolean;
+    colors: String[]
 }
 
-export const GlobalContextData = createContext<GlobalContextType>({ Products: [], loading: true });
+export const GlobalContextData = createContext<GlobalContextType>({ Products: [], loading: true, colors: [] });
 
 interface GlobalContextProviderProps {
     children: ReactNode;
@@ -20,6 +21,7 @@ export function GlobalContextProvider({ children }: GlobalContextProviderProps) 
     const [loading, setLoading] = useState(true);
     const [luxuryProducts, setLuxuryProducts] = useState<ProductData[]>([]);
     const hasFetched = useRef(false); // Track if API call has been made
+    const [colors, setColors] = useState<String[]>([])
 
     useEffect(() => {
         if (!hasFetched.current) {
@@ -27,8 +29,16 @@ export function GlobalContextProvider({ children }: GlobalContextProviderProps) 
             setLoading(true);
             fetchProducts()
                 .then((data) => {
-                    console.log(data);
                     setProducts(data);
+    
+                    // Extract unique colors from all product variants
+                    const allColors = data.flatMap((product: ProductData) =>
+                        product.variation.map((variant) => variant.color)
+                    );
+                    const uniqueColors: String[] = Array.from(new Set(allColors));
+                    console.log(uniqueColors)
+                    setColors(uniqueColors);
+    
                     setLoading(false);
                 })
                 .catch((error) => {
@@ -41,7 +51,7 @@ export function GlobalContextProvider({ children }: GlobalContextProviderProps) 
     // Display the loader outside the provider to avoid rendering issues
 
     return (
-        <GlobalContextData.Provider value={{ Products, loading }}>
+        <GlobalContextData.Provider value={{ Products, loading, colors: colors }}>
             {children}
         </GlobalContextData.Provider>
     );
