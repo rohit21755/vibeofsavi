@@ -405,11 +405,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                         <div className="text-title">Estimated Delivery:</div>
                                         <div className="text-secondary">4-6 Days</div>
                                     </div>
-                                    <div className="flex items-center gap-1 mt-3">
-                                        <Icon.Eye className='body1' />
-                                        <div className="text-title">{productMain?.sold}</div>
-                                        <div className="text-secondary">Pieces Sold!</div>
-                                    </div>
+                                    
                                     <div className="flex items-center gap-1 mt-3">
                                         <div className="text-title">SKU:</div>
                                         <div className="text-secondary">53453412</div>
