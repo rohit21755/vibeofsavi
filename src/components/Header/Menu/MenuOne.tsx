@@ -69,6 +69,7 @@ const MenuOne =() => {
         setSelectedType(type)
         router.push(`/shop/breadcrumb1?type=${type}`);
     };
+ 
 
     return (
         <>
@@ -206,7 +207,7 @@ const MenuOne =() => {
                                 >
                                     <Icon.X size={14} />
                                 </div>
-                                <Link href={'/'} className='logo text-3xl font-semibold text-center'>Anvogue</Link>
+                                <Link href={'/'} className='logo text-3xl font-semibold text-center'>Vibe of Savi</Link>
                             </div>
                             
                             <div className="list-nav mt-6">
@@ -215,7 +216,7 @@ const MenuOne =() => {
                                         className={`${openSubNavMobile === 1 ? 'open' : ''}`}
                                         onClick={() => handleOpenSubNavMobile(1)}
                                     >
-                                        <Link href={'/'} className={`text-xl font-semibold flex items-center justify-between`}>Home
+                                        <Link href={'/'} onClick={handleMenuMobile}  className={`text-xl font-semibold flex items-center justify-between`}>Home
                                             
                                         </Link>
                                        
@@ -239,11 +240,11 @@ const MenuOne =() => {
                                                 Back
                                             </div>
                                             <div className="list-nav-item w-full pt-3 pb-12">
-                                               <Link href="/shop/men">Men</Link>
+                                               <Link onClick={handleMenuMobile}  href="/shop/men">Men</Link>
                                                
                                             </div>
                                             <div className="list-nav-item w-full pt-3 pb-12">
-                                               <Link href="/shop/women">Women</Link>
+                                               <Link onClick={handleMenuMobile}  href="/shop/women">Women</Link>
                                                
                                             </div>
                                         </div>
