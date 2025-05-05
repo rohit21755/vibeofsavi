@@ -124,70 +124,63 @@ const Checkout = () => {
 
     const handleUpdateAddress = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+    
         if (!session?.user || !session?.accessToken) {
             alert("Please login to update address");
             return;
         }
-        
+    
         try {
             setIsUpdatingAddress(true);
-            
-            if(session.user.address.id) {
-                const addressData = {
-                    id: session.user.address.id,
-                    address: addressForm.address,
-                    city: addressForm.city,
-                    state: addressForm.state,
-                    zip: Number(addressForm.zip)
-                };
-                const response = await updateAddress(addressData, session.accessToken);
-            
-            if (response && response.data && response.data.address) {
-                // Update the session with the new address
-                await update({
-                    address: {
-                        address: response.data.address.address,
-                        city: response.data.address.city,
-                        state: response.data.address.state,
-                        zip: response.data.address.zip
-                    }
-                });
-                
-                setShowAddressForm(false);
-                alert("Address updated successfully");
-            } else {
-                alert("Failed to update address: Invalid response");
-            }
-            }
-            else {
-                const addressData = {
-                    address: addressForm.address,
-                    city: addressForm.city,
-                    state: addressForm.state,
-                    zip: Number(addressForm.zip)
-                };
-                const response = await createAddress(addressData, session.accessToken);
-                if (response && response.data && response.data.address) {
-                    
+    
+            const addressData = {
+                address: addressForm.address,
+                city: addressForm.city,
+                state: addressForm.state,
+                zip: Number(addressForm.zip)
+            };
+    
+            // Safely check if address ID exists
+            const existingAddressId = session.user.address?.id;
+    
+            if (existingAddressId) {
+                // Update existing address
+                const response = await updateAddress(
+                    { id: existingAddressId, ...addressData },
+                    session.accessToken
+                );
+    
+                if (response?.data?.address) {
                     await update({
                         address: {
                             id: response.data.address.id,
-                            address: response.data.address.address,
-                            city: response.data.address.city,
-                            state: response.data.address.state,
-                            zip: response.data.address.zip
+                            ...addressData
                         }
                     });
-                    
+    
                     setShowAddressForm(false);
-                    alert("Address Saved successfully");
+                    alert("Address updated successfully");
                 } else {
                     alert("Failed to update address: Invalid response");
                 }
+            } else {
+                // Create new address
+                const response = await createAddress(addressData, session.accessToken);
+    
+                if (response?.data?.address) {
+                    await update({
+                        address: {
+                            id: response.data.address.id,
+                            ...addressData
+                        }
+                    });
+    
+                    setShowAddressForm(false);
+                    alert("Address saved successfully");
+                } else {
+                    alert("Failed to save address: Invalid response");
+                }
             }
-            
-            
         } catch (error) {
             console.error("Error updating address:", error);
             alert("Failed to update address");
@@ -195,6 +188,7 @@ const Checkout = () => {
             setIsUpdatingAddress(false);
         }
     };
+    
 
     return (
         <>
