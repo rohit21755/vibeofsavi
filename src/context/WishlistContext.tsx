@@ -94,11 +94,10 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             } else if (response?.status===402){
                 alert("Product is already added to Wishlist")
             }
-             else {
-                alert("Failed to add to wishlist");
-            }
+            
         } catch (error) {
             console.error("Error adding to wishlist:", error);
+            alert("Failed to add to wishlist");
         }
         
     };
