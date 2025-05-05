@@ -206,13 +206,13 @@ const Checkout = () => {
                                 <div className="heading5">Address</div>
                                 {!showAddressForm ? (
                                     <>
-                                        <div className='mt-3'>{session?.user?.address?.address}, {session?.user?.address?.city}, {session?.user?.address?.state}, {session?.user?.address?.zip}</div>
+                                        {session?.user?.address ? <div className='mt-3'>{session?.user?.address?.address}, {session?.user?.address?.city}, {session?.user?.address?.state}, {session?.user?.address?.zip}</div> : <div className='mt-3'>No address Found</div>}
                                         <div className="form-checkout mt-5">
                                             <button 
                                                 onClick={() => setShowAddressForm(true)} 
                                                 className="button mt-6 w-full"
                                             >
-                                                Update Address
+                                                {session?.user?.address ? "Update Address" : "Add Address"}
                                             </button>
                                         </div>
                                     </>
