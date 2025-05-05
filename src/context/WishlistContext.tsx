@@ -90,6 +90,7 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             const response = await addWishlist(session?.accessToken as string, String(itemId));
             if (response?.status === 201) {
                 dispatch({ type: 'ADD_TO_WISHLIST', payload: itemId });
+                new Promise(r => setTimeout(r, 2500));
                 await loadWishlist2()
             } else if (response?.status===402){
                 alert("Product is already added to Wishlist")
@@ -109,6 +110,7 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             const response = await removeWishlist(session?.accessToken as string, String(itemId));
             if (response?.status === 200) {
                 dispatch({ type: 'REMOVE_FROM_WISHLIST', payload: itemId });
+                new Promise(r => setTimeout(r, 2500));
                 await loadWishlist2()
             } else {
                 alert("Failed to remove from wishlist");
