@@ -241,7 +241,7 @@ const ShopBreadCrumb1: React.FC<Props> = ({ data, productPerPage, dataType,  cat
                                         >
                                             <div className='text-secondary has-line-before hover:text-black capitalize'>{item}</div>
                                             <div className='text-secondary2'>
-                                                ({data.filter(dataItem => dataItem.type === item && dataItem.category === 'fashion').length})
+                                                ({data.filter(dataItem => dataItem.type === item).length})
                                             </div>
                                         </div>
                                     ))}

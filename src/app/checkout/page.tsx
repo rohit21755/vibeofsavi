@@ -142,7 +142,7 @@ const Checkout = () => {
     
             // Safely check if address ID exists
             const existingAddressId = session.user.address?.id;
-    
+            console.log(existingAddressId)
             if (existingAddressId) {
                 // Update existing address
                 const response = await updateAddress(
