@@ -132,14 +132,15 @@ const Checkout = () => {
         
         try {
             setIsUpdatingAddress(true);
-            const addressData = {
-                id: session.user.address.id,
-                address: addressForm.address,
-                city: addressForm.city,
-                state: addressForm.state,
-                zip: Number(addressForm.zip)
-            };
+            
             if(session.user.address.id) {
+                const addressData = {
+                    id: session.user.address.id,
+                    address: addressForm.address,
+                    city: addressForm.city,
+                    state: addressForm.state,
+                    zip: Number(addressForm.zip)
+                };
                 const response = await updateAddress(addressData, session.accessToken);
             
             if (response && response.data && response.data.address) {
@@ -160,6 +161,12 @@ const Checkout = () => {
             }
             }
             else {
+                const addressData = {
+                    address: addressForm.address,
+                    city: addressForm.city,
+                    state: addressForm.state,
+                    zip: Number(addressForm.zip)
+                };
                 const response = await createAddress(addressData, session.accessToken);
                 if (response && response.data && response.data.address) {
                     
