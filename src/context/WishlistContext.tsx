@@ -48,6 +48,21 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const { data: session } = useSession();
     const [wishlistState, dispatch] = useReducer(WishlistReducer, { wishlistArray: [] });
     const Products = useContext(GlobalContextData);
+    const loadWishlist2 = async () => {
+        if (session?.user) {
+            try {
+                const wishlistData = await fetchWishlist(session.accessToken);
+                console.log(wishlistData);
+
+                // Extract only product IDs
+                const productIds = wishlistData.wishlist.map((item: any) => Number(item.productId));
+
+                dispatch({ type: 'LOAD_WISHLIST', payload: productIds });
+            } catch (error) {
+                console.error('Failed to load wishlist:', error);
+            }
+        }
+    };
 
     useEffect(() => {
         const loadWishlist = async () => {
@@ -69,16 +84,23 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }, [session]);
 
     const addToWishlist = async (itemId: number) => {
+       
         try {
+           
             const response = await addWishlist(session?.accessToken as string, String(itemId));
             if (response?.status === 200) {
                 dispatch({ type: 'ADD_TO_WISHLIST', payload: itemId });
-            } else {
+                await loadWishlist2()
+            } else if (response?.status===402){
+                alert("Product is already added to Wishlist")
+            }
+             else {
                 alert("Failed to add to wishlist");
             }
         } catch (error) {
             console.error("Error adding to wishlist:", error);
         }
+        
     };
 
     const removeFromWishlist = async (itemId: number) => {
@@ -86,6 +108,7 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             const response = await removeWishlist(session?.accessToken as string, String(itemId));
             if (response?.status === 200) {
                 dispatch({ type: 'REMOVE_FROM_WISHLIST', payload: itemId });
+                await loadWishlist2()
             } else {
                 alert("Failed to remove from wishlist");
             }

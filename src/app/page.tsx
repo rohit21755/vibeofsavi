@@ -33,7 +33,7 @@ export default function Home() {
       <TabFeatures data={filteredProducts} start={0} limit={6} />
       {/* <Banner /> */}
       <Benefit props="md:py-20 py-10" />
-      <Testimonial data={testimonialData} limit={6} />
+      {/* <Testimonial data={testimonialData} limit={6} /> */}
       {/* <Instagram /> */}
       {/* <Brand /> */}
 

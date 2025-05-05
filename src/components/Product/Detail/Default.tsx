@@ -55,6 +55,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     const [average, setAverage] = useState(0)
     const { openModalCart } = useModalCartContext()
     const { addToWishlist, removeFromWishlist, wishlistState } = useWishlist()
+    const [loading2, setLoading2] = useState(false)
     const { openModalWishlist } = useModalWishlistContext()
     const { addToCompare, removeFromCompare, compareState } = useCompare();
     const { openModalCompare } = useModalCompareContext()
@@ -69,7 +70,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
         getReviewsProduct()
     },[])
     const percentSale = Math.floor(100 - ((productMain?.price / productMain?.originPrice) * 100))
-    console.log(wishlistState)
+
 
     const handleOpenSizeGuide = () => {
         setOpenSizeGuide(true);
@@ -173,6 +174,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
     const handleAddToWishlist = () => {
 
         if (session.status === 'authenticated') {
+            setLoading2(true)
             console.log(wishlistState.wishlistArray);
             const isWishlisted =  wishlistState.wishlistArray.includes(Number(productMain?.id));
             
@@ -181,6 +183,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
             } else {
                 addToWishlist(Number(productMain.id));
             }
+            setLoading2(false)
         } else {
             alert('Please login to add to wishlist');
         }
@@ -299,6 +302,7 @@ const Default: React.FC<Props> = ({ data, productId }) => {
                                 <div
                                     className={`add-wishlist-btn w-12 h-12 flex items-center justify-center border border-line cursor-pointer rounded-xl duration-300 hover:bg-black hover:text-white ${wishlistState.wishlistArray.includes(Number(productMain?.id)) ? 'active' : ''}`}
                                     onClick={handleAddToWishlist}
+                                    
                                 >
                                     {wishlistState.wishlistArray.includes(Number(productMain?.id)) ? (
                                         <>
