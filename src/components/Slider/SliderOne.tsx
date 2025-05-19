@@ -53,7 +53,6 @@ const SliderOne = () => {
                                     <div className="text-content basis-1/2">
                                         <div className="text-sub-display">Sale! Up To 50% Off!</div>
                                         <div className="text-display md:mt-5 mt-2">Fashion for Every Occasion</div>
-                                        <Link href='/shop/breadcrumb1' className="button-main md:mt-8 mt-3">Shop Now</Link>
                                     </div>
                                     <div className="sub-img absolute w-1/2 2xl:-right-[60px] -right-[0] sm:-bottom-[60px] bottom-0">
                                         <Image
@@ -73,7 +72,6 @@ const SliderOne = () => {
                                     <div className="text-content basis-1/2">
                                         <div className="text-sub-display">Sale! Up To 50% Off!</div>
                                         <div className="text-display md:mt-5 mt-2">Stylish Looks for Any Season</div>
-                                        <Link href='/shop/breadcrumb1' className="button-main md:mt-8 mt-3">Shop Now</Link>
                                     </div>
                                     <div className="sub-img absolute sm:w-1/2 w-2/3 2xl:-right-[60px] -right-[36px] sm:bottom-0 -bottom-[30px]">
                                         <Image
